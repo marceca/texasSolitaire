@@ -1,24 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import store from '../state/store';
+import * as types from '../state/actions/actions';
 
+const mapStateToProps = (state) => {
+  return {
+    game: state.application
+  }
+}
 class App extends Component {
+
+  run() {
+    store.dispatch(types.deal())
+  }
+  
   render() {
     return (
+      console.log('render',this.props),
       <div>
-        <h1>This is the base shell.</h1>
-        <ul>
-          <li>
-            <h3>You need to add your reducers file under state/reducers/applicationReducer.js</h3>
-          </li>
-          <li>
-            <h3>Change your Application starting with this file App.js located at: client/components/App.js</h3>
-          </li>
-          <li>
-            <h3>Add your server information under: server/server.js</h3>
-          </li>
-        </ul>
+        <button onClick={this.run} >click</button>
+        <div>
+          <h1>Hand one</h1>
+          {this.props.game.hands[0]}
+          <h1>Hand  two</h1>
+          {this.props.game.hands[1]}
+          <h1>Hand three</h1>
+          {this.props.game.hands[2]}
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
