@@ -21,11 +21,15 @@ class App extends Component {
         <button onClick={this.run} >click</button>
         <div>
           <h1>Hand one</h1>
-          {this.props.game.hands[0]}
+          {this.props.game.handsDisplay[0]}
           <h1>Hand  two</h1>
-          {this.props.game.hands[1]}
+          {this.props.game.handsDisplay[1]}
           <h1>Hand three</h1>
-          {this.props.game.hands[2]}
+          {this.props.game.handsDisplay[2]}
+        </div>
+        <div>
+          <h1>Community cards</h1>
+          {this.props.game.communityCards}
         </div>
       </div>
     );
