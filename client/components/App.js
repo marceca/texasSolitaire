@@ -12,7 +12,6 @@ class App extends Component {
 
   deal(el,props) {
     let button = document.getElementById('game-button').innerHTML;
-    console.log('props ', props)
     if(props.game.dealt === false) {
       store.dispatch(types.deal())
       document.getElementById('game-button').innerHTML = 'Flop';
@@ -31,7 +30,7 @@ class App extends Component {
     }
     if(button === 'Results') {
       store.dispatch(types.results());
-      document.getElementById('game-button').innerHTML = 'Reset';
+      // document.getElementById('game-button').innerHTML = 'Reset';
     }
   }
 
@@ -41,7 +40,6 @@ class App extends Component {
   
   render() {
     return (
-      console.log('render',this.props),
       <div className="game-container">
         <div>
           Your hand: {this.props.game.chosenHand}
