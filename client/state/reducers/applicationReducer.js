@@ -43,7 +43,27 @@ const applicationReducer = (state = initState, action)=> {
         dealState.dealt = true;
       }
     return dealState
-  
+
+    case types.TURN:
+      const turnState = Object.assign({}, state);
+      // Random number for each card
+      ranNum = Math.floor(Math.random() * (turnState.deck.length))
+      // Random card from ranNum
+      card = turnState.deck.splice(ranNum, 1)
+      turnState.communityCardsValue.push(card)
+      turnState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+    return turnState
+
+    case types.RIVER:
+    const riverState = Object.assign({}, state);
+    // Random number for each card
+    ranNum = Math.floor(Math.random() * (riverState.deck.length))
+    // Random card from ranNum
+    card = riverState.deck.splice(ranNum, 1)
+    riverState.communityCardsValue.push(card)
+    riverState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+  return riverState
+
   default:
     return state
   }

@@ -1,3 +1,15 @@
+.game-container {
+  .community-card-container {
+    display: flex;
+    justify-content: space-around
+  }
+  .player-hands-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .card-image {
   max-width: 150px;
+  height: auto;
 }
