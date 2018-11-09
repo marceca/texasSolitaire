@@ -10,7 +10,8 @@ const initState = {
   communityCardsValue: [],
   communityCards: [],
   userHand: false,
-  priorHands: {}
+  priorHands: {},
+  chosenHand: false
 }
 
 const applicationReducer = (state = initState, action)=> {
@@ -43,23 +44,26 @@ const applicationReducer = (state = initState, action)=> {
         userHandState.userHand = userHandState.handObjects[action.hand];
         userHandState.priorHands[action.hand] = true;
         userHandState.handsDisplay[action.hand] = [];
-        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />)
-        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />)
-        console.log('in if statemetn ', userHandState)
+        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />);
+        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
+        userHandState.chosenHand = action.hand + 1;
+        console.log('in if statemetn ', userHandState);
       }
     return userHandState;
 
     case types.FLOP:
       const flopState = Object.assign({}, state);
       let flop = 0;
-      while(flop < 3) {
-        // Random number for each card
-        ranNum = Math.floor(Math.random() * (flopState.deck.length))
-        // Random card from ranNum
-        card = flopState.deck.splice(ranNum, 1)
-        flopState.communityCardsValue.push(card)
-        flopState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
-        flop++
+      if(flopState.chosenHand != false) {
+        while(flop < 3) {
+          // Random number for each card
+          ranNum = Math.floor(Math.random() * (flopState.deck.length))
+          // Random card from ranNum
+          card = flopState.deck.splice(ranNum, 1)
+          flopState.communityCardsValue.push(card)
+          flopState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+          flop++
+        }
       }
     return flopState;
 
@@ -74,14 +78,19 @@ const applicationReducer = (state = initState, action)=> {
     return turnState;
 
     case types.RIVER:
-    const riverState = Object.assign({}, state);
-    // Random number for each card
-    ranNum = Math.floor(Math.random() * (riverState.deck.length))
-    // Random card from ranNum
-    card = riverState.deck.splice(ranNum, 1)
-    riverState.communityCardsValue.push(card)
-    riverState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
-  return riverState;
+      const riverState = Object.assign({}, state);
+      // Random number for each card
+      ranNum = Math.floor(Math.random() * (riverState.deck.length))
+      // Random card from ranNum
+      card = riverState.deck.splice(ranNum, 1)
+      riverState.communityCardsValue.push(card)
+      riverState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+    return riverState;
+
+    case types.RESULTS:
+      const resultsState = Object.assign({}, state);
+      
+    return resultsState
 
   default:
     return state

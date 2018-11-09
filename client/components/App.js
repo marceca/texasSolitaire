@@ -12,11 +12,12 @@ class App extends Component {
 
   deal(el,props) {
     let button = document.getElementById('game-button').innerHTML;
+    console.log('props ', props)
     if(props.game.dealt === false) {
       store.dispatch(types.deal())
       document.getElementById('game-button').innerHTML = 'Flop';
     }
-    if(button === 'Flop') {
+    if(button === 'Flop' && props.game.chosenHand != false) {
       store.dispatch(types.flop());
       document.getElementById('game-button').innerHTML = 'Turn';
     }
@@ -28,6 +29,10 @@ class App extends Component {
       store.dispatch(types.river());
       document.getElementById('game-button').innerHTML = 'Results';
     }
+    if(button === 'Results') {
+      store.dispatch(types.results());
+      document.getElementById('game-button').innerHTML = 'Reset';
+    }
   }
 
   changeHands(id) {
@@ -38,6 +43,9 @@ class App extends Component {
     return (
       console.log('render',this.props),
       <div className="game-container">
+        <div>
+          Your hand: {this.props.game.chosenHand}
+        </div>
         <div className="community-card-container">
           <div>
             <h1>Community cards</h1>
