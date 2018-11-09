@@ -38,8 +38,6 @@ const applicationReducer = (state = initState, action)=> {
 
     case types.USERHAND:
       const userHandState = Object.assign({}, state);
-      console.log('action ',action);
-      console.log('in action hand number',action.hand)
       if(!userHandState.priorHands[action.hand] && userHandState.dealt === true) {
         userHandState.userHand = userHandState.handObjects[action.hand];
         userHandState.priorHands[action.hand] = true;
@@ -47,7 +45,6 @@ const applicationReducer = (state = initState, action)=> {
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />);
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
         userHandState.chosenHand = action.hand + 1;
-        console.log('in if statemetn ', userHandState);
       }
     return userHandState;
 
@@ -89,7 +86,28 @@ const applicationReducer = (state = initState, action)=> {
 
     case types.RESULTS:
       const resultsState = Object.assign({}, state);
-      
+      let userResult, computerResult;
+      const winningHandsKey = {
+        'Straight Flush': 8,
+        'Four of a Kind': 7,
+        'Fullhouse': 6,
+        'Flush': 5,
+        'Straight': 4,
+        'Three of a Kind': 3,
+        'Two Pair': 2,
+        'A Pair': 1,
+        'High Card': 0
+      }
+
+      // Get user total cards including community
+      for(let i = 0; i < resultsState.communityCards.length; i++) {
+        resultsState.userHand.push(resultsState.communityCardsValue[i])
+      }
+      // Get user best hand
+      for(let i = 0; i < resultsState.userHand.length; i++) {
+        console.log(resultsState.userHand[i])
+        
+      }
     return resultsState
 
   default:
