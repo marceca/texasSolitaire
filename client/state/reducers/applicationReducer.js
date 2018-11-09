@@ -10,7 +10,7 @@ const initState = {
   communityCardsValue: [],
   communityCards: [],
   userHand: false,
-  priorHands: []
+  priorHands: {}
 }
 
 const applicationReducer = (state = initState, action)=> {
@@ -37,7 +37,16 @@ const applicationReducer = (state = initState, action)=> {
 
     case types.USERHAND:
       const userHandState = Object.assign({}, state);
-
+      console.log('action ',action);
+      console.log('in action hand number',action.hand)
+      if(!userHandState.priorHands[action.hand] && userHandState.dealt === true) {
+        userHandState.userHand = userHandState.handObjects[action.hand];
+        userHandState.priorHands[action.hand] = true;
+        userHandState.handsDisplay[action.hand] = [];
+        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />)
+        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />)
+        console.log('in if statemetn ', userHandState)
+      }
     return userHandState;
 
     case types.FLOP:

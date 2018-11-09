@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   changeHands(id) {
-    console.log('here', id)
+    store.dispatch(types.userHand(id))
   }
   
   render() {
@@ -46,15 +46,15 @@ class App extends Component {
         </div>
         <div className="player-hands-container">
           <div>
-            <h1 onClick={(e) => this.changeHands('hand-one')}>Hand one</h1>
+            <h1 onClick={(e) => this.changeHands(0)}>Hand one</h1>
             {this.props.game.handsDisplay[0]}
           </div>
           <div>
-            <h1 onClick={(e) => this.changeHands('hand-two')}>Hand two</h1>
+            <h1 onClick={(e) => this.changeHands(1)}>Hand two</h1>
             {this.props.game.handsDisplay[1]}
           </div>
           <div>
-            <h1 onClick={(e) => this.changeHands('hand-three')}>Hand three</h1>
+            <h1 onClick={(e) => this.changeHands(2)}>Hand three</h1>
             {this.props.game.handsDisplay[2]}
           </div>
         </div>
