@@ -14,6 +14,10 @@ class App extends Component {
     let button = document.getElementById('game-button').innerHTML;
     if(props.game.dealt === false) {
       store.dispatch(types.deal())
+      document.getElementById('game-button').innerHTML = 'Flop';
+    }
+    if(button === 'Flop') {
+      store.dispatch(types.flop());
       document.getElementById('game-button').innerHTML = 'Turn';
     }
     if(button === 'Turn') {
@@ -24,6 +28,10 @@ class App extends Component {
       store.dispatch(types.river());
       document.getElementById('game-button').innerHTML = 'Results';
     }
+  }
+
+  changeHands(id) {
+    console.log('here', id)
   }
   
   render() {
@@ -38,15 +46,15 @@ class App extends Component {
         </div>
         <div className="player-hands-container">
           <div>
-            <h1>Hand one</h1>
+            <h1 onClick={(e) => this.changeHands('hand-one')}>Hand one</h1>
             {this.props.game.handsDisplay[0]}
           </div>
           <div>
-            <h1>Hand two</h1>
+            <h1 onClick={(e) => this.changeHands('hand-two')}>Hand two</h1>
             {this.props.game.handsDisplay[1]}
           </div>
           <div>
-            <h1>Hand three</h1>
+            <h1 onClick={(e) => this.changeHands('hand-three')}>Hand three</h1>
             {this.props.game.handsDisplay[2]}
           </div>
         </div>
