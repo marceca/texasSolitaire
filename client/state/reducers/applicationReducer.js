@@ -14,6 +14,19 @@ const initState = {
   chosenHand: false
 }
 
+// Sort hand by card value
+function sort(sorting) {
+  for(let i = 0; i < sorting.length; i++) {
+    if(i != sorting.length - 1) {
+      if(sorting[i][0].value > sorting[i + 1][0].value) {
+        [sorting[i], sorting[i + 1]] = [sorting[i + 1], sorting[i]]
+        sort(sorting)
+      }
+    }
+  }
+  return sorting;
+}
+
 const applicationReducer = (state = initState, action)=> {
   switch (action.type) {
     case types.DEAL:
@@ -86,28 +99,180 @@ const applicationReducer = (state = initState, action)=> {
 
     case types.RESULTS:
       const resultsState = Object.assign({}, state);
-      let userResult, computerResult;
-      const winningHandsKey = {
-        'Straight Flush': 8,
-        'Four of a Kind': 7,
-        'Fullhouse': 6,
-        'Flush': 5,
-        'Straight': 4,
-        'Three of a Kind': 3,
-        'Two Pair': 2,
-        'A Pair': 1,
-        'High Card': 0
-      }
+      let userResult = {
+        score: 0,
+        highCard: 0
+      };
+      let computerResult = {};
 
+
+      let userCardCount = {};
+      let userStraightCount = [];
+      let userFlush = {};
+      let straightCounter = 0;
+      let straightFlushCount = 0;
+      let possibleStraightFlush = '';
+
+      let flushCountIfPossible = 0;
+      let checkStraightFlush = [];
+      let checkStraightFlushCount = 0;
+      
+      const winningHandsKey = {
+        'Straight Flush': 8000,
+        'Four of a Kind': 7000,
+        'Fullhouse': 6000,
+        'Flush': 5000,
+        'Straight': 4000,
+        'Three of a Kind': 3000,
+        'Two Pair': 2000,
+        'A Pair': 1000
+      }
+      
       // Get user total cards including community
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
+      // Sort user hand
+      sort(resultsState.userHand)
+      console.log('sorted user hand ', resultsState)
       // Get user best hand
       for(let i = 0; i < resultsState.userHand.length; i++) {
-        console.log(resultsState.userHand[i])
-        
+        // Get card counts
+        if(userCardCount[resultsState.userHand[i][0].value]) {
+          userCardCount[resultsState.userHand[i][0].value] += 1;
+        } else {
+          userCardCount[resultsState.userHand[i][0].value] = 1;
+        }
+        // Get suit counts
+        if(userFlush[resultsState.userHand[i][0].suit]) {
+          userFlush[resultsState.userHand[i][0].suit] += 1;
+          if(userFlush[resultsState.userHand[i][0].suit] > flushCountIfPossible) {
+            possibleStraightFlush = resultsState.userHand[i][0].suit;
+          }
+        } else {
+          userFlush[resultsState.userHand[i][0].suit] = 1;
+        }
+        // Set high card to score
+        if(resultsState.userHand[i][0].value > userResult.score) {
+          userResult.highCard = resultsState.userHand[i][0].value;
+        }
+        // Getting all card values to check for straight
+        userStraightCount.push(resultsState.userHand[i][0].value)
       }
+      // Get pair amounts
+      let pairCount = {
+        'pair': 0,
+        'three': 0,
+        'four': 0
+      }
+
+      for(let key in userCardCount) {
+        if(userCardCount[key] === 2) {
+          pairCount['pair'] += 1;
+        }
+        if(userCardCount[key] === 3) {
+          pairCount['three'] += 1
+        }
+        if(userCardCount[key] === 4) {
+          pairCount['four'] += 1
+        }
+      }
+
+      // One pair
+      if(pairCount['pair'] === 1) {
+        userResult['score'] = winningHandsKey['A Pair'];
+      }
+      // Two pair
+      if(pairCount['pair'] >= 2) {
+        userResult['score'] = winningHandsKey['Two Pair'];
+      }
+      // Three of a kind
+      if(pairCount['three'] === 1) {
+        userResult['score'] = winningHandsKey['Three of a Kind'];
+      }
+      // Straight
+      userStraightCount.sort((a,b) => {
+        return a - b;
+      })
+      for(let i = 0; i < userStraightCount.length; i++) {
+        if(userStraightCount[i] + 1 === userStraightCount[i + 1]) {
+          straightCounter++;
+          if(straightCounter >= 4) {
+            userResult['score'] = winningHandsKey['Straight'];
+          }
+        } else if(userStraightCount[i] === userStraightCount[i - 1]) {
+          continue;
+        } else {
+          straightCounter = 0;
+        }
+      }
+      // Flush
+      for(let key in userFlush) {
+        if(userFlush[key] >= 5) {
+          userResult['score'] = winningHandsKey['Flush'];   
+          possibleStraightFlush = key;       
+        }
+      }
+      // Fullhouse
+      if(pairCount['pair'] === 1 && pairCount['three'] === 1) {
+        userResult['score'] = winningHandsKey['Fullhouse'];
+      }
+      // Four of a kind
+      if(pairCount['four'] === 1) {
+        userResult['score'] = winningHandsKey['Four of a Kind'];
+      }
+      let testHand = [
+        [{
+          value: 2,
+          suit: 'Hearts'
+        }],
+        [{
+          value: 3,
+          suit: 'Hearts'
+        }],
+        [{
+          value: 5,
+          suit: 'Diamonds'
+        }],
+        [{
+          value: 4,
+          suit: 'Hearts'
+        }],
+        [{
+          value: 5,
+          suit: 'Hearts'
+        }],
+        [{
+          value: 5,
+          suit: 'Diamonds'
+        }],
+        [{
+          value: 6,
+          suit: 'Hearts'
+        }],
+      ]
+      
+      // Get values for Straight Flush check
+      for(let i = 0; i < resultsState.userHand.length; i++) {
+        if(resultsState.userHand[i][0].suit === possibleStraightFlush) {
+          checkStraightFlush.push(resultsState.userHand[i][0].value)
+        }
+      }
+      // Straight flush
+      for(let i = 0; i < checkStraightFlush.length; i++) {
+        if(checkStraightFlush[i + 1]) {
+          if(checkStraightFlush[i] + 1 === checkStraightFlush[i + 1]) {
+            checkStraightFlushCount += 1;
+            if(checkStraightFlushCount >= 4) {
+            userResult['score'] = winningHandsKey['Straight Flush'];
+            }
+          }
+        }
+      }
+      userResult.score += userResult.highCard
+      console.log('straight flush count ', straightFlushCount)
+      console.log('user result ', userResult)
+      console.log('results state at end ',resultsState)
     return resultsState
 
   default:
