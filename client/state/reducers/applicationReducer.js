@@ -116,6 +116,26 @@ const applicationReducer = (state = initState, action)=> {
       let computerResult = getHands.getComputerResults(resultsState);
       console.log('user result ', userResult)
       console.log('computer result ', computerResult)
+
+      if(userResult.score > computerResult.score) {
+        console.log('Player wins')
+      }
+      if(computerResult.score > userResult.score) {
+        console.log('Computer wins')
+      }
+      if(userResult.score === computerResult.score) {
+        if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
+          if(userResult.highPairOfWinningHand > computerResult.highPairOfWinningHand) {
+            console.log('Player won')
+          } else if(computerResult.highPairOfWinningHand > userResult.highPairOfWinningHand) {
+            console.log('Computer won')
+          }
+          // This is not accurate yet. This should be a check for the second pair then highest card after that. Currently does not support second pair
+          if(userResult.highPairOfWinningHand === computerResult.highPairOfWinningHand) {
+            console.log('Draw')
+          }
+        }
+      }
     return resultsState
 
   default:

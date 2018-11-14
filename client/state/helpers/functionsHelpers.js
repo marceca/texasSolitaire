@@ -302,15 +302,18 @@ function getComputerResults(computerResults) {
       }
     }
     
-    // Set best hand for computer
+    // Set best hand for computer if score is greater the current best score
     if(curCompResults.score > computerBestHand.score) {
       computerBestHand.score = curCompResults.score;
       computerBestHand.highCard = curCompResults.highCard;
       computerBestHand.highPairOfWinningHand = curCompResults.highPairOfWinningHand;
       computerBestHand.wholeHand = curCompResults.wholeHand;
       computerBestHand.computerHand = i + 1;
+      // Check if the score is the same
     } else if(curCompResults.score === computerBestHand.score) {
+      // If the score is the same and its a pair, two pair, three of a kind, full house or four of a kind do check for highest pair
       if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
+        // Check highest pair
         if(curCompResults.highPairOfWinningHand > computerBestHand.highPairOfWinningHand) {
           computerBestHand.score = curCompResults.score;
           computerBestHand.highCard = curCompResults.highCard;
@@ -318,6 +321,8 @@ function getComputerResults(computerResults) {
           computerBestHand.wholeHand = curCompResults.wholeHand;
           computerBestHand.computerHand = i + 1;
         }
+        // This was supposed to check for highest card is flush / straight but needs to be revised as it doesn't work
+        // This checks highest card out of all 7 cards and not the specific 5 card hand
       } else if(curCompResults.highCard > computerBestHand.highCard) {
           computerBestHand.score = curCompResults.score;
           computerBestHand.highCard = curCompResults.highCard;
