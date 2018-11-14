@@ -18,7 +18,8 @@ function getUserResults(userHand) {
   let userResult = {
     score: 0,
     highCard: 0,
-    highPairOfWinningHand: 0
+    highPairOfWinningHand: 0,
+    wholeHand: []
   };
   let userCardCount = {};
   let userStraightCount = [];
@@ -30,6 +31,9 @@ function getUserResults(userHand) {
   let checkStraightFlushCount = 0;
   // Get user best hand
   for(let i = 0; i < userHand.length; i++) {
+    // Add each card to whole hand result
+    userResult.wholeHand.push(userHand[i][0].value);
+
     // Get card counts
     if(userCardCount[userHand[i][0].value]) {
       userCardCount[userHand[i][0].value] += 1;
@@ -147,7 +151,8 @@ function getComputerResults(computerResults) {
   let computerBestHand = {
     score: 0,
     highCard: 0,
-    highPairOfWinningHand: 0
+    highPairOfWinningHand: 0,
+    computerHand: 0
   };
   for(let i = 0; i < computerResults.handObjects.length; i++) {
     // Computer variables inside loops to reset each time
@@ -155,7 +160,8 @@ function getComputerResults(computerResults) {
     let curCompResults = {
       score: 0,
       highCard: 0,
-      highPairOfWinningHand: 0
+      highPairOfWinningHand: 0,
+      wholeHand: []
     };
     let compCardCount = {}
     let compFlush = {};
@@ -170,13 +176,14 @@ function getComputerResults(computerResults) {
     if(computerResults.chosenHand - 1 === i) {
       continue
     }
-    // console.log(computerResults.handObjects[i])
 
     curCompHand = computerResults.handObjects[i];
+    curCompResults.wholeHand.push(computerResults.handObjects[i][0][0].value)
+    curCompResults.wholeHand.push(computerResults.handObjects[i][1][0].value)
     for(let i = 0; i < computerResults.communityCardsValue.length; i++) {
       curCompHand.push(computerResults.communityCardsValue[i])
+      curCompResults.wholeHand.push(computerResults.communityCardsValue[i][0].value)
     }
-    
     // Get computer best hand of current iteration
     for(let i = 0; i < curCompHand.length; i++) {
       // Get card counts
@@ -300,27 +307,25 @@ function getComputerResults(computerResults) {
       computerBestHand.score = curCompResults.score;
       computerBestHand.highCard = curCompResults.highCard;
       computerBestHand.highPairOfWinningHand = curCompResults.highPairOfWinningHand;
+      computerBestHand.wholeHand = curCompResults.wholeHand;
+      computerBestHand.computerHand = i + 1;
     } else if(curCompResults.score === computerBestHand.score) {
       if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
         if(curCompResults.highPairOfWinningHand > computerBestHand.highPairOfWinningHand) {
           computerBestHand.score = curCompResults.score;
           computerBestHand.highCard = curCompResults.highCard;
           computerBestHand.highPairOfWinningHand = curCompResults.highPairOfWinningHand;
+          computerBestHand.wholeHand = curCompResults.wholeHand;
+          computerBestHand.computerHand = i + 1;
         }
       } else if(curCompResults.highCard > computerBestHand.highCard) {
           computerBestHand.score = curCompResults.score;
           computerBestHand.highCard = curCompResults.highCard;
           computerBestHand.highPairOfWinningHand = curCompResults.highPairOfWinningHand;
+          computerBestHand.wholeHand = curCompResults.wholeHand;
+          computerBestHand.computerHand = i + 1;
         }
       }
-    
-    console.log(possibleStraightFlush)
-    console.log('cur comp hand ', curCompHand)
-    console.log('comp card count ', compCardCount)
-    console.log('comp flush ', compFlush)
-    console.log('current comp hand ', curCompResults)
-    console.log('current computer best result ', computerBestHand)
-    console.log('--------------------------------------')
   }
   // Return best hand of computer
   return computerBestHand;
