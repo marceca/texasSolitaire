@@ -1,17 +1,32 @@
 import React from 'react'
 import * as types from '../actions/actions';
 import STARTING_DECK from '../../assets/deck'
+import * as getHands from '../helpers/functionsHelpers';
 
 const initState = {
   dealt: false,
   deck: STARTING_DECK,
-  handsDisplay: [[],[],[]],
-  handObjects: [[],[],[]],
+  handsDisplay: [[],[],[], []],
+  handObjects: [[],[],[], []],
   communityCardsValue: [],
   communityCards: [],
   userHand: false,
   priorHands: {},
-  chosenHand: false
+  chosenHand: false,
+  choseHandThisTurn: false
+}
+
+// Sort hand by card value
+function sort(sorting) {
+  for(let i = 0; i < sorting.length; i++) {
+    if(i != sorting.length - 1) {
+      if(sorting[i][0].value > sorting[i + 1][0].value) {
+        [sorting[i], sorting[i + 1]] = [sorting[i + 1], sorting[i]]
+        sort(sorting)
+      }
+    }
+  }
+  return sorting;
 }
 
 const applicationReducer = (state = initState, action)=> {
@@ -45,6 +60,7 @@ const applicationReducer = (state = initState, action)=> {
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />);
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
         userHandState.chosenHand = action.hand + 1;
+        userHandState.choseHandThisTurn = true;
       }
     return userHandState;
 
@@ -62,6 +78,7 @@ const applicationReducer = (state = initState, action)=> {
           flop++
         }
       }
+      flopState.choseHandThisTurn = false;
     return flopState;
 
     case types.TURN:
@@ -72,6 +89,7 @@ const applicationReducer = (state = initState, action)=> {
       card = turnState.deck.splice(ranNum, 1)
       turnState.communityCardsValue.push(card)
       turnState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+      turnState.choseHandThisTurn = false;
     return turnState;
 
     case types.RIVER:
@@ -82,32 +100,21 @@ const applicationReducer = (state = initState, action)=> {
       card = riverState.deck.splice(ranNum, 1)
       riverState.communityCardsValue.push(card)
       riverState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+      riverState.choseHandThisTurn = false;
     return riverState;
 
     case types.RESULTS:
       const resultsState = Object.assign({}, state);
-      let userResult, computerResult;
-      const winningHandsKey = {
-        'Straight Flush': 8,
-        'Four of a Kind': 7,
-        'Fullhouse': 6,
-        'Flush': 5,
-        'Straight': 4,
-        'Three of a Kind': 3,
-        'Two Pair': 2,
-        'A Pair': 1,
-        'High Card': 0
-      }
-
+      let computerResult = {};
+      
       // Get user total cards including community
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
-      // Get user best hand
-      for(let i = 0; i < resultsState.userHand.length; i++) {
-        console.log(resultsState.userHand[i])
-        
-      }
+      // Sort user hand
+      sort(resultsState.userHand)
+      let userResult = getHands.getUserResults(resultsState.userHand)
+      console.log(userResult)
     return resultsState
 
   default:
