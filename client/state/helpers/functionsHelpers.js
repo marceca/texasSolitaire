@@ -144,6 +144,19 @@ function getUserResults(userHand) {
   return userResult
 }
 
+function getComputerResults(computerResults) {
+
+  for(let i = 0; i < computerResults.handObjects.length; i++) {
+    if(computerResults.chosenHand - 1 === i) {
+      continue
+    }
+    console.log(computerResults.handObjects[i])
+  }
+
+  return computerResults
+}
+
 module.exports = {
-  getUserResults
+  getUserResults,
+  getComputerResults
 }
