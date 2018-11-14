@@ -114,7 +114,8 @@ const applicationReducer = (state = initState, action)=> {
       sort(resultsState.userHand)
       let userResult = getHands.getUserResults(resultsState.userHand);
       let computerResult = getHands.getComputerResults(resultsState);
-      console.log(userResult)
+      console.log('user result ', userResult)
+      console.log('computer result ', computerResult)
     return resultsState
 
   default:
