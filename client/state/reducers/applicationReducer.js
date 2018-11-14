@@ -105,7 +105,6 @@ const applicationReducer = (state = initState, action)=> {
 
     case types.RESULTS:
       const resultsState = Object.assign({}, state);
-      let computerResult = {};
       
       // Get user total cards including community
       for(let i = 0; i < resultsState.communityCards.length; i++) {
@@ -113,8 +112,10 @@ const applicationReducer = (state = initState, action)=> {
       }
       // Sort user hand
       sort(resultsState.userHand)
-      let userResult = getHands.getUserResults(resultsState.userHand)
-      console.log(userResult)
+      let userResult = getHands.getUserResults(resultsState.userHand);
+      let computerResult = getHands.getComputerResults(resultsState);
+      console.log('user result ', userResult)
+      console.log('computer result ', computerResult)
     return resultsState
 
   default:
