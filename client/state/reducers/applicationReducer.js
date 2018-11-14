@@ -121,20 +121,21 @@ const applicationReducer = (state = initState, action)=> {
         console.log('Player wins')
       }
       if(computerResult.score > userResult.score) {
-        console.log('Computer wins')
+        console.log(`Computer hand number ${computerResult.computerHand} won`)
       }
       if(userResult.score === computerResult.score) {
-        if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
+        if(userResult.score === 1000 || userResult.score === 2000 || userResult.score === 3000 || userResult.score === 6000 || userResult.score === 7000) {
           if(userResult.highPairOfWinningHand > computerResult.highPairOfWinningHand) {
             console.log('Player won')
           } else if(computerResult.highPairOfWinningHand > userResult.highPairOfWinningHand) {
-            console.log('Computer won')
+            console.log(`Computer hand number ${computerResult.computerHand} won`)
           }
           // This is not accurate yet. This should be a check for the second pair then highest card after that. Currently does not support second pair
           if(userResult.highPairOfWinningHand === computerResult.highPairOfWinningHand) {
             console.log('Draw')
           }
         }
+        // Need to add check here for higher straight and higher flush. Have to implement best five cards to hand
       }
     return resultsState
 
