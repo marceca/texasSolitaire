@@ -19,7 +19,8 @@ function getUserResults(userHand) {
     score: 0,
     highCard: 0,
     highPairOfWinningHand: 0,
-    wholeHand: []
+    wholeHand: [],
+    bestFiveCards: []
   };
   let userCardCount = {};
   let userStraightCount = [];

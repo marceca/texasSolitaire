@@ -121,16 +121,17 @@ const applicationReducer = (state = initState, action)=> {
         console.log('Player wins')
       }
       if(computerResult.score > userResult.score) {
-        console.log('Computer wins')
+        console.log(`Computer hand number ${computerResult.computerHand} won`)
       }
       if(userResult.score === computerResult.score) {
-        if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
+        if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 4000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
           if(userResult.highPairOfWinningHand > computerResult.highPairOfWinningHand) {
             console.log('Player won')
           } else if(computerResult.highPairOfWinningHand > userResult.highPairOfWinningHand) {
-            console.log('Computer won')
+            console.log(`Computer hand number ${computerResult.computerHand} won`)
           }
           // This is not accurate yet. This should be a check for the second pair then highest card after that. Currently does not support second pair
+          // This works for a striaght, fullhouse and four of a kind. If it is a pair, two pair, or three of a kind you need to check the stack of highest card values
           if(userResult.highPairOfWinningHand === computerResult.highPairOfWinningHand) {
             console.log('Draw')
           }
