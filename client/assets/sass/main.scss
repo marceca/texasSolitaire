@@ -1,15 +1,28 @@
 .game-container {
-  .community-card-container {
-    display: flex;
-    justify-content: space-around
-  }
-  .player-hands-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  .cards-container {
     display: flex;
     justify-content: space-between;
+    .community-card-container {
+      display: flex;
+      justify-content: space-around
+    }
+    .player-hands-container {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      width: 30%;
+      .two-hands {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
   }
 }
 
 .card-image {
-  max-width: 150px;
+  max-width: 50px;
   height: auto;
 }

@@ -18,7 +18,7 @@ function getUserResults(userHand) {
   let userResult = {
     score: 0,
     highCard: 0,
-    highPairOfWinningHand: 0,
+    highPairOfWinningHand: [],
     wholeHand: [],
     bestFiveCards: []
   };
@@ -68,7 +68,7 @@ function getUserResults(userHand) {
   for(let key in userCardCount) {
     if(userCardCount[key] === 2) {
       pairCount['pair'] += 1;
-      userResult['highPairOfWinningHand'] = Number(key);
+      userResult['highPairOfWinningHand'].push(Number(key));
     }
     if(userCardCount[key] === 3) {
       pairCount['three'] += 1
