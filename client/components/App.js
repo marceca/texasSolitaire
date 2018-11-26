@@ -42,35 +42,48 @@ class App extends Component {
   
   render() {
     return (
+      console.log(this.props),
       <div className="game-container">
-        <div>
-          Your hand: {this.props.game.chosenHand}
-        </div>
-        <div className="community-card-container">
-          <div>
-            <h1>Community cards</h1>
-            {this.props.game.communityCards}
+        <div className="cards-container">
+          <div className="player-hands-container">
+            <div>
+              <h1>Stick or Switch Cards</h1>
+            </div>
+            <div className="two-hands">
+              <div onClick={(e) => this.changeHands(0, this.props)}>
+                {this.props.game.handsDisplay[0]}
+              </div>
+              <div onClick={(e) => this.changeHands(1, this.props)}>
+                {this.props.game.handsDisplay[1]}
+              </div>
+            </div>
+            <div className="two-hands">
+              <div onClick={(e) => this.changeHands(2, this.props)}>
+                {this.props.game.handsDisplay[2]}
+              </div>
+              <div onClick={(e) => this.changeHands(3, this.props)}>
+                {this.props.game.handsDisplay[3]}
+              </div>
+            </div>
+            <div className="two-hands">
+              <div onClick={(e) => this.changeHands(4, this.props)}>
+                {this.props.game.handsDisplay[4]}
+              </div>
+              <div onClick={(e) => this.changeHands(5, this.props)}>
+                {this.props.game.handsDisplay[5]}
+              </div>
+            </div>
+          </div>
+          <div className="community-card-container">
+            <div>
+              <h1>Community cards</h1>
+              {this.props.game.communityCards}
+            </div>
           </div>
         </div>
-        <div className="player-hands-container">
-          <div>
-            <h1 onClick={(e) => this.changeHands(0, this.props)}>Hand one</h1>
-            {this.props.game.handsDisplay[0]}
-          </div>
-          <div>
-            <h1 onClick={(e) => this.changeHands(1, this.props)}>Hand two</h1>
-            {this.props.game.handsDisplay[1]}
-          </div>
-          <div>
-            <h1 onClick={(e) => this.changeHands(2, this.props)}>Hand three</h1>
-            {this.props.game.handsDisplay[2]}
-          </div>
-          <div>
-            <h1 onClick={(e) => this.changeHands(3, this.props)}>Hand four</h1>
-            {this.props.game.handsDisplay[3]}
-          </div>
+        <div className="buttons-container">
+          <button id="game-button" onClick={(e) => this.deal(e,this.props)} >click</button>
         </div>
-        <button id="game-button" onClick={(e) => this.deal(e,this.props)} >click</button>
       </div>
     );
   }

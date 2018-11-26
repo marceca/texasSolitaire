@@ -6,8 +6,8 @@ import * as getHands from '../helpers/functionsHelpers';
 const initState = {
   dealt: false,
   deck: STARTING_DECK,
-  handsDisplay: [[],[],[], []],
-  handObjects: [[],[],[], []],
+  handsDisplay: [[],[],[], [],[],[]],
+  handObjects: [[],[],[], [],[],[]],
   communityCardsValue: [],
   communityCards: [],
   userHand: false,
@@ -16,17 +16,30 @@ const initState = {
   choseHandThisTurn: false
 }
 
-// Sort hand by card value
-function sort(sorting) {
-  for(let i = 0; i < sorting.length; i++) {
-    if(i != sorting.length - 1) {
-      if(sorting[i][0].value > sorting[i + 1][0].value) {
-        [sorting[i], sorting[i + 1]] = [sorting[i + 1], sorting[i]]
-        sort(sorting)
+// Sort user hand by card value
+function userSort(userSorting) {
+  for(let i = 0; i < userSorting.length; i++) {
+    if(i != userSorting.length - 1) {
+      if(userSorting[i][0].value > userSorting[i + 1][0].value) {
+        [userSorting[i], userSorting[i + 1]] = [userSorting[i + 1], userSorting[i]]
+        userSort(userSorting)
       }
     }
   }
-  return sorting;
+  return userSorting;
+}
+
+// Sort computer hand by card value
+function computerSort(compSorting) {
+  for(let i = 0; i < compSorting.wholeHand.length; i++) {
+    if(i != compSorting.wholeHand.length - 1) {
+      if(compSorting.wholeHand[i] > compSorting.wholeHand[i + 1]) {
+        [compSorting.wholeHand[i], compSorting.wholeHand[i + 1]] = [compSorting.wholeHand[i + 1], compSorting.wholeHand[i]]
+        computerSort(compSorting)
+      }
+    }
+  }
+  return compSorting
 }
 
 const applicationReducer = (state = initState, action)=> {
@@ -111,9 +124,24 @@ const applicationReducer = (state = initState, action)=> {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
       // Sort user hand
-      sort(resultsState.userHand)
+      userSort(resultsState.userHand)
+      // Get user results
       let userResult = getHands.getUserResults(resultsState.userHand);
+      // Get computer results
       let computerResult = getHands.getComputerResults(resultsState);
+      // Sort computer hand
+      computerSort(computerResult)
+
+      // test hands
+      // player test hand
+      userResult.highPairOfWinningHand = [5]
+      userResult.highCard = 13
+      userResult.score = 1000
+      // computer test hand
+      computerResult.highPairOfWinningHand = [6]
+      computerResult.highCard = 13
+      computerResult.score = 1000
+
       console.log('user result ', userResult)
       console.log('computer result ', computerResult)
 
@@ -123,19 +151,60 @@ const applicationReducer = (state = initState, action)=> {
       if(computerResult.score > userResult.score) {
         console.log(`Computer hand number ${computerResult.computerHand} won`)
       }
+      // Same type of hand check
       if(userResult.score === computerResult.score) {
-        if(userResult.score === 1000 || userResult.score === 2000 || userResult.score === 3000 || userResult.score === 6000 || userResult.score === 7000) {
-          if(userResult.highPairOfWinningHand > computerResult.highPairOfWinningHand) {
+        // If the player and computer best hand is a pair, two pair, three of a kind, straight, 
+        // full house, or four of a kind check for highest pair or high card
+        if(computerResult.score === 1000 || computerResult.score === 2000 || computerResult.score === 3000 || computerResult.score === 6000 || computerResult.score === 7000) {
+          // Check if player has higher pair
+          if(Math.max(...userResult.highPairOfWinningHand) > Math.max(...computerResult.highPairOfWinningHand)) {
             console.log('Player won')
-          } else if(computerResult.highPairOfWinningHand > userResult.highPairOfWinningHand) {
+          }
+          // Check if computer has higher pair
+          if(Math.max(...computerResult.highPairOfWinningHand) > Math.max(...userResult.highPairOfWinningHand)) {
             console.log(`Computer hand number ${computerResult.computerHand} won`)
           }
-          // This is not accurate yet. This should be a check for the second pair then highest card after that. Currently does not support second pair
-          if(userResult.highPairOfWinningHand === computerResult.highPairOfWinningHand) {
+          if(Math.max(...userResult.highPairOfWinningHand) === Math.max(...computerResult.highPairOfWinningHand)) {
+            // Two pair check second pair
+            if(userResult.highPairOfWinningHand.length > 1) {
+              console.log('in one pair')
+              if(Math.min(...userResult.highPairOfWinningHand) > Math.min(...computerResult.highPairOfWinningHand)) {
+                console.log('Player won')
+              } else if(Math.min(...computerResult.highPairOfWinningHand) > Math.min(...userResult.highPairOfWinningHand)) {
+                console.log(`Computer hand number ${computerResult.computerHand} won`)                
+              }
+              // Check high cards on two pair
+              if(Math.min(...userResult.highPairOfWinningHand) === Math.min(...computerResult.highPairOfWinningHand)) {
+                let draw = true;
+                for(let i = 0; i < 5; i++) {
+                  if(userResult.wholeHand[userResult.wholeHand.length - 1 - i] > computerResult.wholeHand[computerResult.wholeHand.length - 1 - i]) {
+                    console.log('checkplayer won')
+                    draw = false;
+                    break;
+                  }
+                  if(computerResult.wholeHand[computerResult.wholeHand.length - 1 - i] > userResult.wholeHand[userResult.wholeHand.length - 1 - i]) {
+                    console.log(`check Computer hand number ${computerResult.computerHand} won`)
+                    draw = false;
+                    break;
+                  }
+                }
+                if(draw === true) {
+                  console.log('Draw')
+                }
+              }
+            }
+          }
+        }
+        // Check Straight
+        if(computerResult.score === 4000) {
+          if(Math.max(userResult.highPairOfWinningHand) > Math.max(computerResult.highPairOfWinningHand)) {
+            console.log('Player wins with a straight!')
+          } else if(Math.max(computerResult.highPairOfWinningHand) > Math.max(userResult.highPairOfWinningHand)) {
+            console.log(`Computer hand number ${computerResult.computerHand} won with a straight!`)
+          } else if(Math.max(userResult.highPairOfWinningHand) === Math.max(computerResult.highPairOfWinningHand)) {
             console.log('Draw')
           }
         }
-        // Need to add check here for higher straight and higher flush. Have to implement best five cards to hand
       }
     return resultsState
 
