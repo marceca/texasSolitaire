@@ -26,6 +26,8 @@ function getUserResults(userHand) {
   let userStraightCount = [];
   let userFlush = {};
   let straightCounter = 0;
+  let straightHighHand = [];
+  let addFirst = true;
   let possibleStraightFlush = '';
   let flushCountIfPossible = 0;
   let checkStraightFlush = [];
@@ -69,14 +71,23 @@ function getUserResults(userHand) {
     if(userCardCount[key] === 2) {
       pairCount['pair'] += 1;
       userResult['highPairOfWinningHand'].push(Number(key));
+      userResult.bestFiveCards.push(Number(key))
+      userResult.bestFiveCards.push(Number(key))
     }
     if(userCardCount[key] === 3) {
       pairCount['three'] += 1
-      userResult['highPairOfWinningHand'] = Number(key);
+      userResult.highPairOfWinningHand = Number(key);
+      userResult.bestFiveCards.push(Number(key))
+      userResult.bestFiveCards.push(Number(key))
+      userResult.bestFiveCards.push(Number(key))
     }
     if(userCardCount[key] === 4) {
       pairCount['four'] += 1
-      userResult['highPairOfWinningHand'] = Number(key);
+      userResult.highPairOfWinningHand = Number(key);
+      userResult.bestFiveCards.push(Number(key))
+      userResult.bestFiveCards.push(Number(key))
+      userResult.bestFiveCards.push(Number(key))
+      userResult.bestFiveCards.push(Number(key))
     }
   }
 
@@ -85,38 +96,56 @@ function getUserResults(userHand) {
 
   // One pair
   if(pairCount['pair'] === 1) {
-    userResult['score'] = winningHandsKey['A Pair'];
+    userResult.score = winningHandsKey['A Pair'];
   }
   // Two pair
   if(pairCount['pair'] >= 2) {
-    userResult['score'] = winningHandsKey['Two Pair'];
+    userResult.score = winningHandsKey['Two Pair'];
   }
   // Three of a kind
   if(pairCount['three'] === 1) {
-    userResult['score'] = winningHandsKey['Three of a Kind'];
+    userResult.score = winningHandsKey['Three of a Kind'];
   }
   // Straight
+  // Sort for check
   userStraightCount.sort((a,b) => {
     return a - b;
   })
   for(let i = 0; i < userStraightCount.length; i++) {
     if(userStraightCount[i] + 1 === userStraightCount[i + 1]) {
       straightCounter++;
+      if(addFirst === true) {
+        straightHighHand.push(userStraightCount[i])
+        addFirst = false;
+      }
+      // Add to possible highhand
+      straightHighHand.push(userStraightCount[i] + 1)
       if(straightCounter >= 4) {
-        userResult['score'] = winningHandsKey['Straight'];
-        userResult['highPairOfWinningHand'] = Number(userStraightCount[i])
+        userResult.score = winningHandsKey['Straight'];
+        userResult.highPairOfWinningHand = Number(userStraightCount[i])
+        userResult.bestFiveCards = straightHighHand;
       }
     } else if(userStraightCount[i] === userStraightCount[i - 1]) {
       continue;
     } else {
       straightCounter = 0;
+      // Reset highhand
+      staightHighHand = [];
+      addFirst = true;
     }
   }
   // Flush
   for(let key in userFlush) {
     if(userFlush[key] >= 5) {
       userResult['score'] = winningHandsKey['Flush'];   
-      possibleStraightFlush = key;       
+      possibleStraightFlush = key;
+      // Set all values of flush suit to best hand
+      userHand.bestFiveCards = [];
+      for(let i = 0; i < userHand.length; i++) {
+        if(userHand[i][0].suit === possibleStraightFlush) {
+          userResult.bestFiveCards.push(userHand[i][0].value)
+        }
+      }
     }
   }
   // Fullhouse

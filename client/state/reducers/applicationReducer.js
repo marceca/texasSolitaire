@@ -123,6 +123,54 @@ const applicationReducer = (state = initState, action)=> {
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
+
+      // Test hands for getting results
+      console.log('result state user hand ', resultsState.userHand)
+      resultsState.userHand = [
+        [{
+          value: 4,
+          name: 'Two of Clubs',
+          suit: 'Clubs',
+          img: '/cards/2C.png'
+        }],
+        [{
+          value: 4,
+          name: 'Three of Clubs',
+          suit: 'Spades',
+          img: '/cards/3C.png'
+        }],
+        [{
+          value: 6,
+          name: 'Four of Clubs',
+          suit: 'Hearts',
+          img: '/cards/4C.png'
+        }],
+        [{
+          value: 7,
+          name: 'Fve of Clubs',
+          suit: 'Diamonds',
+          img: '/cards/5C.png'
+        }],
+        [{
+          value: 8,
+          name: 'Six of Clubs',
+          suit: 'Clubs',
+          img: '/cards/6C.png'
+        }],
+        [{
+          value: 9,
+          name: 'Seven of Clubs',
+          suit: 'Spades',
+          img: '/cards/7C.png'
+        }],
+        [{
+          value: 10,
+          name: 'Eight of Clubs',
+          suit: 'hearts',
+          img: '/cards/8C.png'
+        }],
+      ]
+
       // Sort user hand
       userSort(resultsState.userHand)
       // Get user results
@@ -132,15 +180,15 @@ const applicationReducer = (state = initState, action)=> {
       // Sort computer hand
       computerSort(computerResult)
 
-      // test hands
+      // test hands for results
       // player test hand
-      userResult.highPairOfWinningHand = [5]
-      userResult.highCard = 13
-      userResult.score = 1000
-      // computer test hand
-      computerResult.highPairOfWinningHand = [6]
-      computerResult.highCard = 13
-      computerResult.score = 1000
+      // userResult.highPairOfWinningHand = [5]
+      // userResult.highCard = 13
+      // userResult.score = 1000
+      // // computer test hand
+      // computerResult.highPairOfWinningHand = [6]
+      // computerResult.highCard = 13
+      // computerResult.score = 1000
 
       console.log('user result ', userResult)
       console.log('computer result ', computerResult)
@@ -156,24 +204,23 @@ const applicationReducer = (state = initState, action)=> {
         // If the player and computer best hand is a pair, two pair, three of a kind, straight, 
         // full house, or four of a kind check for highest pair or high card
         if(computerResult.score === 1000 || computerResult.score === 2000 || computerResult.score === 3000 || computerResult.score === 6000 || computerResult.score === 7000) {
-          // Check if player has higher pair
+          // Check if player has higher pair, three of a kind, or four of a kind
           if(Math.max(...userResult.highPairOfWinningHand) > Math.max(...computerResult.highPairOfWinningHand)) {
             console.log('Player won')
           }
-          // Check if computer has higher pair
+          // Check if computer has higher pair, three of a kind, or four of a kind
           if(Math.max(...computerResult.highPairOfWinningHand) > Math.max(...userResult.highPairOfWinningHand)) {
             console.log(`Computer hand number ${computerResult.computerHand} won`)
           }
           if(Math.max(...userResult.highPairOfWinningHand) === Math.max(...computerResult.highPairOfWinningHand)) {
-            // Two pair check second pair
+            // If highest two pair is the same check the second pair
             if(userResult.highPairOfWinningHand.length > 1) {
-              console.log('in one pair')
               if(Math.min(...userResult.highPairOfWinningHand) > Math.min(...computerResult.highPairOfWinningHand)) {
                 console.log('Player won')
               } else if(Math.min(...computerResult.highPairOfWinningHand) > Math.min(...userResult.highPairOfWinningHand)) {
                 console.log(`Computer hand number ${computerResult.computerHand} won`)                
               }
-              // Check high cards on two pair
+              // Check high cards on two pair if both are the same
               if(Math.min(...userResult.highPairOfWinningHand) === Math.min(...computerResult.highPairOfWinningHand)) {
                 let draw = true;
                 for(let i = 0; i < 5; i++) {
