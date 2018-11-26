@@ -2,7 +2,6 @@ import React from 'react'
 import * as types from '../actions/actions';
 import STARTING_DECK from '../../assets/deck'
 import * as getHands from '../helpers/functionsHelpers';
-import { join } from 'path';
 
 const initState = {
   dealt: false,
@@ -206,8 +205,6 @@ const applicationReducer = (state = initState, action)=> {
             console.log('Draw')
           }
         }
-
-
       }
     return resultsState
 
