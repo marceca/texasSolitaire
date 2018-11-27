@@ -368,12 +368,12 @@ function getComputerResults(computerResults) {
     if(pairCount['pair'] === 1 && pairCount['three'] === 1) {
       curCompResults['score'] = winningHandsKey['Fullhouse'];
       curCompResults.bestFiveCards = [];
-      for(let key in userCardCount) {
-        if(userCardCount[key] === 2) {
+      for(let key in compCardCount) {
+        if(compCardCount[key] === 2) {
           curCompResults.bestFiveCards.push(Number(key))
           curCompResults.bestFiveCards.push(Number(key))
         }
-        if(userCardCount[key] === 3) {
+        if(compCardCount[key] === 3) {
           curCompResults.highPairOfWinningHand = [];
           curCompResults.highPairOfWinningHand.push(Number(key));
           curCompResults.bestFiveCards.push(Number(key))
@@ -387,8 +387,8 @@ function getComputerResults(computerResults) {
     if(pairCount['four'] === 1) {
       curCompResults['score'] = winningHandsKey['Four of a Kind'];
       curCompResults.bestFiveCards = [];
-      for(let key in userCardCount) {
-        if(userCardCount[key] === 4) {
+      for(let key in compCardCount) {
+        if(compCardCount[key] === 4) {
           curCompResults.highPairOfWinningHand = [];
           curCompResults.highPairOfWinningHand.push(Number(key));
           curCompResults.bestFiveCards.push(Number(key))
