@@ -125,7 +125,6 @@ const applicationReducer = (state = initState, action)=> {
       }
 
       // Test hands for getting results
-      console.log('result state user hand ', resultsState.userHand)
       resultsState.userHand = [
         [{
           value: 4,
@@ -136,23 +135,23 @@ const applicationReducer = (state = initState, action)=> {
         [{
           value: 4,
           name: 'Three of Clubs',
-          suit: 'Spades',
+          suit: 'Clubs',
           img: '/cards/3C.png'
         }],
         [{
-          value: 6,
+          value: 12,
           name: 'Four of Clubs',
-          suit: 'Hearts',
+          suit: 'Clubs',
           img: '/cards/4C.png'
         }],
         [{
-          value: 7,
+          value: 9,
           name: 'Fve of Clubs',
-          suit: 'Diamonds',
+          suit: 'Clubs',
           img: '/cards/5C.png'
         }],
         [{
-          value: 8,
+          value: 9,
           name: 'Six of Clubs',
           suit: 'Clubs',
           img: '/cards/6C.png'

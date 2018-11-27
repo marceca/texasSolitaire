@@ -140,7 +140,7 @@ function getUserResults(userHand) {
       userResult['score'] = winningHandsKey['Flush'];   
       possibleStraightFlush = key;
       // Set all values of flush suit to best hand
-      userHand.bestFiveCards = [];
+      userResult.bestFiveCards = [];
       for(let i = 0; i < userHand.length; i++) {
         if(userHand[i][0].suit === possibleStraightFlush) {
           userResult.bestFiveCards.push(userHand[i][0].value)
@@ -151,10 +151,33 @@ function getUserResults(userHand) {
   // Fullhouse
   if(pairCount['pair'] === 1 && pairCount['three'] === 1) {
     userResult['score'] = winningHandsKey['Fullhouse'];
+    userResult.bestFiveCards = [];
+    for(let key in userCardCount) {
+      if(userCardCount[key] === 2) {
+        userResult.bestFiveCards.push(Number(key))
+        userResult.bestFiveCards.push(Number(key))
+      }
+      if(userCardCount[key] === 3) {
+        userResult.highPairOfWinningHand = Number(key);
+        userResult.bestFiveCards.push(Number(key))
+        userResult.bestFiveCards.push(Number(key))
+        userResult.bestFiveCards.push(Number(key))
+      }
+    }
   }
   // Four of a kind
   if(pairCount['four'] === 1) {
     userResult['score'] = winningHandsKey['Four of a Kind'];
+    userResult.bestFiveCards = [];
+    for(let key in userCardCount) {
+      if(userCardCount[key] === 4) {
+        userResult.highPairOfWinningHand = Number(key);
+        userResult.bestFiveCards.push(Number(key))
+        userResult.bestFiveCards.push(Number(key))
+        userResult.bestFiveCards.push(Number(key))
+        userResult.bestFiveCards.push(Number(key))
+      }
+    }
   }
   
   // Get values for straight flush check
