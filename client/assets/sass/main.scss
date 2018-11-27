@@ -5,6 +5,7 @@
   margin: 0 auto;
   height: 100vh;
   align-items: center;
+  background: url('/backgrounds/pokerTable.svg') no-repeat center center fixed;
   .cards-container {
     display: flex;
     justify-content: space-evenly;
@@ -34,9 +35,8 @@
       .two-hands {
         display: flex;
         justify-content: space-between;
-        width: 50%;
         div {
-          padding: 5px;
+          padding: 10px;
         }
       }
     }
@@ -52,7 +52,7 @@
     display: flex;
     justify-content: space-evenly;
     width: 40%;
-    margin: 0 auto; 
+    margin: 0 auto 20px; 
     align-items: center;
     min-height: 80px;
     .button {
@@ -78,7 +78,7 @@
 }
 
 .card-image {
-  max-width: 50px;
+  max-width: 80px;
   height: auto;
   padding: 0 3px;
 }
