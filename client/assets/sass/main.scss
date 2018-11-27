@@ -4,20 +4,31 @@
   flex-direction: column;
   .cards-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     .community-card-container {
       display: flex;
       justify-content: space-around
     }
     .player-hands-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
       flex-direction: column;
       width: 30%;
       .two-hands {
         display: flex;
         justify-content: space-between;
+        width: 50%;
+        div {
+          padding: 5px;
+        }
       }
+    }
+    .card-header {
+      border: 3px solid black;
+      border-radius: 5px;
+      text-align: center;
+      padding: 5px 10px;
     }
   }
   .buttons-container {

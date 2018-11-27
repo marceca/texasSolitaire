@@ -45,11 +45,13 @@ class App extends Component {
       return this.props.game.userHand[0][0].img
     }
   }
+
   playerCardTwo() {
     if(this.props.game.userHand.length > 0) {
       return this.props.game.userHand[1][0].img
     }
   }
+
   render() {
     // console.log(this.props.game.userHand)
     return (
@@ -58,7 +60,7 @@ class App extends Component {
         <div className="cards-container">
           <div className="player-hands-container">
             <div>
-              <h1>Stick or Switch Cards</h1>
+              <h1 className="card-header">Stick or Switch Cards</h1>
             </div>
             <div className="two-hands">
               <div onClick={(e) => this.changeHands(0, this.props)}>
@@ -87,7 +89,7 @@ class App extends Component {
           </div>
           <div className="community-card-container">
             <div>
-              <h1>Community cards</h1>
+              <h1 className="card-header">Community cards</h1>
               {this.props.game.communityCards}
             </div>
           </div>
