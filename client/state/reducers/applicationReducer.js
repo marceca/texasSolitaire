@@ -10,7 +10,7 @@ const initState = {
   handObjects: [[],[],[], [],[],[]],
   communityCardsValue: [],
   communityCards: [],
-  userHand: false,
+  userHand: [],
   priorHands: {},
   chosenHand: false,
   choseHandThisTurn: false
