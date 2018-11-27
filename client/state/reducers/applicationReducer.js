@@ -13,7 +13,8 @@ const initState = {
   userHand: [],
   priorHands: {},
   chosenHand: false,
-  choseHandThisTurn: false
+  choseHandThisTurn: false,
+  chooseOncePerTurn: false
 }
 
 // Sort user hand by card value
@@ -74,8 +75,17 @@ const applicationReducer = (state = initState, action)=> {
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
         userHandState.chosenHand = action.hand + 1;
         userHandState.choseHandThisTurn = true;
+        userHandState.chooseOncePerTurn = true;
       }
     return userHandState;
+
+    case types.ALLOWSWITCH:
+      const allowSwitchState = Object.assign({}, state);
+      if(allowSwitchState.chooseOncePerTurn === false) {
+        allowSwitchState.choseHandThisTurn = false;
+        allowSwitchState.chooseOncePerTurn = true;
+      }
+    return allowSwitchState
 
     case types.FLOP:
       const flopState = Object.assign({}, state);
@@ -91,7 +101,8 @@ const applicationReducer = (state = initState, action)=> {
           flop++
         }
       }
-      flopState.choseHandThisTurn = false;
+      flopState.choseHandThisTurn = true;
+      flopState.chooseOncePerTurn = false;
     return flopState;
 
     case types.TURN:
@@ -102,7 +113,8 @@ const applicationReducer = (state = initState, action)=> {
       card = turnState.deck.splice(ranNum, 1)
       turnState.communityCardsValue.push(card)
       turnState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
-      turnState.choseHandThisTurn = false;
+      turnState.choseHandThisTurn = true;
+      turnState.chooseOncePerTurn = false;
     return turnState;
 
     case types.RIVER:
@@ -113,7 +125,8 @@ const applicationReducer = (state = initState, action)=> {
       card = riverState.deck.splice(ranNum, 1)
       riverState.communityCardsValue.push(card)
       riverState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
-      riverState.choseHandThisTurn = false;
+      riverState.choseHandThisTurn = true;
+      riverState.chooseOncePerTurn = false;
     return riverState;
 
     case types.RESULTS:
