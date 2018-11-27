@@ -132,56 +132,77 @@ const applicationReducer = (state = initState, action)=> {
     case types.RESULTS:
       const resultsState = Object.assign({}, state);
       
+      // Flip all cards
+      resultsState.handsDisplay[0] = [];
+      resultsState.handsDisplay[0].push(<img key={resultsState.handObjects[0][0][0].name} className="card-image" src={resultsState.handObjects[0][0][0].img} />);
+      resultsState.handsDisplay[0].push(<img key={resultsState.handObjects[0][1][0].name} className="card-image" src={resultsState.handObjects[0][1][0].img} />);
+      resultsState.handsDisplay[1] = [];
+      resultsState.handsDisplay[1].push(<img key={resultsState.handObjects[1][0][0].name} className="card-image" src={resultsState.handObjects[1][0][0].img} />);
+      resultsState.handsDisplay[1].push(<img key={resultsState.handObjects[1][1][0].name} className="card-image" src={resultsState.handObjects[1][1][0].img} />);
+      resultsState.handsDisplay[2] = [];
+      resultsState.handsDisplay[2].push(<img key={resultsState.handObjects[2][0][0].name} className="card-image" src={resultsState.handObjects[2][0][0].img} />);
+      resultsState.handsDisplay[2].push(<img key={resultsState.handObjects[2][1][0].name} className="card-image" src={resultsState.handObjects[2][1][0].img} />);
+      resultsState.handsDisplay[3] = [];
+      resultsState.handsDisplay[3].push(<img key={resultsState.handObjects[3][0][0].name} className="card-image" src={resultsState.handObjects[3][0][0].img} />);
+      resultsState.handsDisplay[3].push(<img key={resultsState.handObjects[3][1][0].name} className="card-image" src={resultsState.handObjects[3][1][0].img} />);
+      resultsState.handsDisplay[4] = [];
+      resultsState.handsDisplay[4].push(<img key={resultsState.handObjects[4][0][0].name} className="card-image" src={resultsState.handObjects[4][0][0].img} />);
+      resultsState.handsDisplay[4].push(<img key={resultsState.handObjects[4][1][0].name} className="card-image" src={resultsState.handObjects[4][1][0].img} />);
+      resultsState.handsDisplay[5] = [];
+      resultsState.handsDisplay[5].push(<img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} />);
+      resultsState.handsDisplay[5].push(<img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} />);
+
+
       // Get user total cards including community
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
 
       // Test hands for getting results
-      resultsState.userHand = [
-        [{
-          value: 4,
-          name: 'Two of Clubs',
-          suit: 'Clubs',
-          img: '/cards/2C.png'
-        }],
-        [{
-          value: 4,
-          name: 'Three of Clubs',
-          suit: 'Clubs',
-          img: '/cards/3C.png'
-        }],
-        [{
-          value: 12,
-          name: 'Four of Clubs',
-          suit: 'Clubs',
-          img: '/cards/4C.png'
-        }],
-        [{
-          value: 9,
-          name: 'Fve of Clubs',
-          suit: 'Clubs',
-          img: '/cards/5C.png'
-        }],
-        [{
-          value: 9,
-          name: 'Six of Clubs',
-          suit: 'Clubs',
-          img: '/cards/6C.png'
-        }],
-        [{
-          value: 9,
-          name: 'Seven of Clubs',
-          suit: 'Spades',
-          img: '/cards/7C.png'
-        }],
-        [{
-          value: 10,
-          name: 'Eight of Clubs',
-          suit: 'hearts',
-          img: '/cards/8C.png'
-        }],
-      ]
+      // resultsState.userHand = [
+      //   [{
+      //     value: 4,
+      //     name: 'Two of Clubs',
+      //     suit: 'Clubs',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 4,
+      //     name: 'Three of Clubs',
+      //     suit: 'Clubs',
+      //     img: '/cards/3C.png'
+      //   }],
+      //   [{
+      //     value: 12,
+      //     name: 'Four of Clubs',
+      //     suit: 'Clubs',
+      //     img: '/cards/4C.png'
+      //   }],
+      //   [{
+      //     value: 9,
+      //     name: 'Fve of Clubs',
+      //     suit: 'Clubs',
+      //     img: '/cards/5C.png'
+      //   }],
+      //   [{
+      //     value: 9,
+      //     name: 'Six of Clubs',
+      //     suit: 'Clubs',
+      //     img: '/cards/6C.png'
+      //   }],
+      //   [{
+      //     value: 9,
+      //     name: 'Seven of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/7C.png'
+      //   }],
+      //   [{
+      //     value: 10,
+      //     name: 'Eight of Clubs',
+      //     suit: 'hearts',
+      //     img: '/cards/8C.png'
+      //   }],
+      // ]
 
       // Sort user hand
       userSort(resultsState.userHand)
