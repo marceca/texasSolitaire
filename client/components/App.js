@@ -104,8 +104,9 @@ class App extends Component {
             <img className="card-image" src={this.playerCardOne()} />
             <img className="card-image" src={this.playerCardTwo()} />
           </div>
-          <div>
-            <button id="game-button" onClick={(e) => this.deal(e,this.props)} >click</button>
+          <div className="stick-switch-buttons">
+            <button className="button" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>
+            <button className="button">Switch</button>
           </div>
         </div>
       </div>
