@@ -55,6 +55,16 @@
     margin: 0 auto; 
     align-items: center;
     min-height: 80px;
+    .button {
+      background: #C9CAC4;
+      height: 50px;
+      width: 100px;
+      border: 1px solid black;
+      border-radius: 5px;
+      font-size: 1.5em;
+      outline: none;
+      margin: 0 10px;
+    }
   }
   .settings-icon {
     position: absolute;
