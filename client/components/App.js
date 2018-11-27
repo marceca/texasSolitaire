@@ -47,13 +47,13 @@ class App extends Component {
   
   playerCardOne() {
     if(this.props.game.userHand.length > 0) {
-      return this.props.game.userHand[0][0].img
+      return this.props.game.handsDisplay[this.props.game.chosenHand - 1][0]
     }
   }
 
   playerCardTwo() {
     if(this.props.game.userHand.length > 0) {
-      return this.props.game.userHand[1][0].img
+      return this.props.game.handsDisplay[this.props.game.chosenHand - 1][1]      
     }
   }
 
@@ -106,8 +106,8 @@ class App extends Component {
         </div>
         <div className="buttons-container">
           <div className="user-cards">
-            <img className="card-image" src={this.playerCardOne()} />
-            <img className="card-image" src={this.playerCardTwo()} />
+            {this.playerCardOne()}
+            {this.playerCardTwo()}
           </div>
           <div className="stick-switch-buttons">
             <button className="button" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>
