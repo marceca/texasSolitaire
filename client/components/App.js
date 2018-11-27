@@ -57,10 +57,13 @@ class App extends Component {
     return (
       console.log(this.props),
       <div className="game-container">
+        <div className="settings-icon">
+          <img src="/icons/settings.png" />
+        </div>
         <div className="cards-container">
           <div className="player-hands-container">
             <div>
-              <h1 className="card-header">Stick or Switch Cards</h1>
+              <p className="card-header">Stick or Switch Cards</p>
             </div>
             <div className="two-hands">
               <div onClick={(e) => this.changeHands(0, this.props)}>
@@ -89,8 +92,10 @@ class App extends Component {
           </div>
           <div className="community-card-container">
             <div>
-              <h1 className="card-header">Community cards</h1>
-              {this.props.game.communityCards}
+              <p className="card-header">Community cards</p>
+              <div className="community-cards">
+                {this.props.game.communityCards}
+              </div>
             </div>
           </div>
         </div>
