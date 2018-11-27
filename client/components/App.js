@@ -34,6 +34,11 @@ class App extends Component {
     }
   }
 
+  switch() {
+    console.log('switch')
+    store.dispatch(types.allowSwitch())
+  }
+
   changeHands(id, props) {
     if(props.game.choseHandThisTurn === false) {
       store.dispatch(types.userHand(id))
@@ -106,7 +111,7 @@ class App extends Component {
           </div>
           <div className="stick-switch-buttons">
             <button className="button" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>
-            <button className="button">Switch</button>
+            <button className="button" onClick={(e) => this.switch(e,this.props)}>Switch</button>
           </div>
         </div>
       </div>
