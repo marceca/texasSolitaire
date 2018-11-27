@@ -20,6 +20,12 @@
       }
     }
   }
+  .buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+    margin: auto; 
+  }
 }
 
 .card-image {

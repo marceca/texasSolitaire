@@ -40,7 +40,18 @@ class App extends Component {
     }
   }
   
+  playerCardOne() {
+    if(this.props.game.userHand.length > 0) {
+      return this.props.game.userHand[0][0].img
+    }
+  }
+  playerCardTwo() {
+    if(this.props.game.userHand.length > 0) {
+      return this.props.game.userHand[1][0].img
+    }
+  }
   render() {
+    // console.log(this.props.game.userHand)
     return (
       console.log(this.props),
       <div className="game-container">
@@ -82,7 +93,13 @@ class App extends Component {
           </div>
         </div>
         <div className="buttons-container">
-          <button id="game-button" onClick={(e) => this.deal(e,this.props)} >click</button>
+          <div className="user-cards">
+            <img className="card-image" src={this.playerCardOne()} />
+            <img className="card-image" src={this.playerCardTwo()} />
+          </div>
+          <div>
+            <button id="game-button" onClick={(e) => this.deal(e,this.props)} >click</button>
+          </div>
         </div>
       </div>
     );
