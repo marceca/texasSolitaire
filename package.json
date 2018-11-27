@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack",
-    "start": "concurrently --kill-others-on-fail \"yarn start:server\" \"yarn start:client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run start:server\" \"npm run start:client\"",
     "start:client": "webpack --watch",
     "start:server": "nodemon server/server.js"
   },
