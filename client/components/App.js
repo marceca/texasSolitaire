@@ -61,57 +61,59 @@ class App extends Component {
     // console.log(this.props.game.userHand)
     return (
       console.log(this.props),
-      <div className="game-container">
-        <div className="settings-icon">
-          <img src="/icons/settings.png" />
-        </div>
-        <div className="cards-container">
-          <div className="player-hands-container">
-            <div>
-              <p className="card-header">Stick or Switch Cards</p>
+      <div className="background-image-container">
+        <div className="game-container">
+          <div className="settings-icon">
+            <img src="/icons/settings.png" />
+          </div>
+          <div className="cards-container">
+            <div className="player-hands-container">
+              <div>
+                <p className="card-header">Stick or Switch Cards</p>
+              </div>
+              <div className="two-hands">
+                <div onClick={(e) => this.changeHands(0, this.props)}>
+                  {this.props.game.handsDisplay[0]}
+                </div>
+                <div onClick={(e) => this.changeHands(1, this.props)}>
+                  {this.props.game.handsDisplay[1]}
+                </div>
+              </div>
+              <div className="two-hands">
+                <div onClick={(e) => this.changeHands(2, this.props)}>
+                  {this.props.game.handsDisplay[2]}
+                </div>
+                <div onClick={(e) => this.changeHands(3, this.props)}>
+                  {this.props.game.handsDisplay[3]}
+                </div>
+              </div>
+              <div className="two-hands">
+                <div onClick={(e) => this.changeHands(4, this.props)}>
+                  {this.props.game.handsDisplay[4]}
+                </div>
+                <div onClick={(e) => this.changeHands(5, this.props)}>
+                  {this.props.game.handsDisplay[5]}
+                </div>
+              </div>
             </div>
-            <div className="two-hands">
-              <div onClick={(e) => this.changeHands(0, this.props)}>
-                {this.props.game.handsDisplay[0]}
-              </div>
-              <div onClick={(e) => this.changeHands(1, this.props)}>
-                {this.props.game.handsDisplay[1]}
-              </div>
-            </div>
-            <div className="two-hands">
-              <div onClick={(e) => this.changeHands(2, this.props)}>
-                {this.props.game.handsDisplay[2]}
-              </div>
-              <div onClick={(e) => this.changeHands(3, this.props)}>
-                {this.props.game.handsDisplay[3]}
-              </div>
-            </div>
-            <div className="two-hands">
-              <div onClick={(e) => this.changeHands(4, this.props)}>
-                {this.props.game.handsDisplay[4]}
-              </div>
-              <div onClick={(e) => this.changeHands(5, this.props)}>
-                {this.props.game.handsDisplay[5]}
+            <div className="community-card-container">
+              <div>
+                <p className="card-header">Community cards</p>
+                <div className="community-cards">
+                  {this.props.game.communityCards}
+                </div>
               </div>
             </div>
           </div>
-          <div className="community-card-container">
-            <div>
-              <p className="card-header">Community cards</p>
-              <div className="community-cards">
-                {this.props.game.communityCards}
-              </div>
+          <div className="buttons-container">
+            <div className="user-cards">
+              {this.playerCardOne()}
+              {this.playerCardTwo()}
             </div>
-          </div>
-        </div>
-        <div className="buttons-container">
-          <div className="user-cards">
-            {this.playerCardOne()}
-            {this.playerCardTwo()}
-          </div>
-          <div className="stick-switch-buttons">
-            <button className="button" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>
-            <button className="button" onClick={(e) => this.switch(e,this.props)}>Switch</button>
+            <div className="stick-switch-buttons">
+              <button className="button stick" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>
+              <button className="button switch" onClick={(e) => this.switch(e,this.props)}>Switch</button>
+            </div>
           </div>
         </div>
       </div>
