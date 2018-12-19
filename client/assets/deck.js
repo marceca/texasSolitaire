@@ -3,312 +3,312 @@ let deck =  [
     value: 2,
     name: 'Two of Clubs',
     suit: 'Clubs',
-    img: '/cards/2C.png'
+    img: '/cards/2_of_Clubs.svg'
   },
   {
     value: 3,
     name: 'Three of Clubs',
     suit: 'Clubs',
-    img: '/cards/3C.png'
+    img: '/cards/3_of_Clubs.svg'
   },
   {
     value: 4,
     name: 'Four of Clubs',
     suit: 'Clubs',
-    img: '/cards/4C.png'
+    img: '/cards/4_of_Clubs.svg'
   },
   {
     value: 5,
     name: 'Fve of Clubs',
     suit: 'Clubs',
-    img: '/cards/5C.png'
+    img: '/cards/5_of_Clubs.svg'
   },
   {
     value: 6,
     name: 'Six of Clubs',
     suit: 'Clubs',
-    img: '/cards/6C.png'
+    img: '/cards/6_of_Clubs.svg'
   },
   {
     value: 7,
     name: 'Seven of Clubs',
     suit: 'Clubs',
-    img: '/cards/7C.png'
+    img: '/cards/7_of_Clubs.svg'
   },
   {
     value: 8,
     name: 'Eight of Clubs',
     suit: 'Clubs',
-    img: '/cards/8C.png'
+    img: '/cards/8_of_Clubs.svg'
   },
   {
     value: 9,
     name: 'Nine of Clubs',
     suit: 'Clubs',
-    img: '/cards/9C.png'
+    img: '/cards/9_of_Clubs.svg'
   },
   {
     value: 10,
     name: 'Ten of Clubs',
     suit: 'Clubs',
-    img: '/cards/10C.png'
+    img: '/cards/10_of_Clubs.svg'
   },
   {
     value: 11,
     name: 'Jack of Clubs',
     suit: 'Clubs',
-    img: '/cards/JC.png'
+    img: '/cards/Jack_of_Clubs.svg'
   },
   {
     value: 12,
     name: 'Queen of Clubs',
     suit: 'Clubs',
-    img: '/cards/QC.png'
+    img: '/cards/Queen_of_Clubs.svg'
   },
   {
     value: 13,
     name: 'King of Clubs',
     suit: 'Clubs',
-    img: '/cards/KC.png'
+    img: '/cards/King_of_Clubs.svg'
   },
   {
     value: 14,
     name: 'Ace of Clubs',
     suit: 'Clubs',
-    img: '/cards/AC.png'
+    img: '/cards/Ace_of_Clubs.svg'
   },
   {
     value: 2,
     name: 'Two of Spades',
     suit: 'Spades',
-    img: '/cards/2S.png'
+    img: '/cards/2_of_Spades.svg'
   },
   {
     value: 3,
     name: 'Three of Spades',
     suit: 'Spades',
-    img: '/cards/3S.png'
+    img: '/cards/3_of_Spades.svg'
   },
   {
     value: 4,
     name: 'Four of Spades',
     suit: 'Spades',
-    img: '/cards/4S.png'
+    img: '/cards/4_of_Spades.svg'
   },
   {
     value: 5,
     name: 'Fve of Spades',
     suit: 'Spades',
-    img: '/cards/5S.png'
+    img: '/cards/5_of_Spades.svg'
   },
   {
     value: 6,
     name: 'Six of Spades',
     suit: 'Spades',
-    img: '/cards/6S.png'
+    img: '/cards/6_of_Spades.svg'
   },
   {
     value: 7,
     name: 'Seven of Spades',
     suit: 'Spades',
-    img: '/cards/7S.png'
+    img: '/cards/7_of_Spades.svg'
   },
   {
     value: 8,
     name: 'Eight of Spades',
     suit: 'Spades',
-    img: '/cards/8S.png'
+    img: '/cards/8_of_Spades.svg'
   },
   {
     value: 9,
     name: 'Nine of Spades',
     suit: 'Spades',
-    img: '/cards/9S.png'
+    img: '/cards/9_of_Spades.svg'
   },
   {
     value: 10,
     name: 'Ten of Spades',
     suit: 'Spades',
-    img: '/cards/10S.png'
+    img: '/cards/10_of_Spades.svg'
   },
   {
     value: 11,
     name: 'Jack of Spades',
-    img: '/cards/JS.png'
+    img: '/cards/Jack_of_Spades.svg'
   },
   {
     value: 12,
     name: 'Queen of Spades',
     suit: 'Spades',
-    img: '/cards/QS.png'
+    img: '/cards/Queen_of_Spades.svg'
   },
   {
     value: 13,
     name: 'King of Spades',
     suit: 'Spades',
-    img: '/cards/KS.png'
+    img: '/cards/King_of_Spades.svg'
   },
   {
     value: 14,
     name: 'Ace of Spades',
     suit: 'Spades',
-    img: '/cards/AS.png'
+    img: '/cards/Ace_of_Spades.svg'
   },
   {
     value: 2,
     name: 'Two of Hearts',
     suit: 'Hearts',
-    img: '/cards/2H.png'
+    img: '/cards/2_of_Hearts.svg'
   },
   {
     value: 3,
     name: 'Three of Hearts',
     suit: 'Hearts',
-    img: '/cards/3H.png'
+    img: '/cards/3_of_Hearts.svg'
   },
   {
     value: 4,
     name: 'Four of Hearts',
     suit: 'Hearts',
-    img: '/cards/4H.png'
+    img: '/cards/4_of_Hearts.svg'
   },
   {
     value: 5,
     name: 'Fve of Hearts',
     suit: 'Hearts',
-    img: '/cards/5H.png'
+    img: '/cards/5_of_Hearts.svg'
   },
   {
     value: 6,
     name: 'Six of Hearts',
     suit: 'Hearts',
-    img: '/cards/6H.png'
+    img: '/cards/6_of_Hearts.svg'
   },
   {
     value: 7,
     name: 'Seven of Hearts',
     suit: 'Hearts',
-    img: '/cards/7H.png'
+    img: '/cards/7_of_Hearts.svg'
   },
   {
     value: 8,
     name: 'Eight of Hearts',
     suit: 'Hearts',
-    img: '/cards/8H.png'
+    img: '/cards/8_of_Hearts.svg'
   },
   {
     value: 9,
     name: 'Nine of Hearts',
     suit: 'Hearts',
-    img: '/cards/9H.png'
+    img: '/cards/9_of_Hearts.svg'
   },
   {
     value: 10,
     name: 'Ten of Hearts',
     suit: 'Hearts',
-    img: '/cards/10H.png'
+    img: '/cards/10_of_Hearts.svg'
   },
   {
     value: 11,
     name: 'Jack of Hearts',
     suit: 'Hearts',
-    img: '/cards/JH.png'
+    img: '/cards/Jack_of_Hearts.svg'
   },
   {
     value: 12,
     name: 'Queen of Hearts',
     suit: 'Hearts',
-    img: '/cards/QH.png'
+    img: '/cards/Queen_of_Hearts.svg'
   },
   {
     value: 13,
     name: 'King of Hearts',
     suit: 'Hearts',
-    img: '/cards/KH.png'
+    img: '/cards/King_of_Hearts.svg'
   },
   {
     value: 14,
     name: 'Ace of Hearts',
     suit: 'Hearts',
-    img: '/cards/AH.png'
+    img: '/cards/Ace_of_Hearts.svg'
   },
   {
     value: 2,
     name: 'Two of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/2D.png'
+    img: '/cards/2_of_Diamonds.svg'
   },
   {
     value: 3,
     name: 'Three of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/3D.png'
+    img: '/cards/3_of_Diamonds.svg'
   },
   {
     value: 4,
     name: 'Four of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/4D.png'
+    img: '/cards/4_of_Diamonds.svg'
   },
   {
     value: 5,
     name: 'Fve of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/5D.png'
+    img: '/cards/5_of_Diamonds.svg'
   },
   {
     value: 6,
     name: 'Six of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/6D.png'
+    img: '/cards/6_of_Diamonds.svg'
   },
   {
     value: 7,
     name: 'Seven of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/7D.png'
+    img: '/cards/7_of_Diamonds.svg'
   },
   {
     value: 8,
     name: 'Eight of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/8D.png'
+    img: '/cards/8_of_Diamonds.svg'
   },
   {
     value: 9,
     name: 'Nine of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/9D.png'
+    img: '/cards/9_of_Diamonds.svg'
   },
   {
     value: 10,
     name: 'Ten of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/10D.png'
+    img: '/cards/10_of_Diamonds.svg'
   },
   {
     value: 11,
     name: 'Jack of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/JD.png'
+    img: '/cards/Jack_of_Diamonds.svg'
   },
   {
     value: 12,
     name: 'Queen of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/QD.png'
+    img: '/cards/Queen_of_Diamonds.svg'
   },
   {
     value: 13,
     name: 'King of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/KD.png'
+    img: '/cards/King_of_Diamonds.svg'
   },
   {
     value: 14,
     name: 'Ace of Diamonds',
     suit: 'Diamonds',
-    img: '/cards/AD.png'
+    img: '/cards/Ace_of_Diamonds.svg'
   }
 ]
 
