@@ -80,6 +80,8 @@ const applicationReducer = (state = initState, action)=> {
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />);
         userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
         userHandState.chosenHand = action.hand + 1;
+        [userHandState.handsDisplay[6][0], userHandState.handsDisplay[action.hand][0]] = [userHandState.handsDisplay[action.hand][0], userHandState.handsDisplay[6][0]];
+        [userHandState.handsDisplay[6][1], userHandState.handsDisplay[action.hand][1]] = [userHandState.handsDisplay[action.hand][1], userHandState.handsDisplay[6][1]];
         userHandState.choseHandThisTurn = true;
         userHandState.chooseOncePerTurn = true;
       }
