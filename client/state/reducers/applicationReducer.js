@@ -57,7 +57,7 @@ const applicationReducer = (state = initState, action)=> {
             // Random card from ranNum
             card = dealState.deck.splice(ranNum, 1)
             dealState.handObjects[i].push(card)
-            dealState.handsDisplay[i].push(<img key={card[0].name} className="card-image" src={'/cards/blue_back.png'} />)
+            dealState.handsDisplay[i].push(<img key={card[0].name} className="card-image" src={'/cards/nicubunu_Card_backs_simple_red.svg'} />)
           }
           cardsEach++
         }
