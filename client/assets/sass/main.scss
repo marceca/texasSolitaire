@@ -1,19 +1,21 @@
 body {
   background: url('/backgrounds/brown-design-hardwood.jpg');
 }
+.background-image-container {
+  background: url('/tables/Poker_Table.svg') no-repeat center center fixed;
+}
 .game-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
   height: 100vh;
-  align-items: center;
-  background: url('/tables/Poker_Table.svg') no-repeat center center fixed;
   .cards-container {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    position: absolute;
+    top: 18%;
     .community-card-container {
       display: flex;
       justify-content: space-around;
@@ -59,16 +61,25 @@ body {
     width: 40%;
     margin: 0 auto 20px; 
     align-items: center;
-    min-height: 80px;
-    .button {
-      background: #C9CAC4;
-      height: 50px;
-      width: 100px;
-      border: 1px solid black;
-      border-radius: 5px;
-      font-size: 1.5em;
-      outline: none;
-      margin: 0 10px;
+    min-height: 115px;
+    position: absolute;
+    bottom: 15%;
+    .stick-switch-buttons {
+      .button {
+        background: #C9CAC4;
+        height: 50px;
+        width: 150px;
+        border: none;
+        color: transparent;
+        outline: none;
+        margin: 0 10px;
+      }
+      .stick {
+        background: url('/icons/Stick_Button_Black.svg') no-repeat center center;
+      }
+      .switch {
+        background: url('/icons/Switch_Button_Black.svg')  no-repeat center center;
+      }
     }
   }
   .settings-icon {
