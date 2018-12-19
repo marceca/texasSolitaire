@@ -6,14 +6,14 @@ import * as getHands from '../helpers/functionsHelpers';
 const initState = {
   dealt: false,
   deck: STARTING_DECK,
-  handsDisplay: [[],[],[], [],[],[]],
-  handObjects: [[],[],[], [],[],[]],
+  handsDisplay: [[],[],[],[],[],[],[]],
+  handObjects: [[],[],[],[],[],[],[]],
   communityCardsValue: [],
   communityCards: [],
   userHand: [],
   priorHands: {},
-  chosenHand: false,
-  choseHandThisTurn: false,
+  chosenHand: true,
+  choseHandThisTurn: true,
   chooseOncePerTurn: false
 }
 
@@ -60,13 +60,19 @@ const applicationReducer = (state = initState, action)=> {
             dealState.handsDisplay[i].push(<img key={card[0].name} className="card-image" src={'/cards/nicubunu_Card_backs_simple_red.svg'} />)
           }
           cardsEach++
+          dealState.userHand = dealState.handObjects[6]
+          console.log(dealState)
         }
+        dealState.handsDisplay[6] = []
+        dealState.handsDisplay[6].push(<img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} />);
+        dealState.handsDisplay[6].push(<img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} />);
         dealState.dealt = true;
       }
     return dealState;
 
     case types.USERHAND:
       const userHandState = Object.assign({}, state);
+      console.log('action hand ', action.hand)
       if(!userHandState.priorHands[action.hand] && userHandState.dealt === true) {
         userHandState.userHand = userHandState.handObjects[action.hand];
         userHandState.priorHands[action.hand] = true;

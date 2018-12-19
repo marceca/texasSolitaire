@@ -107,8 +107,7 @@ class App extends Component {
           </div>
           <div className="buttons-container">
             <div className="user-cards">
-              {this.playerCardOne()}
-              {this.playerCardTwo()}
+              {this.props.game.handsDisplay[6]}
             </div>
             <div className="stick-switch-buttons">
               <button className="button stick" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>
