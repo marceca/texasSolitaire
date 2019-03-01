@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import store from '../state/store';
 import * as types from '../state/actions/actions';
 import Settings from './Settings';
-import Background_Image_Selection from './Background_Image_Selection';
+import Background_Image_Selection from './settings/Background_Image_Selection';
+import Change_Card_Back from './settings/Change_Card_Back';
 
 const mapStateToProps = (state) => {
   return {
-    game: state.application
+    game: state.application,
+    settings: state.settings
   }
 }
 class App extends Component {
@@ -64,7 +66,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.props.game.userHand)
     return (
       console.log(this.props),
       <div className="background-image-container">
@@ -72,8 +73,9 @@ class App extends Component {
           <div className="settings-icon" >
             <img onClick={() => this.openSettings()} src="/icons/settings.png" />
           </div>
-          {this.props.game.background_image ? <Background_Image_Selection /> : null}
-          { this.props.game.settings ? <Settings /> : null }
+          {this.props.settings.background_image ? <Background_Image_Selection /> : null}
+          {this.props.settings.change_card_back ? <Change_Card_Back /> : null}
+          { this.props.settings.settings ? <Settings /> : null }
           <div></div>
           <div className="cards-container">
             <div className="player-hands-container">

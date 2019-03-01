@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import * as types from '../actions/actions';
-import STARTING_DECK from '../../assets/deck'
+import STARTING_DECK from '../../assets/deck';
 import * as getHands from '../helpers/functionsHelpers';
 
 const initState = {
@@ -14,9 +14,7 @@ const initState = {
   priorHands: {},
   chosenHand: true,
   choseHandThisTurn: true,
-  chooseOncePerTurn: false,
-  settings: false,
-  background_image: false
+  chooseOncePerTurn: false
 }
 
 // Sort user hand by card value
@@ -47,29 +45,6 @@ function computerSort(compSorting) {
 
 const applicationReducer = (state = initState, action)=> {
   switch (action.type) {
-
-    //SETTINGS CONTROLS
-    case types.SETTINGS:
-      const settingsState = Object.assign({}, state);
-      settingsState.settings = true;
-    return settingsState;
-
-    case types.CLOSESETTINGS:
-      const closeSettingsState = Object.assign({}, state);
-      closeSettingsState.settings = false;
-      closeSettingsState.background_image = false;
-    return closeSettingsState;
-
-    case types.CHANGEBACKGROUNDIMAGE:
-      const changeBackgroundImageState = Object.assign({}, state)
-      changeBackgroundImageState.background_image = true;
-    return changeBackgroundImageState;
-
-    case types.BACKGROUNDIMAGECLOSE:
-      const backgroundImageCloseState = Object.assign({}, state);
-      backgroundImageCloseState.background_image = false;
-    return backgroundImageCloseState;
-
 
     // GAME CONTROLS
     case types.DEAL:
