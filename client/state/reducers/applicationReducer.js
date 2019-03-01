@@ -14,7 +14,9 @@ const initState = {
   priorHands: {},
   chosenHand: true,
   choseHandThisTurn: true,
-  chooseOncePerTurn: false
+  chooseOncePerTurn: false,
+  settings: false,
+  background_image: false
 }
 
 // Sort user hand by card value
@@ -45,6 +47,31 @@ function computerSort(compSorting) {
 
 const applicationReducer = (state = initState, action)=> {
   switch (action.type) {
+
+    //SETTINGS CONTROLS
+    case types.SETTINGS:
+      const settingsState = Object.assign({}, state);
+      settingsState.settings = true;
+    return settingsState;
+
+    case types.CLOSESETTINGS:
+      const closeSettingsState = Object.assign({}, state);
+      closeSettingsState.settings = false;
+      closeSettingsState.background_image = false;
+    return closeSettingsState;
+
+    case types.CHANGEBACKGROUNDIMAGE:
+      const changeBackgroundImageState = Object.assign({}, state)
+      changeBackgroundImageState.background_image = true;
+    return changeBackgroundImageState;
+
+    case types.BACKGROUNDIMAGECLOSE:
+      const backgroundImageCloseState = Object.assign({}, state);
+      backgroundImageCloseState.background_image = false;
+    return backgroundImageCloseState;
+
+
+    // GAME CONTROLS
     case types.DEAL:
       const dealState = Object.assign({}, state);
       let card, ranNum;
@@ -57,15 +84,15 @@ const applicationReducer = (state = initState, action)=> {
             // Random card from ranNum
             card = dealState.deck.splice(ranNum, 1)
             dealState.handObjects[i].push(card)
-            dealState.handsDisplay[i].push(<img key={card[0].name} className="card-image" src={'/cards/nicubunu_Card_backs_simple_red.svg'} />)
+            dealState.handsDisplay[i].push(<div className="card-image-container"><img key={card[0].name} className="card-image" src={'/cards/nicubunu_Card_backs_simple_red.svg'} /></div>)
           }
           cardsEach++
           dealState.userHand = dealState.handObjects[6]
           console.log(dealState)
         }
         dealState.handsDisplay[6] = []
-        dealState.handsDisplay[6].push(<img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} />);
-        dealState.handsDisplay[6].push(<img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} />);
+        dealState.handsDisplay[6].push(<div className="card-image-container"><img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} /></div>);
+        dealState.handsDisplay[6].push(<div className="card-image-container"><img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} /></div>);
         dealState.dealt = true;
       }
     return dealState;
@@ -77,8 +104,8 @@ const applicationReducer = (state = initState, action)=> {
         userHandState.userHand = userHandState.handObjects[action.hand];
         userHandState.priorHands[action.hand] = true;
         userHandState.handsDisplay[action.hand] = [];
-        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />);
-        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
+        userHandState.handsDisplay[action.hand].push(<div  className="card-image-container"><img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} /></div>);
+        userHandState.handsDisplay[action.hand].push(<div  className="card-image-container"><img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} /></div>);
         userHandState.chosenHand = action.hand + 1;
         [userHandState.handsDisplay[6][0], userHandState.handsDisplay[action.hand][0]] = [userHandState.handsDisplay[action.hand][0], userHandState.handsDisplay[6][0]];
         [userHandState.handsDisplay[6][1], userHandState.handsDisplay[action.hand][1]] = [userHandState.handsDisplay[action.hand][1], userHandState.handsDisplay[6][1]];
@@ -106,7 +133,7 @@ const applicationReducer = (state = initState, action)=> {
           // Random card from ranNum
           card = flopState.deck.splice(ranNum, 1)
           flopState.communityCardsValue.push(card)
-          flopState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+          flopState.communityCards.push(<div className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
           flop++
         }
       }
@@ -121,7 +148,7 @@ const applicationReducer = (state = initState, action)=> {
       // Random card from ranNum
       card = turnState.deck.splice(ranNum, 1)
       turnState.communityCardsValue.push(card)
-      turnState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+      turnState.communityCards.push(<div className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
       turnState.choseHandThisTurn = true;
       turnState.chooseOncePerTurn = false;
     return turnState;
@@ -133,7 +160,7 @@ const applicationReducer = (state = initState, action)=> {
       // Random card from ranNum
       card = riverState.deck.splice(ranNum, 1)
       riverState.communityCardsValue.push(card)
-      riverState.communityCards.push(<img key={card[0].name} className="card-image" src={card[0].img} />)
+      riverState.communityCards.push(<div className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
       riverState.choseHandThisTurn = true;
       riverState.chooseOncePerTurn = false;
     return riverState;
@@ -143,23 +170,23 @@ const applicationReducer = (state = initState, action)=> {
       
       // Flip all cards
       resultsState.handsDisplay[0] = [];
-      resultsState.handsDisplay[0].push(<img key={resultsState.handObjects[0][0][0].name} className="card-image" src={resultsState.handObjects[0][0][0].img} />);
-      resultsState.handsDisplay[0].push(<img key={resultsState.handObjects[0][1][0].name} className="card-image" src={resultsState.handObjects[0][1][0].img} />);
+      resultsState.handsDisplay[0].push(<div className="card-image-container"><img key={resultsState.handObjects[0][0][0].name} className="card-image" src={resultsState.handObjects[0][0][0].img} /></div>);
+      resultsState.handsDisplay[0].push(<div className="card-image-container"><img key={resultsState.handObjects[0][1][0].name} className="card-image" src={resultsState.handObjects[0][1][0].img} /></div>);
       resultsState.handsDisplay[1] = [];
-      resultsState.handsDisplay[1].push(<img key={resultsState.handObjects[1][0][0].name} className="card-image" src={resultsState.handObjects[1][0][0].img} />);
-      resultsState.handsDisplay[1].push(<img key={resultsState.handObjects[1][1][0].name} className="card-image" src={resultsState.handObjects[1][1][0].img} />);
+      resultsState.handsDisplay[1].push(<div className="card-image-container"><img key={resultsState.handObjects[1][0][0].name} className="card-image" src={resultsState.handObjects[1][0][0].img} /></div>);
+      resultsState.handsDisplay[1].push(<div className="card-image-container"><img key={resultsState.handObjects[1][1][0].name} className="card-image" src={resultsState.handObjects[1][1][0].img} /></div>);
       resultsState.handsDisplay[2] = [];
-      resultsState.handsDisplay[2].push(<img key={resultsState.handObjects[2][0][0].name} className="card-image" src={resultsState.handObjects[2][0][0].img} />);
-      resultsState.handsDisplay[2].push(<img key={resultsState.handObjects[2][1][0].name} className="card-image" src={resultsState.handObjects[2][1][0].img} />);
+      resultsState.handsDisplay[2].push(<div className="card-image-container"><img key={resultsState.handObjects[2][0][0].name} className="card-image" src={resultsState.handObjects[2][0][0].img} /></div>);
+      resultsState.handsDisplay[2].push(<div className="card-image-container"><img key={resultsState.handObjects[2][1][0].name} className="card-image" src={resultsState.handObjects[2][1][0].img} /></div>);
       resultsState.handsDisplay[3] = [];
-      resultsState.handsDisplay[3].push(<img key={resultsState.handObjects[3][0][0].name} className="card-image" src={resultsState.handObjects[3][0][0].img} />);
-      resultsState.handsDisplay[3].push(<img key={resultsState.handObjects[3][1][0].name} className="card-image" src={resultsState.handObjects[3][1][0].img} />);
+      resultsState.handsDisplay[3].push(<div className="card-image-container"><img key={resultsState.handObjects[3][0][0].name} className="card-image" src={resultsState.handObjects[3][0][0].img} /></div>);
+      resultsState.handsDisplay[3].push(<div className="card-image-container"><img key={resultsState.handObjects[3][1][0].name} className="card-image" src={resultsState.handObjects[3][1][0].img} /></div>);
       resultsState.handsDisplay[4] = [];
-      resultsState.handsDisplay[4].push(<img key={resultsState.handObjects[4][0][0].name} className="card-image" src={resultsState.handObjects[4][0][0].img} />);
-      resultsState.handsDisplay[4].push(<img key={resultsState.handObjects[4][1][0].name} className="card-image" src={resultsState.handObjects[4][1][0].img} />);
+      resultsState.handsDisplay[4].push(<div className="card-image-container"><img key={resultsState.handObjects[4][0][0].name} className="card-image" src={resultsState.handObjects[4][0][0].img} /></div>);
+      resultsState.handsDisplay[4].push(<div className="card-image-container"><img key={resultsState.handObjects[4][1][0].name} className="card-image" src={resultsState.handObjects[4][1][0].img} /></div>);
       resultsState.handsDisplay[5] = [];
-      resultsState.handsDisplay[5].push(<img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} />);
-      resultsState.handsDisplay[5].push(<img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} />);
+      resultsState.handsDisplay[5].push(<div className="card-image-container"><img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} /></div>);
+      resultsState.handsDisplay[5].push(<div className="card-image-container"><img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} /></div>);
 
 
       // Get user total cards including community
@@ -289,6 +316,7 @@ const applicationReducer = (state = initState, action)=> {
           if(Math.max(userResult.highPairOfWinningHand) > Math.max(computerResult.highPairOfWinningHand)) {
             console.log('Player wins with a straight!')
           } else if(Math.max(computerResult.highPairOfWinningHand) > Math.max(userResult.highPairOfWinningHand)) {
+            
             console.log(`Computer hand number ${computerResult.computerHand} won with a straight!`)
           } else if(Math.max(userResult.highPairOfWinningHand) === Math.max(computerResult.highPairOfWinningHand)) {
             console.log('Draw')

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../state/store';
 import * as types from '../state/actions/actions';
+import Settings from './Settings';
+import Background_Image_Selection from './Background_Image_Selection';
 
 const mapStateToProps = (state) => {
   return {
@@ -44,6 +46,10 @@ class App extends Component {
       store.dispatch(types.userHand(id))
     }
   }
+
+  openSettings() {
+    store.dispatch(types.settings())
+  }
   
   playerCardOne() {
     if(this.props.game.userHand.length > 0) {
@@ -63,35 +69,38 @@ class App extends Component {
       console.log(this.props),
       <div className="background-image-container">
         <div className="game-container">
-          <div className="settings-icon">
-            <img src="/icons/settings.png" />
+          <div className="settings-icon" >
+            <img onClick={() => this.openSettings()} src="/icons/settings.png" />
           </div>
+          {this.props.game.background_image ? <Background_Image_Selection /> : null}
+          { this.props.game.settings ? <Settings /> : null }
+          <div></div>
           <div className="cards-container">
             <div className="player-hands-container">
-              <div>
+              <div className="padding-bottom-10px">
                 <p className="card-header">Stick or Switch Cards</p>
               </div>
               <div className="two-hands">
-                <div onClick={(e) => this.changeHands(0, this.props)}>
+                <div className="possible-hand" onClick={(e) => this.changeHands(0, this.props)}>
                   {this.props.game.handsDisplay[0]}
                 </div>
-                <div onClick={(e) => this.changeHands(1, this.props)}>
+                <div className="possible-hand" onClick={(e) => this.changeHands(1, this.props)}>
                   {this.props.game.handsDisplay[1]}
                 </div>
               </div>
               <div className="two-hands">
-                <div onClick={(e) => this.changeHands(2, this.props)}>
+                <div className="possible-hand" onClick={(e) => this.changeHands(2, this.props)}>
                   {this.props.game.handsDisplay[2]}
                 </div>
-                <div onClick={(e) => this.changeHands(3, this.props)}>
+                <div className="possible-hand" onClick={(e) => this.changeHands(3, this.props)}>
                   {this.props.game.handsDisplay[3]}
                 </div>
               </div>
               <div className="two-hands">
-                <div onClick={(e) => this.changeHands(4, this.props)}>
+                <div className="possible-hand" onClick={(e) => this.changeHands(4, this.props)}>
                   {this.props.game.handsDisplay[4]}
                 </div>
-                <div onClick={(e) => this.changeHands(5, this.props)}>
+                <div className="possible-hand" onClick={(e) => this.changeHands(5, this.props)}>
                   {this.props.game.handsDisplay[5]}
                 </div>
               </div>
@@ -107,7 +116,9 @@ class App extends Component {
           </div>
           <div className="buttons-container">
             <div className="user-cards">
-              {this.props.game.handsDisplay[6]}
+              <div className="card-shrink">
+                {this.props.game.handsDisplay[6]}
+              </div>
             </div>
             <div className="stick-switch-buttons">
               <button className="button stick" id="game-button" onClick={(e) => this.deal(e,this.props)} >Play</button>

@@ -5,6 +5,10 @@ const RIVER = 'RIVER';
 const USERHAND = 'USERHAND';
 const RESULTS = 'RESULTS';
 const ALLOWSWITCH = 'ALLOWSWITCH';
+const SETTINGS = 'SETTINGS';
+const CLOSESETTINGS = 'CLOSESETTINGS';
+const CHANGEBACKGROUNDIMAGE = 'CHANGEBACKGROUNDIMAGE';
+const BACKGROUNDIMAGECLOSE = 'BACKGROUNDIMAGECLOSE';
 
 const deal = () => ({type: DEAL});
 const flop = () => ({type: FLOP});
@@ -13,6 +17,10 @@ const river = () => ({type: RIVER});
 const userHand = (hand) => ({type: USERHAND, hand});
 const results = () => ({type: RESULTS});
 const allowSwitch = () => ({type: ALLOWSWITCH});
+const settings = () => ({type: SETTINGS});
+const closeSettings = () => ({type: CLOSESETTINGS});
+const changeBackgroundImage = () => ({type: CHANGEBACKGROUNDIMAGE});
+const backgroundImageClose = () => ({type: BACKGROUNDIMAGECLOSE});
 
 module.exports = {
   DEAL,
@@ -28,5 +36,13 @@ module.exports = {
   RESULTS,
   results,
   ALLOWSWITCH,
-  allowSwitch
+  allowSwitch,
+  SETTINGS,
+  settings,
+  CLOSESETTINGS,
+  closeSettings,
+  CHANGEBACKGROUNDIMAGE,
+  changeBackgroundImage,
+  BACKGROUNDIMAGECLOSE,
+  backgroundImageClose
 }
