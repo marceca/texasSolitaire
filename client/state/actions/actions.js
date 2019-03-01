@@ -9,6 +9,8 @@ const SETTINGS = 'SETTINGS';
 const CLOSESETTINGS = 'CLOSESETTINGS';
 const CHANGEBACKGROUNDIMAGE = 'CHANGEBACKGROUNDIMAGE';
 const BACKGROUNDIMAGECLOSE = 'BACKGROUNDIMAGECLOSE';
+const OPENCARDBACK = 'OPENCARDBACK';
+const CLOSECARDBACK = 'CLOSECARDBACK';
 const CHANGECARDBACK = 'CHANGECARDBACK';
 
 const deal = () => ({type: DEAL});
@@ -22,7 +24,9 @@ const settings = () => ({type: SETTINGS});
 const closeSettings = () => ({type: CLOSESETTINGS});
 const changeBackgroundImage = () => ({type: CHANGEBACKGROUNDIMAGE});
 const backgroundImageClose = () => ({type: BACKGROUNDIMAGECLOSE});
-const changeCardBack = () => ({type: CHANGECARDBACK});
+const openCardBack = () => ({type: OPENCARDBACK});
+const closeCardBack = () => ({type: CLOSECARDBACK});
+const changeCardBack = (cardBack) => ({type: CHANGECARDBACK, cardBack});
 
 module.exports = {
   DEAL,
@@ -47,6 +51,10 @@ module.exports = {
   changeBackgroundImage,
   BACKGROUNDIMAGECLOSE,
   backgroundImageClose,
+  OPENCARDBACK,
+  openCardBack,
+  CLOSECARDBACK,
+  closeCardBack,
   CHANGECARDBACK,
   changeCardBack
 }

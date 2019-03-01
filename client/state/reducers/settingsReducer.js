@@ -24,6 +24,7 @@ const settingsReducer = (state = initState, action)=> {
 
     case types.CHANGEBACKGROUNDIMAGE:
       const changeBackgroundImageState = Object.assign({}, state)
+      changeBackgroundImageState.change_card_back = false;
       changeBackgroundImageState.background_image = true;
     return changeBackgroundImageState;
 
@@ -32,10 +33,11 @@ const settingsReducer = (state = initState, action)=> {
       backgroundImageCloseState.background_image = false;
     return backgroundImageCloseState;
 
-    case types.CHANGECARDBACK:
-      const changeCardBackState = Object.assign({}, state);
-      changeCardBackState.change_card_back = true;
-    return changeCardBackState;
+    case types.OPENCARDBACK:
+      const openCardBackState = Object.assign({}, state);
+      openCardBackState.background_image = false;
+      openCardBackState.change_card_back = true;
+    return openCardBackState;
 
     case types.CLOSECARDBACK:
       const closeCardBackState = Object.assign({}, state);

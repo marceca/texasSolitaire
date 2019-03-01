@@ -18,8 +18,8 @@ class Settings extends Component {
     store.dispatch(types.changeBackgroundImage());
   }
 
-  change_card_back() {
-    store.dispatch(types.changeCardBack());
+  open_card_back() {
+    store.dispatch(types.openCardBack());
   }
 
   render() {
@@ -30,7 +30,7 @@ class Settings extends Component {
         <div className="settings-icons"><p className="settings-text">Show Cards</p><img className="on-off-icon" src="/settings_page/ON_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Total Number of Hands</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div onClick={() => this.change_background_image()} className="settings-icons"><p className="settings-text">Change Background</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
-        <div onClick={() => this.change_card_back()} className="settings-icons"><p className="settings-text">Change Card Backs</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
+        <div onClick={() => this.open_card_back()} className="settings-icons"><p className="settings-text">Change Card Backs</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Hand Ranks</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Contact Us / Feedback</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Tutorial</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>

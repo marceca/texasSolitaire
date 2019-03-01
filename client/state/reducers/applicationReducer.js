@@ -14,7 +14,8 @@ const initState = {
   priorHands: {},
   chosenHand: true,
   choseHandThisTurn: true,
-  chooseOncePerTurn: false
+  chooseOncePerTurn: false,
+  cardBack: '/settings_page/Red_Card_Back_Button.svg'
 }
 
 // Sort user hand by card value
@@ -46,6 +47,13 @@ function computerSort(compSorting) {
 const applicationReducer = (state = initState, action)=> {
   switch (action.type) {
 
+    // SOME SETTINGS
+    case types.CHANGECARDBACK:
+      const changeCardBackState =  Object.assign({}, state);
+      console.log(action.cardBack)
+      changeCardBackState.cardBack = action.cardBack;
+    return changeCardBackState
+
     // GAME CONTROLS
     case types.DEAL:
       const dealState = Object.assign({}, state);
@@ -59,15 +67,15 @@ const applicationReducer = (state = initState, action)=> {
             // Random card from ranNum
             card = dealState.deck.splice(ranNum, 1)
             dealState.handObjects[i].push(card)
-            dealState.handsDisplay[i].push(<div className="card-image-container"><img key={card[0].name} className="card-image" src={'/cards/nicubunu_Card_backs_simple_red.svg'} /></div>)
+            dealState.handsDisplay[i].push(<div key={card[0].name + i} className="card-image-container"><img key={card[0].name} className="card-image" src={dealState.cardBack} /></div>)
           }
           cardsEach++
           dealState.userHand = dealState.handObjects[6]
           console.log(dealState)
         }
         dealState.handsDisplay[6] = []
-        dealState.handsDisplay[6].push(<div className="card-image-container"><img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} /></div>);
-        dealState.handsDisplay[6].push(<div className="card-image-container"><img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} /></div>);
+        dealState.handsDisplay[6].push(<div key={card[0].name + 'firstCardKey'} className="card-image-container"><img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} /></div>);
+        dealState.handsDisplay[6].push(<div key={card[0].name + 'secondCadKey'} className="card-image-container"><img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} /></div>);
         dealState.dealt = true;
       }
     return dealState;
@@ -108,7 +116,7 @@ const applicationReducer = (state = initState, action)=> {
           // Random card from ranNum
           card = flopState.deck.splice(ranNum, 1)
           flopState.communityCardsValue.push(card)
-          flopState.communityCards.push(<div className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
+          flopState.communityCards.push(<div key={card[0].name} className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
           flop++
         }
       }
@@ -123,7 +131,7 @@ const applicationReducer = (state = initState, action)=> {
       // Random card from ranNum
       card = turnState.deck.splice(ranNum, 1)
       turnState.communityCardsValue.push(card)
-      turnState.communityCards.push(<div className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
+      turnState.communityCards.push(<div key={card[0].name} className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
       turnState.choseHandThisTurn = true;
       turnState.chooseOncePerTurn = false;
     return turnState;
@@ -135,7 +143,7 @@ const applicationReducer = (state = initState, action)=> {
       // Random card from ranNum
       card = riverState.deck.splice(ranNum, 1)
       riverState.communityCardsValue.push(card)
-      riverState.communityCards.push(<div className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
+      riverState.communityCards.push(<div key={card[0].name} className="community-card"><img key={card[0].name} className="card-image" src={card[0].img} /></div>)
       riverState.choseHandThisTurn = true;
       riverState.chooseOncePerTurn = false;
     return riverState;
@@ -145,23 +153,23 @@ const applicationReducer = (state = initState, action)=> {
       
       // Flip all cards
       resultsState.handsDisplay[0] = [];
-      resultsState.handsDisplay[0].push(<div className="card-image-container"><img key={resultsState.handObjects[0][0][0].name} className="card-image" src={resultsState.handObjects[0][0][0].img} /></div>);
-      resultsState.handsDisplay[0].push(<div className="card-image-container"><img key={resultsState.handObjects[0][1][0].name} className="card-image" src={resultsState.handObjects[0][1][0].img} /></div>);
+      resultsState.handsDisplay[0].push(<div key={resultsState.handObjects[0][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[0][0][0].name} className="card-image" src={resultsState.handObjects[0][0][0].img} /></div>);
+      resultsState.handsDisplay[0].push(<div key={resultsState.handObjects[0][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[0][1][0].name} className="card-image" src={resultsState.handObjects[0][1][0].img} /></div>);
       resultsState.handsDisplay[1] = [];
-      resultsState.handsDisplay[1].push(<div className="card-image-container"><img key={resultsState.handObjects[1][0][0].name} className="card-image" src={resultsState.handObjects[1][0][0].img} /></div>);
-      resultsState.handsDisplay[1].push(<div className="card-image-container"><img key={resultsState.handObjects[1][1][0].name} className="card-image" src={resultsState.handObjects[1][1][0].img} /></div>);
+      resultsState.handsDisplay[1].push(<div key={resultsState.handObjects[1][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[1][0][0].name} className="card-image" src={resultsState.handObjects[1][0][0].img} /></div>);
+      resultsState.handsDisplay[1].push(<div key={resultsState.handObjects[1][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[1][1][0].name} className="card-image" src={resultsState.handObjects[1][1][0].img} /></div>);
       resultsState.handsDisplay[2] = [];
-      resultsState.handsDisplay[2].push(<div className="card-image-container"><img key={resultsState.handObjects[2][0][0].name} className="card-image" src={resultsState.handObjects[2][0][0].img} /></div>);
-      resultsState.handsDisplay[2].push(<div className="card-image-container"><img key={resultsState.handObjects[2][1][0].name} className="card-image" src={resultsState.handObjects[2][1][0].img} /></div>);
+      resultsState.handsDisplay[2].push(<div key={resultsState.handObjects[2][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[2][0][0].name} className="card-image" src={resultsState.handObjects[2][0][0].img} /></div>);
+      resultsState.handsDisplay[2].push(<div key={resultsState.handObjects[2][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[2][1][0].name} className="card-image" src={resultsState.handObjects[2][1][0].img} /></div>);
       resultsState.handsDisplay[3] = [];
-      resultsState.handsDisplay[3].push(<div className="card-image-container"><img key={resultsState.handObjects[3][0][0].name} className="card-image" src={resultsState.handObjects[3][0][0].img} /></div>);
-      resultsState.handsDisplay[3].push(<div className="card-image-container"><img key={resultsState.handObjects[3][1][0].name} className="card-image" src={resultsState.handObjects[3][1][0].img} /></div>);
+      resultsState.handsDisplay[3].push(<div key={resultsState.handObjects[3][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[3][0][0].name} className="card-image" src={resultsState.handObjects[3][0][0].img} /></div>);
+      resultsState.handsDisplay[3].push(<div key={resultsState.handObjects[3][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[3][1][0].name} className="card-image" src={resultsState.handObjects[3][1][0].img} /></div>);
       resultsState.handsDisplay[4] = [];
-      resultsState.handsDisplay[4].push(<div className="card-image-container"><img key={resultsState.handObjects[4][0][0].name} className="card-image" src={resultsState.handObjects[4][0][0].img} /></div>);
-      resultsState.handsDisplay[4].push(<div className="card-image-container"><img key={resultsState.handObjects[4][1][0].name} className="card-image" src={resultsState.handObjects[4][1][0].img} /></div>);
+      resultsState.handsDisplay[4].push(<div key={resultsState.handObjects[4][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[4][0][0].name} className="card-image" src={resultsState.handObjects[4][0][0].img} /></div>);
+      resultsState.handsDisplay[4].push(<div key={resultsState.handObjects[4][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[4][1][0].name} className="card-image" src={resultsState.handObjects[4][1][0].img} /></div>);
       resultsState.handsDisplay[5] = [];
-      resultsState.handsDisplay[5].push(<div className="card-image-container"><img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} /></div>);
-      resultsState.handsDisplay[5].push(<div className="card-image-container"><img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} /></div>);
+      resultsState.handsDisplay[5].push(<div key={resultsState.handObjects[5][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} /></div>);
+      resultsState.handsDisplay[5].push(<div key={resultsState.handObjects[5][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} /></div>);
 
 
       // Get user total cards including community

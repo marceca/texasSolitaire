@@ -72,7 +72,7 @@
       flex-direction: row;
       justify-content: space-around;
       align-content: center;
-      width: 80%;
+      width: 55%;
       align-items: center;
       padding-top: 5px;
       position: relative;
@@ -99,7 +99,19 @@
       margin-bottom: 5px;
     }
   }
+  .change-card-back-container {
+    width: 50%;
+    height: 100%;
+    .card-change-image {
+      height: 80%;
+      width: auto;
+      padding: 2px;
+    }
+  }
   .background-image-change {
     background: url('/settings_page/Settings_BG.svg') no-repeat center center;
+  }
+  .background-change-card-back {
+    background: url('/settings_page/Card_Backs_Page.svg') no-repeat center center;
   }
 }

@@ -39,7 +39,6 @@ class App extends Component {
   }
 
   switch() {
-    console.log('switch')
     store.dispatch(types.allowSwitch())
   }
 
