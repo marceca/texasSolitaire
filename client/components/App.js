@@ -5,6 +5,7 @@ import * as types from '../state/actions/actions';
 import Settings from './Settings';
 import Background_Image_Selection from './settings/Background_Image_Selection';
 import Change_Card_Back from './settings/Change_Card_Back';
+import Total_Number_Of_Hands from './settings/Total_Number_Of_Hands';
 
 const mapStateToProps = (state) => {
   return {
@@ -73,6 +74,7 @@ class App extends Component {
             <img onClick={() => this.openSettings()} src="/icons/settings.png" />
           </div>
           {this.props.settings.background_image ? <Background_Image_Selection /> : null}
+          {this.props.settings.total_hands ? <Total_Number_Of_Hands /> : null}
           {this.props.settings.change_card_back ? <Change_Card_Back /> : null}
           { this.props.settings.settings ? <Settings /> : null }
           <div></div>

@@ -12,6 +12,8 @@ const BACKGROUNDIMAGECLOSE = 'BACKGROUNDIMAGECLOSE';
 const OPENCARDBACK = 'OPENCARDBACK';
 const CLOSECARDBACK = 'CLOSECARDBACK';
 const CHANGECARDBACK = 'CHANGECARDBACK';
+const OPENTOTALNUMBEROFHANDS = 'OPENTOTALNUMBEROFHANDS';
+const CLOSETOTALNUMBEROFHANDS =  'CLOSETOTALNUMBEROFHANDS';
 
 const deal = () => ({type: DEAL});
 const flop = () => ({type: FLOP});
@@ -27,6 +29,8 @@ const backgroundImageClose = () => ({type: BACKGROUNDIMAGECLOSE});
 const openCardBack = () => ({type: OPENCARDBACK});
 const closeCardBack = () => ({type: CLOSECARDBACK});
 const changeCardBack = (cardBack) => ({type: CHANGECARDBACK, cardBack});
+const openTotalNumberOfHands = () => ({type: OPENTOTALNUMBEROFHANDS});
+const closeTotalNumberOfHands = () => ({type: CLOSETOTALNUMBEROFHANDS});
 
 module.exports = {
   DEAL,
@@ -56,5 +60,9 @@ module.exports = {
   CLOSECARDBACK,
   closeCardBack,
   CHANGECARDBACK,
-  changeCardBack
+  changeCardBack,
+  OPENTOTALNUMBEROFHANDS,
+  openTotalNumberOfHands,
+  CLOSETOTALNUMBEROFHANDS,
+  closeTotalNumberOfHands
 }

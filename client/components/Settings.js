@@ -22,13 +22,17 @@ class Settings extends Component {
     store.dispatch(types.openCardBack());
   }
 
+  open_total_number_of_hands() {
+    store.dispatch(types.openTotalNumberOfHands())
+  }
+
   render() {
     return (
       <div className="settings-container">
         <div className="settings-icons top-buffer"><p className="settings-text">Settings</p><img onClick={() => this.closeSettings()} className="white-x-icon" src="/settings_page/White_X.svg" /></div>
         <div className="settings-icons"><p className="settings-text">SFX</p><img className="on-off-icon" src="/settings_page/ON_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Show Cards</p><img className="on-off-icon" src="/settings_page/ON_Button.svg" /></div>
-        <div className="settings-icons"><p className="settings-text">Total Number of Hands</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
+        <div onClick={() => this.open_total_number_of_hands()} className="settings-icons"><p className="settings-text">Total Number of Hands</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div onClick={() => this.change_background_image()} className="settings-icons"><p className="settings-text">Change Background</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div onClick={() => this.open_card_back()} className="settings-icons"><p className="settings-text">Change Card Backs</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Hand Ranks</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
