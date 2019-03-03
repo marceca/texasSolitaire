@@ -26,9 +26,13 @@ const settingsReducer = (state = initState, action)=> {
 
     case types.CHANGEBACKGROUNDIMAGE:
       const changeBackgroundImageState = Object.assign({}, state)
+      if(changeBackgroundImageState.background_image === true) {
+        changeBackgroundImageState.background_image = false;
+      } else {
+        changeBackgroundImageState.background_image = true;
+      }
       changeBackgroundImageState.change_card_back = false;
       changeBackgroundImageState.total_hands = false;
-      changeBackgroundImageState.background_image = true;
     return changeBackgroundImageState;
 
     case types.BACKGROUNDIMAGECLOSE:
@@ -40,7 +44,11 @@ const settingsReducer = (state = initState, action)=> {
       const openCardBackState = Object.assign({}, state);
       openCardBackState.background_image = false;
       openCardBackState.total_hands = false;
-      openCardBackState.change_card_back = true;
+      if(openCardBackState.change_card_back === true) {
+        openCardBackState.change_card_back = false;
+      } else {
+        openCardBackState.change_card_back = true;
+      }
     return openCardBackState;
 
     case types.CLOSECARDBACK:
@@ -52,7 +60,11 @@ const settingsReducer = (state = initState, action)=> {
       const openTotalNumberOfHandsState = Object.assign({}, state);
       openTotalNumberOfHandsState.change_card_back = false;
       openTotalNumberOfHandsState.background_image = false;
-      openTotalNumberOfHandsState.total_hands = true;
+      if(openTotalNumberOfHandsState.total_hands === true) {
+        openTotalNumberOfHandsState.total_hands = false;
+      } else {
+        openTotalNumberOfHandsState.total_hands = true;
+      }
     return openTotalNumberOfHandsState;
 
     case types.CLOSETOTALNUMBEROFHANDS:
