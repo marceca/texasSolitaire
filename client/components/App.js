@@ -6,6 +6,8 @@ import Settings from './Settings';
 import Background_Image_Selection from './settings/Background_Image_Selection';
 import Change_Card_Back from './settings/Change_Card_Back';
 import Total_Number_Of_Hands from './settings/Total_Number_Of_Hands';
+import Hand_Ranks from './settings/Hand_Ranks';
+import Tutorial from './settings/Tutorial';
 
 const mapStateToProps = (state) => {
   return {
@@ -73,11 +75,13 @@ class App extends Component {
           <div className="settings-icon" >
             <img onClick={() => this.openSettings()} src="/icons/settings.png" />
           </div>
+          {/* Setting Pages */}
+          {this.props.settings.tutorial ? <Tutorial /> : null}
+          {this.props.settings.hand_ranks ? <Hand_Ranks /> : null}
           {this.props.settings.background_image ? <Background_Image_Selection /> : null}
           {this.props.settings.total_hands ? <Total_Number_Of_Hands /> : null}
           {this.props.settings.change_card_back ? <Change_Card_Back /> : null}
-          { this.props.settings.settings ? <Settings /> : null }
-          <div></div>
+          { this.props.settings.settings ? <Settings /> : null}
           <div className="cards-container">
             <div className="player-hands-container">
               <div className="padding-bottom-10px">

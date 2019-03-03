@@ -14,6 +14,8 @@ const CLOSECARDBACK = 'CLOSECARDBACK';
 const CHANGECARDBACK = 'CHANGECARDBACK';
 const OPENTOTALNUMBEROFHANDS = 'OPENTOTALNUMBEROFHANDS';
 const CLOSETOTALNUMBEROFHANDS =  'CLOSETOTALNUMBEROFHANDS';
+const OPENHANDRANKS = 'OPENHANDRANKSOPEN';
+const OPENTUTORIAL = 'OPENTUTORIAL';
 
 const deal = () => ({type: DEAL});
 const flop = () => ({type: FLOP});
@@ -31,6 +33,8 @@ const closeCardBack = () => ({type: CLOSECARDBACK});
 const changeCardBack = (cardBack) => ({type: CHANGECARDBACK, cardBack});
 const openTotalNumberOfHands = () => ({type: OPENTOTALNUMBEROFHANDS});
 const closeTotalNumberOfHands = () => ({type: CLOSETOTALNUMBEROFHANDS});
+const openHandRanks = () => ({type: OPENHANDRANKS});
+const openTutorial = () => ({type: OPENTUTORIAL});
 
 module.exports = {
   DEAL,
@@ -64,5 +68,9 @@ module.exports = {
   OPENTOTALNUMBEROFHANDS,
   openTotalNumberOfHands,
   CLOSETOTALNUMBEROFHANDS,
-  closeTotalNumberOfHands
+  closeTotalNumberOfHands,
+  OPENHANDRANKS,
+  openHandRanks,
+  OPENTUTORIAL,
+  openTutorial
 }
