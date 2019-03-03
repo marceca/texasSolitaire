@@ -84,9 +84,6 @@ class App extends Component {
           { this.props.settings.settings ? <Settings /> : null}
           <div className="cards-container">
             <div className="player-hands-container">
-              <div className="padding-bottom-10px">
-                <p className="card-header">Stick or Switch Cards</p>
-              </div>
               <div className="two-hands">
                 <div className="possible-hand" onClick={(e) => this.changeHands(0, this.props)}>
                   {this.props.game.handsDisplay[0]}
@@ -114,7 +111,6 @@ class App extends Component {
             </div>
             <div className="community-card-container">
               <div>
-                <p className="card-header">Community cards</p>
                 <div className="community-cards">
                   {this.props.game.communityCards}
                 </div>
