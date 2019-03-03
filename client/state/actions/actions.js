@@ -16,6 +16,7 @@ const OPENTOTALNUMBEROFHANDS = 'OPENTOTALNUMBEROFHANDS';
 const CLOSETOTALNUMBEROFHANDS =  'CLOSETOTALNUMBEROFHANDS';
 const OPENHANDRANKS = 'OPENHANDRANKSOPEN';
 const OPENTUTORIAL = 'OPENTUTORIAL';
+const TUTORIALPAGE = 'TUTORIALPAGE';
 
 const deal = () => ({type: DEAL});
 const flop = () => ({type: FLOP});
@@ -35,6 +36,7 @@ const openTotalNumberOfHands = () => ({type: OPENTOTALNUMBEROFHANDS});
 const closeTotalNumberOfHands = () => ({type: CLOSETOTALNUMBEROFHANDS});
 const openHandRanks = () => ({type: OPENHANDRANKS});
 const openTutorial = () => ({type: OPENTUTORIAL});
+const tutorialPage = () => ({type: TUTORIALPAGE});
 
 module.exports = {
   DEAL,
@@ -72,5 +74,7 @@ module.exports = {
   OPENHANDRANKS,
   openHandRanks,
   OPENTUTORIAL,
-  openTutorial
+  openTutorial,
+  TUTORIALPAGE,
+  tutorialPage
 }

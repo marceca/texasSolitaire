@@ -7,7 +7,8 @@ const initState = {
   change_card_back: false,
   total_hands: false,
   hand_ranks: false,
-  tutorial: false
+  tutorial: false,
+  tutorial_page: 1
 }
 
 const settingsReducer = (state = initState, action)=> {
@@ -107,6 +108,16 @@ const settingsReducer = (state = initState, action)=> {
         openTutorialState.tutorial = true;
       }
     return openTutorialState;
+
+      case types.TUTORIALPAGE:
+        const tutorialPageState = Object.assign({}, state);
+        tutorialPageState.tutorial_page++
+        if(tutorialPageState.tutorial_page > 5) {
+          tutorialPageState.tutorial_page = 0
+          tutorialPageState.tutorial = false;
+        }
+      return tutorialPageState;
+
   default:
     return state;
   }

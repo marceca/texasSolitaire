@@ -111,7 +111,13 @@
   .tutorial_modal {
     position: absolute;
     width: 100%;
-    height: 100%
+    height: 100%;
+    z-index: 11;
+    background: black;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .background-image-change {
     background: url('/settings_page/Settings_BG.svg') no-repeat center center;
