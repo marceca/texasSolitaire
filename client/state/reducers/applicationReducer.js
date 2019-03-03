@@ -16,7 +16,9 @@ const initState = {
   choseHandThisTurn: true,
   chooseOncePerTurn: false,
   cardBack: '/settings_page/Red_Card_Back_Button.svg',
-  mainMenu: true
+  mainMenu: true,
+  name: null,
+  profilePicture: ''
 }
 
 // Sort user hand by card value
@@ -54,6 +56,18 @@ const applicationReducer = (state = initState, action)=> {
       console.log(action.cardBack)
       changeCardBackState.cardBack = action.cardBack;
     return changeCardBackState
+
+    // GAME START
+    case types.STARTGAME:
+      const startGameState = Object.assign({}, state);
+      startGameState.mainMenu = false;
+    return startGameState;
+
+    // SHOW MAIN MENU
+    case types.SHOWMAINMENU:
+      const showMainMenuState = Object.assign({}, state);
+      showMainMenuState.mainMenu = true;
+    return showMainMenuState;
 
     // GAME CONTROLS
     case types.DEAL:
@@ -172,12 +186,10 @@ const applicationReducer = (state = initState, action)=> {
       resultsState.handsDisplay[5].push(<div key={resultsState.handObjects[5][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} /></div>);
       resultsState.handsDisplay[5].push(<div key={resultsState.handObjects[5][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} /></div>);
 
-
       // Get user total cards including community
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
-
       // Test hands for getting results
       // resultsState.userHand = [
       //   [{
@@ -226,12 +238,15 @@ const applicationReducer = (state = initState, action)=> {
 
       // Sort user hand
       userSort(resultsState.userHand)
+
       // Get user results
       let userResult = getHands.getUserResults(resultsState.userHand);
+      
       // Get computer results
       let computerResult = getHands.getComputerResults(resultsState);
       // Sort computer hand
       computerSort(computerResult)
+
 
       // test hands for results
       // player test hand

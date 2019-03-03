@@ -206,7 +206,6 @@ function getUserResults(userHand) {
 }
 
 function getComputerResults(computerResults) {
-  
   let computerBestHand = {
     score: 0,
     highCard: 0,
@@ -214,7 +213,7 @@ function getComputerResults(computerResults) {
     computerHand: 0,
     bestFiveCards: []
   };
-  for(let i = 0; i < computerResults.handObjects.length; i++) {
+  for(let i = 0; i < computerResults.handObjects.length - 1; i++) {
     // Computer variables inside loops to reset each time
     let curCompHand;
     let curCompResults = {
@@ -236,9 +235,9 @@ function getComputerResults(computerResults) {
     let checkStraightFlushCount = 0
 
     // Skip users hand
-    if(computerResults.chosenHand - 1 === i) {
-      continue
-    }
+    // if(computerResults.chosenHand - 1 === i) {
+    //   continue
+    // }
     curCompHand = computerResults.handObjects[i];
     curCompResults.wholeHand.push(computerResults.handObjects[i][0][0].value)
     curCompResults.wholeHand.push(computerResults.handObjects[i][1][0].value)

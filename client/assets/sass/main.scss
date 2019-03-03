@@ -4,6 +4,50 @@ body {
   overflow-y: hidden;
   background-size: 100% 100%;
   margin: 0;
+  .main_menu {
+    background: url('/main_menu/Menu_Screen.svg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 100;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+      .top_main_menu {
+        display: flex;
+        justify-content: space-between;
+        height: 15%;
+        .player_icon_name {
+          width: 100%;
+          justify-content: right;
+        }
+      }
+      .mid_main_menu {
+        display: flex;
+        height: 70%;
+        .play_button {
+          width: 100%;
+        }
+      }
+      .bottom_main_menu {
+        display: flex;
+        height: 15%;
+        align-items: center;
+        img {
+          width: 33%;
+          height: 70%;
+        }
+      }
+  }
+  .player_name {
+    color: white;
+    font-size: 1.4em;
+    align-self: flex-end;
+  }
 }
 .background-image-container {
   background: url('/tables/Poker_Table.svg') no-repeat center center fixed;

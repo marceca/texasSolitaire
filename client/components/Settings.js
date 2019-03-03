@@ -34,6 +34,10 @@ class Settings extends Component {
     store.dispatch(types.openTutorial())
   }
 
+  show_main_menu() {
+    store.dispatch(types.showMainMenu())
+  }
+
   render() {
     return (
       <div className="settings-container">
@@ -47,7 +51,7 @@ class Settings extends Component {
         <div className="settings-icons"><p className="settings-text">Contact Us / Feedback</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div onClick={() => this.open_tutorial()} className="settings-icons"><p className="settings-text">Tutorial</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
         <div className="settings-icons"><p className="settings-text">Website</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
-        <div className="settings-icons"><p className="settings-text">Menu Screen</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
+        <div onClick={() => this.show_main_menu()} className="settings-icons"><p className="settings-text">Menu Screen</p><img className="blue-icon" src="/settings_page/Blue_Arrow_Button.svg" /></div>
       </div>
     )
   }
