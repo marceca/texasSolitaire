@@ -113,7 +113,7 @@ const settingsReducer = (state = initState, action)=> {
         const tutorialPageState = Object.assign({}, state);
         tutorialPageState.tutorial_page++
         if(tutorialPageState.tutorial_page > 5) {
-          tutorialPageState.tutorial_page = 0
+          tutorialPageState.tutorial_page = 1
           tutorialPageState.tutorial = false;
         }
       return tutorialPageState;
