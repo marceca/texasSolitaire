@@ -15,7 +15,8 @@ const initState = {
   chosenHand: true,
   choseHandThisTurn: true,
   chooseOncePerTurn: false,
-  cardBack: '/settings_page/Red_Card_Back_Button.svg'
+  cardBack: '/settings_page/Red_Card_Back_Button.svg',
+  mainMenu: true
 }
 
 // Sort user hand by card value

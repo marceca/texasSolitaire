@@ -8,6 +8,7 @@ import Change_Card_Back from './settings/Change_Card_Back';
 import Total_Number_Of_Hands from './settings/Total_Number_Of_Hands';
 import Hand_Ranks from './settings/Hand_Ranks';
 import Tutorial from './settings/Tutorial';
+import Main_Menu from './Main_Menu';
 
 const mapStateToProps = (state) => {
   return {
@@ -71,6 +72,7 @@ class App extends Component {
     return (
       console.log(this.props),
       <div className="background-image-container">
+        {this.props.game.mainMenu ? <Main_Menu /> : null}
         <div className="game-container">
           <div className="settings-icon" >
             <img onClick={() => this.openSettings()} src="/icons/settings.png" />
