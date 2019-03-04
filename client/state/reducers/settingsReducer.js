@@ -8,11 +8,25 @@ const initState = {
   total_hands: false,
   hand_ranks: false,
   tutorial: false,
-  tutorial_page: 1
+  tutorial_page: 1,
+  mainMenu: true,
+
 }
 
 const settingsReducer = (state = initState, action)=> {
   switch(action.type) {
+    // GAME START
+    case types.STARTGAME:
+      const startGameState = Object.assign({}, state);
+      startGameState.mainMenu = false;
+    return startGameState;
+
+    // SHOW MAIN MENU
+    case types.SHOWMAINMENU:
+      const showMainMenuState = Object.assign({}, state);
+      showMainMenuState.mainMenu = true;
+    return showMainMenuState;
+
     //SETTINGS CONTROLS
     case types.SETTINGS:
       const settingsState = Object.assign({}, state);

@@ -16,7 +16,6 @@ const initState = {
   choseHandThisTurn: true,
   chooseOncePerTurn: false,
   cardBack: '/settings_page/Red_Card_Back_Button.svg',
-  mainMenu: true,
   name: null,
   profilePicture: ''
 }
@@ -56,18 +55,6 @@ const applicationReducer = (state = initState, action)=> {
       console.log(action.cardBack)
       changeCardBackState.cardBack = action.cardBack;
     return changeCardBackState
-
-    // GAME START
-    case types.STARTGAME:
-      const startGameState = Object.assign({}, state);
-      startGameState.mainMenu = false;
-    return startGameState;
-
-    // SHOW MAIN MENU
-    case types.SHOWMAINMENU:
-      const showMainMenuState = Object.assign({}, state);
-      showMainMenuState.mainMenu = true;
-    return showMainMenuState;
 
     // GAME CONTROLS
     case types.DEAL:

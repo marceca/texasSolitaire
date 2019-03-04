@@ -14,6 +14,7 @@ class Main_Menu extends Component {
   start_game() {
     store.dispatch(types.startGame())
   }
+  
   render() {
     return (
       <div className="main_menu">

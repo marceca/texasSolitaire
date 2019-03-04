@@ -72,7 +72,7 @@ class App extends Component {
     return (
       console.log(this.props),
       <div className="background-image-container">
-        {this.props.game.mainMenu ? <Main_Menu /> : null}
+        {this.props.settings.mainMenu ? <Main_Menu /> : null}
         <div className="game-container">
           <div className="settings-icon" >
             <img onClick={() => this.openSettings()} src="/icons/settings.png" />

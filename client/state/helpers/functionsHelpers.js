@@ -410,7 +410,7 @@ function getComputerResults(computerResults) {
         if(checkStraightFlush[i] + 1 === checkStraightFlush[i + 1]) {
           checkStraightFlushCount += 1;
           if(checkStraightFlushCount >= 4) {
-          curCompResults['score'] = winningHandsKey['Straight Flush'];
+            curCompResults['score'] = winningHandsKey['Straight Flush'];
           }
         }
       }
