@@ -177,51 +177,52 @@ const applicationReducer = (state = initState, action)=> {
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
+
       // Test hands for getting results
-      // resultsState.userHand = [
-      //   [{
-      //     value: 4,
-      //     name: 'Two of Clubs',
-      //     suit: 'Clubs',
-      //     img: '/cards/2C.png'
-      //   }],
-      //   [{
-      //     value: 4,
-      //     name: 'Three of Clubs',
-      //     suit: 'Clubs',
-      //     img: '/cards/3C.png'
-      //   }],
-      //   [{
-      //     value: 12,
-      //     name: 'Four of Clubs',
-      //     suit: 'Clubs',
-      //     img: '/cards/4C.png'
-      //   }],
-      //   [{
-      //     value: 9,
-      //     name: 'Fve of Clubs',
-      //     suit: 'Clubs',
-      //     img: '/cards/5C.png'
-      //   }],
-      //   [{
-      //     value: 9,
-      //     name: 'Six of Clubs',
-      //     suit: 'Clubs',
-      //     img: '/cards/6C.png'
-      //   }],
-      //   [{
-      //     value: 9,
-      //     name: 'Seven of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/7C.png'
-      //   }],
-      //   [{
-      //     value: 10,
-      //     name: 'Eight of Clubs',
-      //     suit: 'hearts',
-      //     img: '/cards/8C.png'
-      //   }],
-      // ]
+      resultsState.userHand = [
+        [{
+          value: 2,
+          name: 'Two of Clubs',
+          suit: 'Spades',
+          img: '/cards/2C.png'
+        }],
+        [{
+          value: 2,
+          name: 'Three of Clubs',
+          suit: 'Hearts',
+          img: '/cards/3C.png'
+        }],
+        [{
+          value: 3,
+          name: 'Five of Clubs',
+          suit: 'Diamonds',
+          img: '/cards/4C.png'
+        }],
+        [{
+          value: 3,
+          name: 'Fve of Clubs',
+          suit: 'Clubs',
+          img: '/cards/5C.png'
+        }],
+        [{
+          value: 1,
+          name: 'Six of Clubs',
+          suit: 'Clubs',
+          img: '/cards/6C.png'
+        }],
+        [{
+          value: 6,
+          name: 'Ten of Clubs',
+          suit: 'Clubs',
+          img: '/cards/7C.png'
+        }],
+        [{
+          value: 7,
+          name: 'Ten of Clubs',
+          suit: 'Clubs',
+          img: '/cards/8C.png'
+        }],
+      ]
 
       // Sort user hand
       userSort(resultsState.userHand)
@@ -256,9 +257,22 @@ const applicationReducer = (state = initState, action)=> {
       }
       // Same type of hand check
       if(userResult.score === computerResult.score) {
+        // Check tie of one pair
+        if(computerResult.score === 1000) {
+          if(Math.max(...userResult.highPairOfWinningHand) > Math.max(...computerResult.highPairOfWinningHand)) {
+            console.log('Player won single pair');
+          }
+          if(Math.max(...computerResult.highPairOfWinningHand) > Math.max(...userResult.highPairOfWinningHand)) {
+            console.log('Computer won single pair');
+          }
+          // Check next 3 high cards
+          if(Math.max(...computerResult.highPairOfWinningHand === Math.max(...userResult.highPairOfWinningHand))) {
+            
+          }
+        }
         // If the player and computer best hand is a pair, two pair, three of a kind, straight, 
         // full house, or four of a kind check for highest pair or high card
-        if(computerResult.score === 1000 || computerResult.score === 2000 || computerResult.score === 3000 || computerResult.score === 6000 || computerResult.score === 7000) {
+        if(computerResult.score === 2000 || computerResult.score === 3000 || computerResult.score === 6000 || computerResult.score === 7000) {
           // Check if player has higher pair, three of a kind, or four of a kind
           if(Math.max(...userResult.highPairOfWinningHand) > Math.max(...computerResult.highPairOfWinningHand)) {
             console.log('Player won')
@@ -267,6 +281,8 @@ const applicationReducer = (state = initState, action)=> {
           if(Math.max(...computerResult.highPairOfWinningHand) > Math.max(...userResult.highPairOfWinningHand)) {
             console.log(`Computer hand number ${computerResult.computerHand} won`)
           }
+          // Check second pair if high pair is the same
+
           if(Math.max(...userResult.highPairOfWinningHand) === Math.max(...computerResult.highPairOfWinningHand)) {
             // If highest two pair is the same check the second pair
             if(userResult.highPairOfWinningHand.length > 1) {
