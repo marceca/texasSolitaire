@@ -177,10 +177,12 @@ const applicationReducer = (state = initState, action)=> {
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
-
-      // Test hands for getting results
-      // resultsState.userHand = [
-      //   [{
+      console.log('reuslts sstate', resultsState)
+      // Test hands for computer results
+      // resultsState.handObjects = [
+      //   // 1st comp hand
+      //   [
+      //     [{
       //     value: 2,
       //     name: 'Two of Clubs',
       //     suit: 'Spades',
@@ -189,37 +191,101 @@ const applicationReducer = (state = initState, action)=> {
       //   [{
       //     value: 2,
       //     name: 'Three of Clubs',
-      //     suit: 'Hearts',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }]],
+      //   // dead comp hand
+      //   [
+      //     [{
+      //     value: 2,
+      //     name: 'Two of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 3,
+      //     name: 'Three of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }]],
+      // ]
+
+      // // Changing community card value for testing
+      // resultsState.communityCardsValue = [
+      //   [{
+      //     value: 2,
+      //     name: 'Four of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 2,
+      //     name: 'Five of Clubs',
+      //     suit: 'Spades',
       //     img: '/cards/3C.png'
       //   }],
       //   [{
-      //     value: 3,
-      //     name: 'Five of Clubs',
-      //     suit: 'Diamonds',
+      //     value: 6,
+      //     name: 'Nine of Clubs',
+      //     suit: 'Spades',
       //     img: '/cards/4C.png'
       //   }],
       //   [{
-      //     value: 3,
+      //     value: 12,
       //     name: 'Fve of Clubs',
-      //     suit: 'Clubs',
+      //     suit: 'Spades',
       //     img: '/cards/5C.png'
       //   }],
       //   [{
       //     value: 1,
       //     name: 'Six of Clubs',
-      //     suit: 'Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/6C.png'
+      //   }]
+      // ]
+
+      // For testing user results
+      // resultsState.userHand = [
+      //   [{
+      //     value: 12,
+      //     name: 'Two of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 3,
+      //     name: 'Three of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }],
+      //   [{
+      //     value: 8,
+      //     name: 'Five of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/4C.png'
+      //   }],
+      //   [{
+      //     value: 4,
+      //     name: 'Fve of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/5C.png'
+      //   }],
+      //   [{
+      //     value: 5,
+      //     name: 'Six of Clubs',
+      //     suit: 'Spades',
       //     img: '/cards/6C.png'
       //   }],
       //   [{
       //     value: 6,
       //     name: 'Ten of Clubs',
-      //     suit: 'Clubs',
+      //     suit: 'Spades',
       //     img: '/cards/7C.png'
       //   }],
       //   [{
       //     value: 7,
       //     name: 'Ten of Clubs',
-      //     suit: 'Clubs',
+      //     suit: 'Spades',
       //     img: '/cards/8C.png'
       //   }],
       // ]
@@ -232,19 +298,6 @@ const applicationReducer = (state = initState, action)=> {
       
       // Get computer results
       let computerResult = getHands.getComputerResults(resultsState);
-      // Sort computer hand
-      computerSort(computerResult)
-
-
-      // test hands for results
-      // player test hand
-      // userResult.highPairOfWinningHand = [5]
-      // userResult.highCard = 13
-      // userResult.score = 1000
-      // // computer test hand
-      // computerResult.highPairOfWinningHand = [6]
-      // computerResult.highCard = 13
-      // computerResult.score = 1000
 
       console.log('user result ', userResult)
       console.log('computer result ', computerResult)

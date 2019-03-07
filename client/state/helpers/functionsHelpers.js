@@ -256,6 +256,9 @@ function getUserResults(userHand) {
       checkStraightFlush.push(userHand[i][0].value)
     }
   }
+  checkStraightFlush.sort((a,b) => {
+    return a - b;
+  })
   // Straight flush
   for(let i = 0; i < checkStraightFlush.length; i++) {
     if(checkStraightFlush[i + 1]) {
@@ -263,6 +266,15 @@ function getUserResults(userHand) {
         checkStraightFlushCount += 1;
         if(checkStraightFlushCount >= 4) {
           userResult['score'] = winningHandsKey['Straight Flush'];
+          userResult.bestFiveCards = [];
+          for(let i = 0; i < checkStraightFlush.length; i++) {
+            if(checkStraightFlush[i] + 1 === checkStraightFlush[i + 1] || checkStraightFlush[i] - 1 === checkStraightFlush[i - 1]) {
+              userResult.bestFiveCards.push(checkStraightFlush[i])
+            }
+          }
+          while(userResult.bestFiveCards.length > 5) {
+            userResult.bestFiveCards.shift();
+          }
         }
       }
     }
@@ -278,13 +290,16 @@ function getComputerResults(computerResults) {
     computerHand: 0,
     bestFiveCards: []
   };
+  let allComputerHands = [];
+  
   for(let i = 0; i < computerResults.handObjects.length - 1; i++) {
-    // Computer variables inside loops to reset each time
     let curCompHand;
     let curCompResults = {
       score: 0,
       highCard: 0,
       highPairs: [],
+      highThreeOfAKind: [],
+      highFourOfAKind: [],
       wholeHand: [],
       bestFiveCards: []
     };
@@ -297,12 +312,9 @@ function getComputerResults(computerResults) {
     let compCounter = 0;
     let possibleStraightFlush = '';
     let checkStraightFlush = [];
-    let checkStraightFlushCount = 0
+    let checkStraightFlushCount = 0;
+    let straightMade = false;
 
-    // Skip users hand
-    // if(computerResults.chosenHand - 1 === i) {
-    //   continue
-    // }
     curCompHand = computerResults.handObjects[i];
     curCompResults.wholeHand.push(computerResults.handObjects[i][0][0].value)
     curCompResults.wholeHand.push(computerResults.handObjects[i][1][0].value)
@@ -310,6 +322,10 @@ function getComputerResults(computerResults) {
       curCompHand.push(computerResults.communityCardsValue[i])
       curCompResults.wholeHand.push(computerResults.communityCardsValue[i][0].value)
     }
+    // Sort whole hand
+    curCompResults.wholeHand.sort((a,b) => {
+      return a - b;
+    })
     
     // Get computer best hand of current iteration
     for(let i = 0; i < curCompHand.length; i++) {
@@ -336,6 +352,14 @@ function getComputerResults(computerResults) {
       compStraightCount.push(curCompHand[i][0].value)
     }
 
+    // Set high hand with card value
+    for(let i = 0; i < curCompResults.wholeHand.length; i++) {
+      curCompResults.bestFiveCards.push(curCompResults.wholeHand[i]);
+    }
+    while(curCompResults.bestFiveCards.length > 5) {
+      curCompResults.bestFiveCards.shift();
+    }
+
     // Get pair amounts
     let pairCount = {
       'pair': 0,
@@ -343,30 +367,71 @@ function getComputerResults(computerResults) {
       'four': 0
     }
 
+    let captureCompFirstPair;
+    let captureCompSecondPair;
+    let captureCompThreeOfAKind;
+    let captureCompFourOfAKindValue;
+
     // Setting pair, three of a kind, four of a kind and what the card value is of the best
     for(let key in compCardCount) {
+      
       if(compCardCount[key] === 2) {
         pairCount['pair'] += 1;
+        if(pairCount['pair'] === 1) {
+          captureCompFirstPair = Number(key);
+        }
+        if(pairCount['pair'] === 2) {
+          captureCompSecondPair = Number(key);
+        }
+        if(pairCount['pair'] === 3) {
+          captureCompFirstPair = captureCompSecondPair;
+        }
+        if(pairCount['pair'] === 2 || pairCount['pair'] === 3) {
+          curCompResults.bestFiveCards = [];
+        }
         curCompResults.highPairs.push(Number(key));
-        curCompResults.bestFiveCards.push(Number(key))
-        curCompResults.bestFiveCards.push(Number(key))
+        for(let i = 0; i < curCompHand.length; i++) {
+          curCompResults.bestFiveCards.push(curCompHand[i][0].value);
+        }
+        curCompResults.bestFiveCards.sort((a,b) => {
+          return a - b;
+        })
+        for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
+          if(curCompResults.bestFiveCards[i] === Number(key) || curCompResults.bestFiveCards[i] === captureCompFirstPair) {
+            continue;
+          } else if(curCompResults.bestFiveCards.length < 6) {
+            continue;
+          } else {
+            curCompResults.bestFiveCards.splice(i, 1);
+            i--;
+          }
+        }
       }
       if(compCardCount[key] === 3) {
         pairCount['three'] += 1
-        curCompResults.highPairs = [];
-        curCompResults.highPairs.push(Number(key));
-        curCompResults.bestFiveCards.push(Number(key))
-        curCompResults.bestFiveCards.push(Number(key))
-        curCompResults.bestFiveCards.push(Number(key))
+        curCompResults.highThreeOfAKind.push(Number(key))
+        captureCompThreeOfAKind = Number(key);
+        for(let i = 0; i < curCompHand.length; i++) {
+          curCompResults.bestFiveCards.push(curCompHand[i][0].value)
+        }
+        curCompResults.bestFiveCards.sort((a,b) => {
+          return a - b;
+        })
+        for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
+          if(curCompResults.bestFiveCards[i] === Number(key)) {
+            continue;
+          } else if(curCompResults.bestFiveCards.length < 6) {
+            continue;
+          } else {
+            curCompResults.bestFiveCards.splice(i, 1);
+            i--;
+          }
+        }
       }
       if(compCardCount[key] === 4) {
-        pairCount['four'] += 1
-        curCompResults.highPairs = [];
-        curCompResults.highPairs.push(Number(key));
-        curCompResults.bestFiveCards.push(Number(key))
-        curCompResults.bestFiveCards.push(Number(key))
-        curCompResults.bestFiveCards.push(Number(key))
-        curCompResults.bestFiveCards.push(Number(key))
+        pairCount['four'] += 1;
+        captureFourOfAKindValue = Number(key);
+        curCompResults.highFourOfAKind.push(Number(key))
       }
     }
 
@@ -388,23 +453,30 @@ function getComputerResults(computerResults) {
 
     // Straight
     compStraightCount.sort((a,b) => {
-      return a - b;
+      return b - a;
     })
     for(let i = 0; i < compStraightCount.length; i++) {
-      if(compStraightCount[i] + 1 === compStraightCount[i + 1]) {
+      
+      if(compStraightCount[i] - 1 === compStraightCount[i + 1]) {
         compCounter++;
         if(compAddFirst === true) {
-          compStraightHighHand.push(compStraightCount[i])
+          if(!straightMade) {
+            compStraightHighHand.push(compStraightCount[i])
+          }
           compAddFirst = false;
         }
-        compStraightHighHand.push(compStraightCount[i] + 1)
-        if(compCounter >= 4) {
-          curCompResults['score'] = winningHandsKey['Straight'];
-          curCompResults.highPairs = []
-          curCompResults.highPairs.push(Number(compStraightCount[i]))
-          curCompResults.bestFiveCards = compStraightHighHand;
+        if(compStraightCount[i] - 1 === compStraightCount[i + 1] && !straightMade) {
+          compStraightHighHand.push(compStraightCount[i] + 1)          
         }
-      } else if(compStraightCount[i] === compStraightCount[i - 1]) {
+        if(compCounter >= 4) {
+          curCompResults.score = winningHandsKey['Straight'];
+          curCompResults.bestFiveCards = compStraightHighHand;
+          straightMade = true;
+          curCompResults.bestFiveCards.sort((a,b) => {
+            return a - b;
+          })
+        }
+      } else if(compStraightCount[i] === compStraightCount[i + 1]) {
         continue;
       } else {
         compCounter = 0;
@@ -413,7 +485,7 @@ function getComputerResults(computerResults) {
         compAddFirst = true;
       }
     }
-    
+
     // Flush
     for(let key in compFlush) {
       if(compFlush[key] >= 5) {
@@ -425,6 +497,12 @@ function getComputerResults(computerResults) {
             curCompResults.bestFiveCards.push(computerResults.handObjects[i][j][0].value)
           }
         }
+        curCompResults.bestFiveCards.sort((a,b) => {
+          return a - b;
+        })
+        while(curCompResults.bestFiveCards.length > 5) {
+          curCompResults.bestFiveCards.shift()
+        }
       }
     }
 
@@ -432,33 +510,49 @@ function getComputerResults(computerResults) {
     if(pairCount['pair'] === 1 && pairCount['three'] === 1) {
       curCompResults['score'] = winningHandsKey['Fullhouse'];
       curCompResults.bestFiveCards = [];
-      for(let key in compCardCount) {
-        if(compCardCount[key] === 2) {
-          curCompResults.bestFiveCards.push(Number(key))
-          curCompResults.bestFiveCards.push(Number(key))
+      for(let i = 0; i < curCompResults.wholeHand.length; i++) {
+        curCompResults.bestFiveCards.push(curCompResults.wholeHand[i])
+      }
+      if(curCompResults.highPairs.length > 1) {
+        for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
+          if(curCompResults.bestFiveCards[i] === captureCompThreeOfAKind || curCompResults.bestFiveCards[i] === captureCompSecondPair) {
+            continue;
+          } else if(curCompResults.bestFiveCards.length < 6) {
+            continue;
+          } else {
+            curCompResults.bestFiveCards.splice(i, 1);
+            i--;
+          }
         }
-        if(compCardCount[key] === 3) {
-          curCompResults.highPairs = [];
-          curCompResults.highPairs.push(Number(key));
-          curCompResults.bestFiveCards.push(Number(key))
-          curCompResults.bestFiveCards.push(Number(key))
-          curCompResults.bestFiveCards.push(Number(key))
+      } else {
+        for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
+          if(curCompResults.bestFiveCards[i] === captureCompThreeOfAKind || curCompResults.bestFiveCards[i] === captureCompFirstPair) {
+            continue;
+          } else if(curCompResults.bestFiveCards.length < 6) {
+            continue;
+          } else {
+            curCompResults.bestFiveCards.splice(i, 1);
+            i--;
+          }
         }
       }
     }
 
     // Four of a kind
-    if(pairCount['four'] === 1) {
-      curCompResults['score'] = winningHandsKey['Four of a Kind'];
+    if(pairCount.four === 1) {
+      curCompResults.score = winningHandsKey['Four of a Kind'];
       curCompResults.bestFiveCards = [];
-      for(let key in compCardCount) {
-        if(compCardCount[key] === 4) {
-          curCompResults.highPairs = [];
-          curCompResults.highPairs.push(Number(key));
-          curCompResults.bestFiveCards.push(Number(key))
-          curCompResults.bestFiveCards.push(Number(key))
-          curCompResults.bestFiveCards.push(Number(key))
-          curCompResults.bestFiveCards.push(Number(key))
+      for(let i = 0; i < curCompResults.wholeHand.length; i++) {
+        curCompResults.bestFiveCards.push(curCompResults.wholeHand[i])
+      }
+      for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
+        if(curCompResults.bestFiveCards[i] === captureFourOfAKindValue) {
+          continue;
+        } else if(curCompResults.bestFiveCards.length < 6) {
+          continue;
+        } else {
+          curCompResults.bestFiveCards.splice(i, 1);
+          i--;
         }
       }
     }
@@ -469,6 +563,9 @@ function getComputerResults(computerResults) {
         checkStraightFlush.push(curCompHand[i][0].value)
       }
     }
+    checkStraightFlush.sort((a,b) => {
+      return a - b;
+    })
     // Straight flush
     for(let i = 0; i < checkStraightFlush.length; i++) {
       if(checkStraightFlush[i + 1]) {
@@ -476,10 +573,20 @@ function getComputerResults(computerResults) {
           checkStraightFlushCount += 1;
           if(checkStraightFlushCount >= 4) {
             curCompResults['score'] = winningHandsKey['Straight Flush'];
+            curCompResults.bestFiveCards = [];
+            for(let i = 0; i < checkStraightFlush.length; i++) {
+              if(checkStraightFlush[i] + 1 === checkStraightFlush[i + 1] || checkStraightFlush[i] - 1 === checkStraightFlush[i - 1]) {
+                curCompResults.bestFiveCards.push(checkStraightFlush[i])
+              }
+            }
+            while(curCompResults.bestFiveCards.length > 5) {
+              curCompResults.bestFiveCards.shift();
+            }
           }
         }
       }
     }
+    allComputerHands.push(curCompResults);
     
     // Set best hand for computer if score is greater the current best score
     if(curCompResults.score > computerBestHand.score) {
@@ -515,7 +622,7 @@ function getComputerResults(computerResults) {
       }
   }
   // Return best hand of computer
-  return computerBestHand;
+  return allComputerHands;
 }
 
 module.exports = {
