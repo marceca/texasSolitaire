@@ -179,129 +179,129 @@ const applicationReducer = (state = initState, action)=> {
       }
 
       // Test hands for computer results
-      resultsState.handObjects = [
-        // 1st comp hand
-        [
-          [{
-          value: 14,
-          name: 'Two of Clubs',
-          suit: 'Spades',
-          img: '/cards/2C.png'
-        }],
-        [{
-          value: 7,
-          name: 'Three of Clubs',
-          suit: 'Spades',
-          img: '/cards/3C.png'
-        }]],
-        [
-          [{
-          value: 7,
-          name: 'Two of Clubs',
-          suit: 'Spades',
-          img: '/cards/2C.png'
-        }],
-        [{
-          value: 8,
-          name: 'Three of Clubs',
-          suit: 'Spades',
-          img: '/cards/3C.png'
-        }]],
-        // dead comp hand
-        [
-          [{
-          value: 2,
-          name: 'Two of Clubs',
-          suit: 'Spades',
-          img: '/cards/2C.png'
-        }],
-        [{
-          value: 3,
-          name: 'Three of Clubs',
-          suit: 'Spades',
-          img: '/cards/3C.png'
-        }]],
-      ]
+      // resultsState.handObjects = [
+      //   // 1st comp hand
+      //   [
+      //     [{
+      //     value: 14,
+      //     name: 'Two of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 7,
+      //     name: 'Three of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }]],
+      //   [
+      //     [{
+      //     value: 7,
+      //     name: 'Two of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 8,
+      //     name: 'Three of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }]],
+      //   // dead comp hand
+      //   [
+      //     [{
+      //     value: 2,
+      //     name: 'Two of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 3,
+      //     name: 'Three of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }]],
+      // ]
 
-      // // Changing community card value for testing
-      resultsState.communityCardsValue = [
-        [{
-          value: 2,
-          name: 'Four of Clubs',
-          suit: 'Spades',
-          img: '/cards/2C.png'
-        }],
-        [{
-          value: 3,
-          name: 'Five of Clubs',
-          suit: 'Spades',
-          img: '/cards/3C.png'
-        }],
-        [{
-          value: 4,
-          name: 'Nine of Clubs',
-          suit: 'Spades',
-          img: '/cards/4C.png'
-        }],
-        [{
-          value: 5,
-          name: 'Fve of Clubs',
-          suit: 'Spades',
-          img: '/cards/5C.png'
-        }],
-        [{
-          value: 10,
-          name: 'Six of Clubs',
-          suit: 'Spades',
-          img: '/cards/6C.png'
-        }]
-      ]
+      // // // Changing community card value for testing
+      // resultsState.communityCardsValue = [
+      //   [{
+      //     value: 2,
+      //     name: 'Four of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 3,
+      //     name: 'Five of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }],
+      //   [{
+      //     value: 4,
+      //     name: 'Nine of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/4C.png'
+      //   }],
+      //   [{
+      //     value: 5,
+      //     name: 'Fve of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/5C.png'
+      //   }],
+      //   [{
+      //     value: 10,
+      //     name: 'Six of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/6C.png'
+      //   }]
+      // ]
 
-      // For testing user results
-      resultsState.userHand = [
-        [{
-          value: 2,
-          name: 'Two of Clubs',
-          suit: 'Spades',
-          img: '/cards/2C.png'
-        }],
-        [{
-          value: 3,
-          name: 'Three of Clubs',
-          suit: 'Spades',
-          img: '/cards/3C.png'
-        }],
-        [{
-          value: 4,
-          name: 'Five of Clubs',
-          suit: 'Spades',
-          img: '/cards/4C.png'
-        }],
-        [{
-          value: 5,
-          name: 'Fve of Clubs',
-          suit: 'Spades',
-          img: '/cards/5C.png'
-        }],
-        [{
-          value: 10,
-          name: 'Six of Clubs',
-          suit: 'Spades',
-          img: '/cards/6C.png'
-        }],
-        [{
-          value: 8,
-          name: 'Ten of Clubs',
-          suit: 'Spades',
-          img: '/cards/7C.png'
-        }],
-        [{
-          value: 14,
-          name: 'Ten of Clubs',
-          suit: 'Spades',
-          img: '/cards/8C.png'
-        }],
-      ]
+      // // For testing user results
+      // resultsState.userHand = [
+      //   [{
+      //     value: 2,
+      //     name: 'Two of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/2C.png'
+      //   }],
+      //   [{
+      //     value: 3,
+      //     name: 'Three of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/3C.png'
+      //   }],
+      //   [{
+      //     value: 4,
+      //     name: 'Five of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/4C.png'
+      //   }],
+      //   [{
+      //     value: 5,
+      //     name: 'Fve of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/5C.png'
+      //   }],
+      //   [{
+      //     value: 10,
+      //     name: 'Six of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/6C.png'
+      //   }],
+      //   [{
+      //     value: 8,
+      //     name: 'Ten of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/7C.png'
+      //   }],
+      //   [{
+      //     value: 14,
+      //     name: 'Ten of Clubs',
+      //     suit: 'Spades',
+      //     img: '/cards/8C.png'
+      //   }],
+      // ]
 
       // Sort user hand
       userSort(resultsState.userHand)
