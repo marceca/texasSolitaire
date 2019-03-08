@@ -106,13 +106,6 @@ function getUserResults(userHand) {
           i--;
         }
       }
-      // for(let i =0; i < userResult.bestFiveCards.length; i++) {
-      //   if(userResult.bestFiveCards[i] === Number(key) || userResult.bestFiveCards[i] === captureFirstPair) {
-      //     continue;
-      //   } else {
-      //     userResult.highCard = userResult.bestFiveCards[i];
-      //   }
-      // }
     }
     if(userCardCount[key] === 3) {
       pairCount['three'] += 1
@@ -131,13 +124,6 @@ function getUserResults(userHand) {
           i--;
         }
       }
-      // for(let i = 0; i < userResult.bestFiveCards.length; i++) {
-      //   if(userResult.bestFiveCards[i] === Number(key)) {
-      //     continue;
-      //   } else {
-      //     userResult.highCard = userResult.bestFiveCards[i];
-      //   }
-      // }
     }
     if(userCardCount[key] === 4) {
       pairCount['four'] += 1;
@@ -192,7 +178,7 @@ function getUserResults(userHand) {
     } else {
       straightCounter = 0;
       // Reset highhand
-      staightHighHand = [];
+      straightHighHand = [];
       addFirst = true;
     }
   }
@@ -289,9 +275,9 @@ function getUserResults(userHand) {
           while(userResult.bestFiveCards.length > 5) {
             userResult.bestFiveCards.shift();
           }
-        } else {
-          checkStraightFlushCount = 0;
         }
+      } else {
+        checkStraightFlush = 0;
       }
     }
   }
@@ -604,6 +590,7 @@ function getComputerResults(computerResults) {
     }
     allComputerHands.push(curCompResults);    
   }
+  console.log('all comp hands ',allComputerHands)
 
   let bestComputerHands = [];
   // Set the starting best hand to the first of all hands.
@@ -617,6 +604,26 @@ function getComputerResults(computerResults) {
       continue;
     }
     if(allComputerHands[i].score === bestComputerHands[0].score) {
+      // High card check
+      if(allComputerHands[i].score < 1000) {
+        let isDraw = true;
+        for(let j = 0; j < bestComputerHands[0].bestFiveCards.length; j++) {
+          if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+            isDraw = false;
+            break;
+          } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] < allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+            bestComputerHands = [];
+            bestComputerHands.push(allComputerHands[i]);
+            isDraw = false;
+            break;
+          } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] === allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+            continue;
+          }
+        }
+        if(isDraw === true) {
+          bestComputerHands.push(allComputerHands[i]);
+        }
+      }
       // Check a Pair
       if(allComputerHands[i].score === 1000) {
         let isDraw = true;
@@ -625,6 +632,7 @@ function getComputerResults(computerResults) {
         } else if(bestComputerHands[0].highPairs[0] < allComputerHands[i].highPairs[0]) {
           bestComputerHands = [];
           bestComputerHands.push(allComputerHands[i]);
+          isDraw = false;
         } else if(bestComputerHands[0].highPairs[0] === allComputerHands[i].highPairs[0]) {
           for(let j = 0; j < bestComputerHands[0].bestFiveCards.length; j++) {
             if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
@@ -778,7 +786,6 @@ function getComputerResults(computerResults) {
       }
     }
   }
-
 
   // Return best computer hands after being scored
   return bestComputerHands;
