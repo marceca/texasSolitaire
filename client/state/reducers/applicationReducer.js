@@ -52,9 +52,21 @@ const applicationReducer = (state = initState, action)=> {
     // SOME SETTINGS
     case types.CHANGECARDBACK:
       const changeCardBackState =  Object.assign({}, state);
-      console.log(action.cardBack)
       changeCardBackState.cardBack = action.cardBack;
     return changeCardBackState
+
+    case types.UPDATENUMBEROFHANDS:
+      const updateNumberOfHandsState = Object.assign({}, state);
+      let updateHandObject = [];
+      let updateDisplayObject = [];
+      for(let i = 0; i < action.numberOfHands; i++) {
+        updateHandObject.push([]);
+        updateDisplayObject.push([]);
+      }
+
+      updateNumberOfHandsState.handsDisplay = updateDisplayObject;
+      updateNumberOfHandsState.handObjects = updateHandObject;
+    return updateNumberOfHandsState;
 
     // GAME CONTROLS
     case types.DEAL:
@@ -69,32 +81,30 @@ const applicationReducer = (state = initState, action)=> {
             // Random card from ranNum
             card = dealState.deck.splice(ranNum, 1)
             dealState.handObjects[i].push(card)
-            dealState.handsDisplay[i].push(<div key={card[0].name + i} className="card-image-container"><img key={card[0].name} className="card-image" src={dealState.cardBack} /></div>)
+            dealState.handsDisplay[i].push(<img key={card[0].name} className="card-image" src={dealState.cardBack} />)
           }
           cardsEach++
-          dealState.userHand = dealState.handObjects[6]
-          console.log(dealState)
+          dealState.userHand = dealState.handObjects[dealState.handObjects.length - 1];
         }
-        dealState.handsDisplay[6] = []
-        dealState.handsDisplay[6].push(<div key={card[0].name + 'firstCardKey'} className="card-image-container"><img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} /></div>);
-        dealState.handsDisplay[6].push(<div key={card[0].name + 'secondCadKey'} className="card-image-container"><img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} /></div>);
+        dealState.handsDisplay[dealState.handsDisplay.length - 1] = []
+        dealState.handsDisplay[dealState.handsDisplay.length - 1].push(<img key={dealState.userHand[0][0].name} className="card-image" src={dealState.userHand[0][0].img} />);
+        dealState.handsDisplay[dealState.handsDisplay.length - 1].push(<img key={dealState.userHand[1][0].name} className="card-image" src={dealState.userHand[1][0].img} />);
         dealState.dealt = true;
       }
     return dealState;
 
     case types.USERHAND:
       const userHandState = Object.assign({}, state);
-      console.log('action hand ', action.hand)
       if(!userHandState.priorHands[action.hand] && userHandState.dealt === true) {
         userHandState.userHand = userHandState.handObjects[action.hand];
         userHandState.priorHands[action.hand] = true;
         userHandState.handsDisplay[action.hand] = [];
-        userHandState.handsDisplay[action.hand].push(<div  className="card-image-container"><img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} /></div>);
-        userHandState.handsDisplay[action.hand].push(<div  className="card-image-container"><img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} /></div>);
+        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[0][0].name} className="card-image" src={userHandState.userHand[0][0].img} />);
+        userHandState.handsDisplay[action.hand].push(<img key={userHandState.userHand[1][0].name} className="card-image" src={userHandState.userHand[1][0].img} />);
         userHandState.chosenHand = action.hand + 1;
-        [userHandState.handsDisplay[6][0], userHandState.handsDisplay[action.hand][0]] = [userHandState.handsDisplay[action.hand][0], userHandState.handsDisplay[6][0]];
-        [userHandState.handsDisplay[6][1], userHandState.handsDisplay[action.hand][1]] = [userHandState.handsDisplay[action.hand][1], userHandState.handsDisplay[6][1]];
-        [userHandState.handObjects[6], userHandState.handObjects[action.hand]] = [userHandState.handObjects[action.hand], userHandState.handObjects[6]]
+        [userHandState.handsDisplay[userHandState.handsDisplay.length - 1][0], userHandState.handsDisplay[action.hand][0]] = [userHandState.handsDisplay[action.hand][0], userHandState.handsDisplay[userHandState.handsDisplay.length - 1][0]];
+        [userHandState.handsDisplay[userHandState.handsDisplay.length - 1][1], userHandState.handsDisplay[action.hand][1]] = [userHandState.handsDisplay[action.hand][1], userHandState.handsDisplay[userHandState.handsDisplay.length - 1][1]];
+        [userHandState.handObjects[userHandState.handsDisplay.length - 1], userHandState.handObjects[action.hand]] = [userHandState.handObjects[action.hand], userHandState.handObjects[userHandState.handsDisplay.length - 1]]
         userHandState.choseHandThisTurn = true;
         userHandState.chooseOncePerTurn = true;
       }
@@ -152,26 +162,12 @@ const applicationReducer = (state = initState, action)=> {
 
     case types.RESULTS:
       const resultsState = Object.assign({}, state);
-      
       // Flip all cards
-      resultsState.handsDisplay[0] = [];
-      resultsState.handsDisplay[0].push(<div key={resultsState.handObjects[0][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[0][0][0].name} className="card-image" src={resultsState.handObjects[0][0][0].img} /></div>);
-      resultsState.handsDisplay[0].push(<div key={resultsState.handObjects[0][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[0][1][0].name} className="card-image" src={resultsState.handObjects[0][1][0].img} /></div>);
-      resultsState.handsDisplay[1] = [];
-      resultsState.handsDisplay[1].push(<div key={resultsState.handObjects[1][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[1][0][0].name} className="card-image" src={resultsState.handObjects[1][0][0].img} /></div>);
-      resultsState.handsDisplay[1].push(<div key={resultsState.handObjects[1][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[1][1][0].name} className="card-image" src={resultsState.handObjects[1][1][0].img} /></div>);
-      resultsState.handsDisplay[2] = [];
-      resultsState.handsDisplay[2].push(<div key={resultsState.handObjects[2][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[2][0][0].name} className="card-image" src={resultsState.handObjects[2][0][0].img} /></div>);
-      resultsState.handsDisplay[2].push(<div key={resultsState.handObjects[2][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[2][1][0].name} className="card-image" src={resultsState.handObjects[2][1][0].img} /></div>);
-      resultsState.handsDisplay[3] = [];
-      resultsState.handsDisplay[3].push(<div key={resultsState.handObjects[3][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[3][0][0].name} className="card-image" src={resultsState.handObjects[3][0][0].img} /></div>);
-      resultsState.handsDisplay[3].push(<div key={resultsState.handObjects[3][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[3][1][0].name} className="card-image" src={resultsState.handObjects[3][1][0].img} /></div>);
-      resultsState.handsDisplay[4] = [];
-      resultsState.handsDisplay[4].push(<div key={resultsState.handObjects[4][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[4][0][0].name} className="card-image" src={resultsState.handObjects[4][0][0].img} /></div>);
-      resultsState.handsDisplay[4].push(<div key={resultsState.handObjects[4][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[4][1][0].name} className="card-image" src={resultsState.handObjects[4][1][0].img} /></div>);
-      resultsState.handsDisplay[5] = [];
-      resultsState.handsDisplay[5].push(<div key={resultsState.handObjects[5][0][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[5][0][0].name} className="card-image" src={resultsState.handObjects[5][0][0].img} /></div>);
-      resultsState.handsDisplay[5].push(<div key={resultsState.handObjects[5][1][0].name + 'Key'} className="card-image-container"><img key={resultsState.handObjects[5][1][0].name} className="card-image" src={resultsState.handObjects[5][1][0].img} /></div>);
+      for(let i = 0; i <  resultsState.handsDisplay.length - 1; i++) {
+        resultsState.handsDisplay[i] = [];
+        resultsState.handsDisplay[i].push(<img key={resultsState.handObjects[i][0][0].name} className="card-image" src={resultsState.handObjects[i][0][0].img} />);
+        resultsState.handsDisplay[i].push(<img key={resultsState.handObjects[i][1][0].name} className="card-image" src={resultsState.handObjects[i][1][0].img} />);
+      }
 
       // Get user total cards including community
       for(let i = 0; i < resultsState.communityCards.length; i++) {

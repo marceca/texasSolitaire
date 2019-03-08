@@ -19,6 +19,8 @@ const OPENTUTORIAL = 'OPENTUTORIAL';
 const TUTORIALPAGE = 'TUTORIALPAGE';
 const STARTGAME = 'STARTGAME';
 const SHOWMAINMENU = 'SHOWMAINMENU';
+const NUMBEROFHANDS = 'NUMBEROFHANDS';
+const UPDATENUMBEROFHANDS = 'UPDATENUMBEROFHANDS'
 
 const deal = () => ({type: DEAL});
 const flop = () => ({type: FLOP});
@@ -41,6 +43,8 @@ const openTutorial = () => ({type: OPENTUTORIAL});
 const tutorialPage = () => ({type: TUTORIALPAGE});
 const startGame = () => ({type: STARTGAME});
 const showMainMenu = () => ({type: SHOWMAINMENU});
+const numberOfHands = () => ({type: NUMBEROFHANDS});
+const updateNumberOfHands = (numberOfHands) => ({type: UPDATENUMBEROFHANDS, numberOfHands});
 
 module.exports = {
   DEAL,
@@ -84,5 +88,9 @@ module.exports = {
   STARTGAME,
   startGame,
   SHOWMAINMENU,
-  showMainMenu
+  showMainMenu,
+  NUMBEROFHANDS,
+  numberOfHands,
+  UPDATENUMBEROFHANDS,
+  updateNumberOfHands
 }

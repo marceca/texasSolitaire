@@ -17,7 +17,6 @@ class Change_Card_Back extends Component {
   }
 
   changeCardBack(e) {
-    console.log(e.target.src)
     store.dispatch(types.changeCardBack(e.target.src))
   }
   render() {

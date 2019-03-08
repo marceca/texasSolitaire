@@ -9,6 +9,7 @@ import Total_Number_Of_Hands from './settings/Total_Number_Of_Hands';
 import Hand_Ranks from './settings/Hand_Ranks';
 import Tutorial from './settings/Tutorial';
 import Main_Menu from './Main_Menu';
+import Stick_Switch_Hands from'./Stick_Switch_Hands';
 
 const mapStateToProps = (state) => {
   return {
@@ -46,12 +47,6 @@ class App extends Component {
     store.dispatch(types.allowSwitch())
   }
 
-  changeHands(id, props) {
-    if(props.game.choseHandThisTurn === false) {
-      store.dispatch(types.userHand(id))
-    }
-  }
-
   openSettings() {
     store.dispatch(types.settings())
   }
@@ -70,7 +65,8 @@ class App extends Component {
 
   render() {
     return (
-      console.log(this.props),
+
+      console.log('props ', this.props),
       <div className="background-image-container">
         {this.props.settings.mainMenu ? <Main_Menu /> : null}
         <div className="game-container">
@@ -86,7 +82,9 @@ class App extends Component {
           { this.props.settings.settings ? <Settings /> : null}
           <div className="cards-container">
             <div className="player-hands-container">
-              <div className="two-hands">
+              <Stick_Switch_Hands />
+
+              {/* <div className="two-hands">
                 <div className="possible-hand" onClick={(e) => this.changeHands(0, this.props)}>
                   {this.props.game.handsDisplay[0]}
                 </div>
@@ -109,7 +107,7 @@ class App extends Component {
                 <div className="possible-hand" onClick={(e) => this.changeHands(5, this.props)}>
                   {this.props.game.handsDisplay[5]}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="community-card-container">
               <div>
@@ -121,8 +119,8 @@ class App extends Component {
           </div>
           <div className="buttons-container">
             <div className="user-cards">
-              <div className="card-shrink">
-                {this.props.game.handsDisplay[6]}
+              <div className="possible-hand">
+                {this.props.game.handsDisplay[this.props.game.handsDisplay.length - 1]}
               </div>
             </div>
             <div className="stick-switch-buttons">

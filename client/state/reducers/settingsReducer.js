@@ -10,7 +10,7 @@ const initState = {
   tutorial: false,
   tutorial_page: 1,
   mainMenu: true,
-
+  num_hands: false
 }
 
 const settingsReducer = (state = initState, action)=> {
@@ -20,6 +20,12 @@ const settingsReducer = (state = initState, action)=> {
       const startGameState = Object.assign({}, state);
       startGameState.mainMenu = false;
     return startGameState;
+
+    // CHANGE NUMBER OF HANDS
+    case types.NUMBEROFHANDS:
+      const numberOfHandsState = Object.assign({}, state);
+      numberOfHandsState.num_hands = true;
+    return numberOfHandsState;
 
     // SHOW MAIN MENU
     case types.SHOWMAINMENU:
