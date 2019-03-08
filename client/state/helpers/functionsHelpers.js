@@ -106,6 +106,13 @@ function getUserResults(userHand) {
           i--;
         }
       }
+      // for(let i =0; i < userResult.bestFiveCards.length; i++) {
+      //   if(userResult.bestFiveCards[i] === Number(key) || userResult.bestFiveCards[i] === captureFirstPair) {
+      //     continue;
+      //   } else {
+      //     userResult.highCard = userResult.bestFiveCards[i];
+      //   }
+      // }
     }
     if(userCardCount[key] === 3) {
       pairCount['three'] += 1
@@ -124,6 +131,13 @@ function getUserResults(userHand) {
           i--;
         }
       }
+      // for(let i = 0; i < userResult.bestFiveCards.length; i++) {
+      //   if(userResult.bestFiveCards[i] === Number(key)) {
+      //     continue;
+      //   } else {
+      //     userResult.highCard = userResult.bestFiveCards[i];
+      //   }
+      // }
     }
     if(userCardCount[key] === 4) {
       pairCount['four'] += 1;
@@ -283,15 +297,7 @@ function getUserResults(userHand) {
 }
 
 function getComputerResults(computerResults) {
-  let computerBestHand = {
-    score: 0,
-    highCard: 0,
-    highPairs: [],
-    computerHand: 0,
-    bestFiveCards: []
-  };
   let allComputerHands = [];
-  
   for(let i = 0; i < computerResults.handObjects.length - 1; i++) {
     let curCompHand;
     let curCompResults = {
@@ -374,8 +380,8 @@ function getComputerResults(computerResults) {
 
     // Setting pair, three of a kind, four of a kind and what the card value is of the best
     for(let key in compCardCount) {
-      
       if(compCardCount[key] === 2) {
+        curCompResults.bestFiveCards = [];
         pairCount['pair'] += 1;
         if(pairCount['pair'] === 1) {
           captureCompFirstPair = Number(key);
@@ -586,42 +592,83 @@ function getComputerResults(computerResults) {
         }
       }
     }
-    allComputerHands.push(curCompResults);
-    
-    // Set best hand for computer if score is greater the current best score
-    if(curCompResults.score > computerBestHand.score) {
-      computerBestHand.score = curCompResults.score;
-      computerBestHand.highCard = curCompResults.highCard;
-      computerBestHand.highPairs = curCompResults.highPairs;
-      computerBestHand.wholeHand = curCompResults.wholeHand;
-      computerBestHand.bestFiveCards = curCompResults.bestFiveCards;
-      computerBestHand.computerHand = i + 1;
-      // Check if the score is the same
-    } else if(curCompResults.score === computerBestHand.score) {
-      // If the score is the same and its a pair, two pair, three of a kind, full house or four of a kind do check for highest pair
-      if(curCompResults.score === 1000 || curCompResults.score === 2000 || curCompResults.score === 3000 || curCompResults.score === 6000 || curCompResults.score === 7000) {
-        // Check highest pair
-        if(curCompResults.highPairs > computerBestHand.highPairs) {
-          computerBestHand.score = curCompResults.score;
-          computerBestHand.highCard = curCompResults.highCard;
-          computerBestHand.highPairs = curCompResults.highPairs;
-          computerBestHand.wholeHand = curCompResults.wholeHand;
-          computerBestHand.bestFiveCards = curCompResults.bestFiveCards;
-          computerBestHand.computerHand = i + 1;
+    allComputerHands.push(curCompResults);    
+  }
+
+  let bestComputerHands = [];
+  // Set the starting best hand to the first of all hands.
+  // Set the counter to exclude the first hand.
+  bestComputerHands.push(allComputerHands[0])
+  console.log('best comp hand ',bestComputerHands)
+  for(let i = 1; i < allComputerHands.length; i++) {
+    console.log('all comp hands ',allComputerHands[i])
+    // If current tested hand has a greater score change the best hand
+    if(allComputerHands[i].score > bestComputerHands[0].score) {
+      bestComputerHands = [];
+      bestComputerHands.push(allComputerHands[i]);
+      continue;
+    }
+    if(allComputerHands[i].score === bestComputerHands[0].score) {
+      if(allComputerHands[i].score === 1000) {
+        console.log('1000')
+        let isDraw = true;
+        if(bestComputerHands[0].highPairs[0] > allComputerHands[i].highPairs[0]) {
+          continue;
+        } else if(bestComputerHands[0].highPairs[0] < allComputerHands[i].highPairs[0]) {
+          bestComputerHands = [];
+          bestComputerHands.push(allComputerHands[i]);
+        } else if(bestComputerHands[0].highPairs[0] === allComputerHands[i].highPairs[0]) {
+          console.log('in ===')
+          for(let j = 0; j < bestComputerHands[0].bestFiveCards.length; j++) {
+            if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+              isDraw = false;
+              break;
+            } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] < allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+              bestComputerHands = [];
+              bestComputerHands.push(allComputerHands[i]);
+              isDraw = false;
+              break;
+            } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] === allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+              continue;
+            }
+          }
         }
-        // This was supposed to check for highest card is flush / straight but needs to be revised as it doesn't work
-        // This checks highest card out of all 7 cards and not the specific 5 card hand
-      } else if(curCompResults.highCard > computerBestHand.highCard) {
-          computerBestHand.score = curCompResults.score;
-          computerBestHand.highCard = curCompResults.highCard;
-          computerBestHand.highPairs = curCompResults.highPairs;
-          computerBestHand.wholeHand = curCompResults.wholeHand;
-          computerBestHand.bestFiveCards = curCompResults.bestFiveCards;
-          computerBestHand.computerHand = i + 1;
+        if(isDraw === true) {
+          bestComputerHands.push(allComputerHands[i])
         }
       }
+      if(allComputerHands[i].score === 2000) {
+        let isDraw = true;
+        for(let j = 0; j < 2; j++) {
+          if(bestComputerHands[0].highPairs[bestComputerHands[0].highPairs.length - j - 1] > allComputerHands[i].highPairs[allComputerHands[i].highPairs.length - j - 1]) {
+            isDraw = false;
+            break;
+          } else if(bestComputerHands[0].highPairs[bestComputerHands[0].highPairs.length - j - 1] === allComputerHands[i].highPairs[allComputerHands[i].highPairs.length - j - 1]) {
+            continue;
+          } else if(bestComputerHands[0].highPairs[bestComputerHands[0].highPairs.length - j - 1] < allComputerHands[i].highPairs[allComputerHands[i].highPairs.length - j - 1]) {
+            isDraw = false;
+            bestComputerHands = [];
+            bestComputerHands.push(allComputerHands[i]);
+            break;
+          }
+        }
+        if(isDraw === true) {
+          if(bestComputerHands[0].highCard > allComputerHands[i].highCard) {
+            continue;
+          } else if(bestComputerHands[0].highCard < allComputerHands[i].highCard) {
+            bestComputerHands = [];
+            bestComputerHands.push(allComputerHands[i]);
+          } else if(bestComputerHands[0].highCard === allComputerHands[i].highCard) {
+            bestComputerHands.push(allComputerHands[i]);
+          }
+        }
+      }
+    }
   }
-  // Return best hand of computer
+
+  console.log('best comp hands ',bestComputerHands)
+
+  // Return all computer hands
   return allComputerHands;
 }
 

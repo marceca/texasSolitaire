@@ -177,83 +177,96 @@ const applicationReducer = (state = initState, action)=> {
       for(let i = 0; i < resultsState.communityCards.length; i++) {
         resultsState.userHand.push(resultsState.communityCardsValue[i])
       }
-      console.log('reuslts sstate', resultsState)
+
       // Test hands for computer results
-      // resultsState.handObjects = [
-      //   // 1st comp hand
-      //   [
-      //     [{
-      //     value: 2,
-      //     name: 'Two of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/2C.png'
-      //   }],
-      //   [{
-      //     value: 2,
-      //     name: 'Three of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/3C.png'
-      //   }]],
-      //   // dead comp hand
-      //   [
-      //     [{
-      //     value: 2,
-      //     name: 'Two of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/2C.png'
-      //   }],
-      //   [{
-      //     value: 3,
-      //     name: 'Three of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/3C.png'
-      //   }]],
-      // ]
+      resultsState.handObjects = [
+        // 1st comp hand
+        [
+          [{
+          value: 2,
+          name: 'Two of Clubs',
+          suit: 'Spades',
+          img: '/cards/2C.png'
+        }],
+        [{
+          value: 3,
+          name: 'Three of Clubs',
+          suit: 'Spades',
+          img: '/cards/3C.png'
+        }]],
+        [
+          [{
+          value: 2,
+          name: 'Two of Clubs',
+          suit: 'Spades',
+          img: '/cards/2C.png'
+        }],
+        [{
+          value: 11,
+          name: 'Three of Clubs',
+          suit: 'Spades',
+          img: '/cards/3C.png'
+        }]],
+        // dead comp hand
+        [
+          [{
+          value: 2,
+          name: 'Two of Clubs',
+          suit: 'Spades',
+          img: '/cards/2C.png'
+        }],
+        [{
+          value: 3,
+          name: 'Three of Clubs',
+          suit: 'Spades',
+          img: '/cards/3C.png'
+        }]],
+      ]
 
       // // Changing community card value for testing
-      // resultsState.communityCardsValue = [
-      //   [{
-      //     value: 2,
-      //     name: 'Four of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/2C.png'
-      //   }],
-      //   [{
-      //     value: 2,
-      //     name: 'Five of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/3C.png'
-      //   }],
-      //   [{
-      //     value: 6,
-      //     name: 'Nine of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/4C.png'
-      //   }],
-      //   [{
-      //     value: 12,
-      //     name: 'Fve of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/5C.png'
-      //   }],
-      //   [{
-      //     value: 1,
-      //     name: 'Six of Clubs',
-      //     suit: 'Spades',
-      //     img: '/cards/6C.png'
-      //   }]
-      // ]
+      resultsState.communityCardsValue = [
+        [{
+          value: 2,
+          name: 'Four of Clubs',
+          suit: 'Clubs',
+          img: '/cards/2C.png'
+        }],
+        [{
+          value: 4,
+          name: 'Five of Clubs',
+          suit: 'Hearts',
+          img: '/cards/3C.png'
+        }],
+        [{
+          value: 6,
+          name: 'Nine of Clubs',
+          suit: 'Diamonds',
+          img: '/cards/4C.png'
+        }],
+        [{
+          value: 8,
+          name: 'Fve of Clubs',
+          suit: 'Spades',
+          img: '/cards/5C.png'
+        }],
+        [{
+          value: 12,
+          name: 'Six of Clubs',
+          suit: 'Spades',
+          img: '/cards/6C.png'
+        }]
+      ]
 
       // For testing user results
       // resultsState.userHand = [
       //   [{
       //     value: 12,
       //     name: 'Two of Clubs',
-      //     suit: 'Spades',
+      //     suit: 'Clubs',
       //     img: '/cards/2C.png'
       //   }],
       //   [{
-      //     value: 3,
+      //     value: 12,
       //     name: 'Three of Clubs',
       //     suit: 'Spades',
       //     img: '/cards/3C.png'
@@ -261,17 +274,17 @@ const applicationReducer = (state = initState, action)=> {
       //   [{
       //     value: 8,
       //     name: 'Five of Clubs',
-      //     suit: 'Spades',
+      //     suit: 'Hearts',
       //     img: '/cards/4C.png'
       //   }],
       //   [{
       //     value: 4,
       //     name: 'Fve of Clubs',
-      //     suit: 'Spades',
+      //     suit: 'Diamonds',
       //     img: '/cards/5C.png'
       //   }],
       //   [{
-      //     value: 5,
+      //     value: 9,
       //     name: 'Six of Clubs',
       //     suit: 'Spades',
       //     img: '/cards/6C.png'
@@ -301,7 +314,10 @@ const applicationReducer = (state = initState, action)=> {
 
       console.log('user result ', userResult)
       console.log('computer result ', computerResult)
-
+      let winningComputerHand = [];
+      // for(let i = 0; i < computerResult.length; i  ++) {
+        
+      // }
       if(userResult.score > computerResult.score) {
         console.log('Player wins')
       }
