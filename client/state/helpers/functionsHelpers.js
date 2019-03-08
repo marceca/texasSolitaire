@@ -67,6 +67,9 @@ function getUserResults(userHand) {
       userResult.highCard = userHand[i][0].value;
     }
     // Getting all card values to check for straight
+    if(userHand[i][0].value === 14) {
+      userStraightCount.push(1)
+    }
     userStraightCount.push(userHand[i][0].value)
   }
   // Get pair amounts
@@ -152,6 +155,7 @@ function getUserResults(userHand) {
   userStraightCount.sort((a,b) => {
     return b - a;
   })
+
   for(let i = 0; i < userStraightCount.length; i++) {
     if(userStraightCount[i] - 1 === userStraightCount[i + 1]) {
       straightCounter++;
@@ -253,6 +257,9 @@ function getUserResults(userHand) {
   // Get values for straight flush check
   for(let i = 0; i < userHand.length; i++) {
     if(userHand[i][0].suit === possibleStraightFlush) {
+      if(userHand[i][0].value === 14) {
+        checkStraightFlush.push(1)
+      }
       checkStraightFlush.push(userHand[i][0].value)
     }
   }
@@ -343,7 +350,10 @@ function getComputerResults(computerResults) {
         curCompResults.highCard = curCompHand[i][0].value;
       }
       // Getting all card values to check for straight
-      compStraightCount.push(curCompHand[i][0].value)
+      if(curCompHand[i][0].value === 14) {
+        compStraightCount.push(1);
+      }
+      compStraightCount.push(curCompHand[i][0].value);
     }
 
     // Set high hand with card value
@@ -560,6 +570,9 @@ function getComputerResults(computerResults) {
     // Get values for straight flush check
     for(let i = 0; i < curCompHand.length; i++) {
       if(curCompHand[i][0].suit === possibleStraightFlush) {
+        if(curCompHand[i][0].value === 14) {
+          checkStraightFlush.push(1);
+        }
         checkStraightFlush.push(curCompHand[i][0].value)
       }
     }

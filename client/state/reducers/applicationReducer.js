@@ -183,7 +183,7 @@ const applicationReducer = (state = initState, action)=> {
         // 1st comp hand
         [
           [{
-          value: 2,
+          value: 14,
           name: 'Two of Clubs',
           suit: 'Spades',
           img: '/cards/2C.png'
@@ -250,7 +250,7 @@ const applicationReducer = (state = initState, action)=> {
           img: '/cards/5C.png'
         }],
         [{
-          value: 6,
+          value: 10,
           name: 'Six of Clubs',
           suit: 'Spades',
           img: '/cards/6C.png'
@@ -290,13 +290,13 @@ const applicationReducer = (state = initState, action)=> {
           img: '/cards/6C.png'
         }],
         [{
-          value: 6,
+          value: 8,
           name: 'Ten of Clubs',
           suit: 'Spades',
           img: '/cards/7C.png'
         }],
         [{
-          value: 7,
+          value: 14,
           name: 'Ten of Clubs',
           suit: 'Spades',
           img: '/cards/8C.png'
