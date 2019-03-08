@@ -183,13 +183,13 @@ const applicationReducer = (state = initState, action)=> {
         // 1st comp hand
         [
           [{
-          value: 2,
+          value: 14,
           name: 'Two of Clubs',
           suit: 'Spades',
           img: '/cards/2C.png'
         }],
         [{
-          value: 3,
+          value: 6,
           name: 'Three of Clubs',
           suit: 'Spades',
           img: '/cards/3C.png'
@@ -202,7 +202,7 @@ const applicationReducer = (state = initState, action)=> {
           img: '/cards/2C.png'
         }],
         [{
-          value: 11,
+          value: 3,
           name: 'Three of Clubs',
           suit: 'Spades',
           img: '/cards/3C.png'
@@ -226,31 +226,31 @@ const applicationReducer = (state = initState, action)=> {
       // // Changing community card value for testing
       resultsState.communityCardsValue = [
         [{
-          value: 2,
+          value: 10,
           name: 'Four of Clubs',
-          suit: 'Clubs',
+          suit: 'Spades',
           img: '/cards/2C.png'
         }],
         [{
-          value: 4,
+          value: 11,
           name: 'Five of Clubs',
-          suit: 'Hearts',
+          suit: 'Spades',
           img: '/cards/3C.png'
         }],
         [{
-          value: 6,
+          value: 12,
           name: 'Nine of Clubs',
-          suit: 'Diamonds',
+          suit: 'Spades',
           img: '/cards/4C.png'
         }],
         [{
-          value: 8,
+          value: 13,
           name: 'Fve of Clubs',
           suit: 'Spades',
           img: '/cards/5C.png'
         }],
         [{
-          value: 12,
+          value: 9,
           name: 'Six of Clubs',
           suit: 'Spades',
           img: '/cards/6C.png'

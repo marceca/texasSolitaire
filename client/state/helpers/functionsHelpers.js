@@ -289,6 +289,8 @@ function getUserResults(userHand) {
           while(userResult.bestFiveCards.length > 5) {
             userResult.bestFiveCards.shift();
           }
+        } else {
+          checkStraightFlushCount = 0;
         }
       }
     }
@@ -417,6 +419,7 @@ function getComputerResults(computerResults) {
         pairCount['three'] += 1
         curCompResults.highThreeOfAKind.push(Number(key))
         captureCompThreeOfAKind = Number(key);
+        curCompResults.bestFiveCards  = []
         for(let i = 0; i < curCompHand.length; i++) {
           curCompResults.bestFiveCards.push(curCompHand[i][0].value)
         }
@@ -462,7 +465,6 @@ function getComputerResults(computerResults) {
       return b - a;
     })
     for(let i = 0; i < compStraightCount.length; i++) {
-      
       if(compStraightCount[i] - 1 === compStraightCount[i + 1]) {
         compCounter++;
         if(compAddFirst === true) {
@@ -472,7 +474,7 @@ function getComputerResults(computerResults) {
           compAddFirst = false;
         }
         if(compStraightCount[i] - 1 === compStraightCount[i + 1] && !straightMade) {
-          compStraightHighHand.push(compStraightCount[i] + 1)          
+          compStraightHighHand.push(compStraightCount[i] - 1)          
         }
         if(compCounter >= 4) {
           curCompResults.score = winningHandsKey['Straight'];
@@ -511,9 +513,8 @@ function getComputerResults(computerResults) {
         }
       }
     }
-
     // Fullhouse
-    if(pairCount['pair'] === 1 && pairCount['three'] === 1) {
+    if((pairCount['pair'] === 1 && pairCount['three'] === 1) || (pairCount['pair'] === 2 && pairCount['three'] === 1)) {
       curCompResults['score'] = winningHandsKey['Fullhouse'];
       curCompResults.bestFiveCards = [];
       for(let i = 0; i < curCompResults.wholeHand.length; i++) {
@@ -551,6 +552,7 @@ function getComputerResults(computerResults) {
       for(let i = 0; i < curCompResults.wholeHand.length; i++) {
         curCompResults.bestFiveCards.push(curCompResults.wholeHand[i])
       }
+      // Setting best five card hand
       for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
         if(curCompResults.bestFiveCards[i] === captureFourOfAKindValue) {
           continue;
@@ -559,6 +561,12 @@ function getComputerResults(computerResults) {
         } else {
           curCompResults.bestFiveCards.splice(i, 1);
           i--;
+        }
+      }
+      // Resetting high card value
+      for(let i = 0; i < curCompResults.bestFiveCards.length; i++) {
+        if(curCompResults.bestFiveCards[i] != captureFourOfAKindValue) {
+          curCompResults.highCard = curCompResults.bestFiveCards[i];
         }
       }
     }
@@ -589,6 +597,8 @@ function getComputerResults(computerResults) {
               curCompResults.bestFiveCards.shift();
             }
           }
+        } else {
+          checkStraightFlushCount = 0;
         }
       }
     }
@@ -599,9 +609,7 @@ function getComputerResults(computerResults) {
   // Set the starting best hand to the first of all hands.
   // Set the counter to exclude the first hand.
   bestComputerHands.push(allComputerHands[0])
-  console.log('best comp hand ',bestComputerHands)
   for(let i = 1; i < allComputerHands.length; i++) {
-    console.log('all comp hands ',allComputerHands[i])
     // If current tested hand has a greater score change the best hand
     if(allComputerHands[i].score > bestComputerHands[0].score) {
       bestComputerHands = [];
@@ -609,8 +617,8 @@ function getComputerResults(computerResults) {
       continue;
     }
     if(allComputerHands[i].score === bestComputerHands[0].score) {
+      // Check a Pair
       if(allComputerHands[i].score === 1000) {
-        console.log('1000')
         let isDraw = true;
         if(bestComputerHands[0].highPairs[0] > allComputerHands[i].highPairs[0]) {
           continue;
@@ -618,7 +626,6 @@ function getComputerResults(computerResults) {
           bestComputerHands = [];
           bestComputerHands.push(allComputerHands[i]);
         } else if(bestComputerHands[0].highPairs[0] === allComputerHands[i].highPairs[0]) {
-          console.log('in ===')
           for(let j = 0; j < bestComputerHands[0].bestFiveCards.length; j++) {
             if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
               isDraw = false;
@@ -637,6 +644,7 @@ function getComputerResults(computerResults) {
           bestComputerHands.push(allComputerHands[i])
         }
       }
+      // Check Two Pairs
       if(allComputerHands[i].score === 2000) {
         let isDraw = true;
         for(let j = 0; j < 2; j++) {
@@ -663,13 +671,117 @@ function getComputerResults(computerResults) {
           }
         }
       }
+      // Check Three of a kind
+      if(allComputerHands[i].score === 3000) {
+        let isDraw = true;
+        if(bestComputerHands[0].highThreeOfAKind[0] > allComputerHands[i].highThreeOfAKind[0]){
+          continue;
+        } else if(bestComputerHands[0].highThreeOfAKind[0] < allComputerHands[i].highThreeOfAKind[0]) {
+          bestComputerHands = [];
+          bestComputerHands.push(allComputerHands[i]);
+        } else if (bestComputerHands[0].highThreeOfAKind[0] === allComputerHands[i].highThreeOfAKind[0]) {
+          for(let j = 0; j < bestComputerHands[0].bestFiveCards.length; j++) {
+            if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+              isDraw = false;
+              break;
+            } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] < allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+              bestComputerHands = [];
+              bestComputerHands.push(allComputerHands[i]);
+              isDraw = false;
+              break;
+            } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] === allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+              continue;
+            }
+          }
+        }
+        if(isDraw === true) {
+          bestComputerHands.push(allComputerHands[i])
+        }
+      }
+      // Check Straight
+      if(allComputerHands[i].score === 4000) {
+        if(bestComputerHands[0].bestFiveCards[4] > allComputerHands[i].bestFiveCards[4]) {
+          continue;
+        } else if(bestComputerHands[0].bestFiveCards[4] < allComputerHands[i].bestFiveCards[4]) {
+          bestComputerHands = [];
+          bestComputerHands.push(allComputerHands[i]);
+        } else if(bestComputerHands[0].bestFiveCards[4] === allComputerHands[i].bestFiveCards[4]) {
+          bestComputerHands.push(allComputerHands[i]);
+        }
+      }
+      // Check Flush
+      if(allComputerHands[i].score === 5000) {
+        let isDraw = true;
+        for(let j = 0; j < bestComputerHands[0].bestFiveCards.length; j++) {
+          if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+            isDraw = false;
+            break;
+          } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] < allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+            bestComputerHands = [];
+            bestComputerHands.push(allComputerHands[i]);
+            isDraw = false;
+            break;
+          } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - j - 1] === allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - j - 1]) {
+            continue;
+          }
+        }
+        if(isDraw === true) {
+          bestComputerHands.push(allComputerHands[i]);
+        }
+      }
+      // Check Full House
+      if(allComputerHands[i].score === 6000) {
+        if(bestComputerHands[0].highThreeOfAKind[0] > allComputerHands[i].highThreeOfAKind[0]) {
+          continue;
+        } else if(bestComputerHands[0].highThreeOfAKind[0] < allComputerHands[i].highThreeOfAKind[0]) {
+          bestComputerHands = [];
+          bestComputerHands.push(allComputerHands[i]);
+        } else if(bestComputerHands[0].highThreeOfAKind[0] === allComputerHands[i].highThreeOfAKind[0]) {
+          if(bestComputerHands[0].highPairs[bestComputerHands[0].highPairs.length - 1] > allComputerHands[i].highPairs[allComputerHands[i].highPairs.length - 1]) {
+            continue;
+          } else if(bestComputerHands[0].highPairs[bestComputerHands[0].highPairs.length - 1] < allComputerHands[i].highPairs[allComputerHands[i].highPairs.length - 1]) {
+            bestComputerHands = [];
+            bestComputerHands.push(allComputerHands[i]);
+          } else if(bestComputerHands[0].highPairs[bestComputerHands[0].highPairs.length - 1] === allComputerHands[i].highPairs[allComputerHands[i].highPairs.length - 1]) {
+          bestComputerHands.push(allComputerHands[i]);            
+          }
+        }
+      }
+      // Check Four of a kind
+      if(allComputerHands[i].score === 7000) {
+        if(bestComputerHands[0].highFourOfAKind[0] > allComputerHands[i].highFourOfAKind[0]) {
+          continue;
+        } else if(bestComputerHands[0].highFourOfAKind[0] < allComputerHands[i].highFourOfAKind[0]) {
+          bestComputerHands = [];
+          bestComputerHands.push(allComputerHands[i]);
+        } else if(bestComputerHands[0].highFourOfAKind[0] === allComputerHands[i].highFourOfAKind[0]) {
+          if(bestComputerHands[0].highCard > allComputerHands[i].highCard) {
+            continue;
+          } else if(bestComputerHands[0].highCard < allComputerHands[i].highCard) {
+            bestComputerHands = [];
+            bestComputerHands.push(allComputerHands[i]);
+          } else if(bestComputerHands[0].highCard === allComputerHands[i].highCard) {
+            bestComputerHands.push(allComputerHands[i]);
+          }
+        }
+      }
+      // Check Straight Flush
+      if(allComputerHands[i].score === 8000) {
+        if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - 1] > allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - 1]) {
+          continue;
+        } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - 1] < allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - 1]) {
+          bestComputerHands = [];
+          bestComputerHands.push(allComputerHands[i]);
+        } else if(bestComputerHands[0].bestFiveCards[bestComputerHands[0].bestFiveCards.length - 1] === allComputerHands[i].bestFiveCards[allComputerHands[i].bestFiveCards.length - 1]) {
+          bestComputerHands.push(allComputerHands[i]);
+        }
+      }
     }
   }
 
-  console.log('best comp hands ',bestComputerHands)
 
-  // Return all computer hands
-  return allComputerHands;
+  // Return best computer hands after being scored
+  return bestComputerHands;
 }
 
 module.exports = {
